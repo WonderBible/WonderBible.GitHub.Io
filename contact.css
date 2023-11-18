@@ -1,0 +1,303 @@
+body { background: linear-gradient( to bottom,  white, white, white)}
+.ffb {
+color: darkblue;
+font-size:24px;
+text-decoration: none;
+margin-left: 10px;
+font-family: arial;
+}
+.ffb:hover {
+color:red;
+text-decoration: none;
+font-family: Arial;
+transition: 0.19s;
+transition: 0.23s;
+}
+.sm {
+  margin-bottom: 50px;
+  margin-top: 20px;
+  background-color: white;
+    }
+    .sm a{
+      display: inline-flex;
+      text-decoration: none;
+      font-size: 25px;
+      width: 60px;
+      height: 60px;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0 7px;
+    }
+    .sm a::before{
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 25%;
+      z-index: -1;
+      transition: transform .3s ease-in;
+    }
+    .sm a:nth-child(1)::before{
+      background: red;;
+    }
+    .sm a:nth-child(1)::before{
+      background: #5865f2;;
+    }
+    .sm a:nth-child(2)::before{
+      background: #1c96e9;
+    }
+    .sm a:nth-child(4)::before{
+      background: white;
+    }
+    .sm a:nth-child(5)::before{
+      background: #5865f2;
+    }
+    .sm a:hover::before{
+      transform: scale(0);
+    }
+    .sm a i{
+      transition: transform .3s ease-in;
+    }
+    .sm a:nth-child(1):hover i{
+      background: red;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(1):hover i{
+      background: #5865f2;;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(2):hover i{
+      background: #1c96e9;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(4):hover i{
+      background: white;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(5):hover i{
+      background: #5865f2;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+.nocopyright {
+font-family: Arial;
+font-size: 15px;
+color:white;
+margin-bottom: 20px;
+}
+.bible1 {
+font-family: Arial;
+color:salmon;
+text-decoration: none;
+font-weight: bolder;
+}
+.ffb:active {
+color:black;
+text-decoration: none;
+font-family: Arial;
+}
+.sqg {
+color:yellow;
+text-decoration: none;
+font-family: Arial;
+font-weight: bolder;
+margin-right: 30px;
+}
+.sq {
+color:yellow;
+text-decoration: none;
+font-size: 20px;
+font-family: Arial;
+}
+.sqg:hover {
+color:red;
+text-decoration: none;
+font-family: Arial;
+transition: 0.19s;
+transition: 0.23s;
+}
+.sqg:active {
+color:black;
+text-decoration: none;
+font-family: Arial;
+}
+.bible {
+font-family: Arial;
+margin-left: 150px;
+color:salmon;
+text-decoration: none;
+margin-right: 20px;
+font-weight: bolder;
+}
+.bible:hover {
+color:red;
+text-decoration: none;
+font-family: Arial;
+transition: 0.19s;
+transition: 0.23s;
+}
+.bible:active {
+color:black;
+text-decoration: none;
+font-family: Arial;
+}
+.we {
+color:lightblue;
+text-decoration: none;
+font-family: Arial;
+}
+.we:hover {
+color:red;
+text-decoration: none;
+font-family: Arial;
+transition: 0.19s;
+transition: 0.23s;
+}
+.we:active {
+color:black;
+text-decoration: none;
+font-family: Arial;
+}
+.contact {
+color:lightblue;
+text-decoration: underline;
+text-decoration-color: red;
+font-family: Arial;
+}
+.contact:hover {
+color:red;
+text-decoration: underline;
+text-decoration-color: red;
+font-family: Arial;
+transition: 0.19s;
+transition: 0.23s;
+}
+.contact:active {
+color:black;
+text-decoration: underline;
+text-decoration-color: red;
+font-family: Arial;
+}
+#g-recaptcha-response {
+  display: block !important;
+  position: absolute;
+  margin: -78px 0 0 0 !important;
+  width: 302px !important;
+  height: 76px !important;
+  z-index: -999999;
+  opacity: 0;
+}
+
+.send {
+margin-bottom: 10px;
+display: block;
+margin-left:200px;
+border-radius: 100px;
+border-color: Blue;
+background-color: blue;
+color:white;
+height:50px;
+width:70px;
+}
+.name-bar {
+color:Blue;
+border-color: Blue;
+display: inline-block;
+height:30px;
+}
+.choose {
+color:black;
+}
+.email-bar {
+color:blue;
+border-color: blue;
+height:30px;
+}
+.download:hover {
+  color:orange; 
+  background-color:#5d00ff;
+  border-color:#5d00ff; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  height:40px;
+  width:100px;
+}
+.download {
+  color:#5d00ff; 
+  background-color:orange;
+  border-color:orange; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+}
+.download:active {
+  color:white;; 
+  background-color:black;
+  border-color:black; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+} 
+.message-bar {
+font-family: Arial;
+border-color: blue;
+color:blue;
+margin-top: 30px;
+}
+.contact {
+font-family: Arial;
+}
+.info {
+font-family: Arial;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+.email {
+font-family: Arial;
+margin-left: 400px;
+}
+.message {
+font-family: Arial;
+}
+.email-bar {
+width:335px
+}
+.name-bar {
+width:230px;
+}
+.message-bar {
+width:800px;
+min-height: 100px;
+}
+.copyright {
+color:white;
+margin-top: 40px;
+font-family: Arial;
+}
+.copyright2 {
+color:white;
+font-family: Arial;
+margin-bottom: 40px;
+}

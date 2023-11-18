@@ -1,0 +1,554 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+header a {
+  text-decoration: none;
+}
+.sm {
+  margin-bottom: 50px;
+  margin-top: 20px;
+  background-color: white;
+    }
+    .sm a{
+      display: inline-flex;
+      text-decoration: none;
+      font-size: 25px;
+      width: 60px;
+      height: 60px;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0 7px;
+    }
+.sm a::before{
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 25%;
+  z-index: -1;
+  transition: transform .3s ease-in;
+}
+.sm a:nth-child(1)::before{
+  background: red;;
+}
+.sm a:nth-child(1)::before{
+  background: #5865f2;;
+}
+.sm a:nth-child(2)::before{
+  background: #1c96e9;
+}
+.sm a:nth-child(4)::before{
+  background: white;
+}
+.sm a:nth-child(5)::before{
+  background: #5865f2;
+}
+.sm a:hover::before{
+  transform: scale(0);
+}
+.sm a i{
+  transition: transform .3s ease-in;
+}
+.sm a:nth-child(1):hover i{
+  background: red;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+.sm a:nth-child(1):hover i{
+  background: #5865f2;;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+.sm a:nth-child(2):hover i{
+  background: #1c96e9;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+.sm a:nth-child(4):hover i{
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+.sm a:nth-child(5):hover i{
+  background: #5865f2;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+
+
+
+header {
+  padding: 0 20px;
+  background-color: white;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#brand {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+#brand a {
+  color: #09c372;
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+ul a {
+  color: white;
+}
+
+ul li {
+  padding: 5px;
+  margin-left: 10px;
+}
+
+ul li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+#login,
+#register {
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+#login {
+  border: 1px solid #498afb;
+}
+
+#register {
+  border: 1px solid #ff3860;
+}
+
+#register a {
+  color: #ff3860;
+}
+
+#login a {
+  color: #498afb;
+}
+
+#hamburger-icon {
+  margin: auto 0;
+  display: none;
+  cursor: pointer;
+}
+.nul {
+height: 200px;
+}
+#hamburger-icon div {
+  width: 35px;
+  height: 3px;
+  background-color: black;
+  appearance: 110%;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-6px, -8px);
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.nul1 {
+background-color:red;
+height:100px;
+}
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+
+.mobile-menu li {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  header nav {
+    display: none;
+  }
+
+  #hamburger-icon {
+    display: block;
+  }
+}
+.ffb {
+  color: black;   
+    font-weight: bolder;
+    text-decoration: underline;
+    margin-left: 10px;
+    font-family: arial;
+    }
+    .black {
+    background-color: black;
+    }
+    .clox {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+    }
+    .read {
+    display:block;
+    font-family: Arial;
+    background-color: white;
+    border-color: white;
+    border-style: solid;
+    color:yellow;
+    margin-left: 500px;
+    margin-top: 50px;
+    font-size: 30px;
+    border-radius: 110px;
+    width:200px;
+    height:100px;
+    }
+    .read:hover {
+    background-color: yellow;
+    color:white;
+    transition: 0.19s;
+    transition: 0.23s;
+    transform: scale(1.1);
+      transition: 0.3s;
+    }
+    .wem {
+    color:black;
+    font-family: Arial;
+    display: inline;
+    margin-bottom: 0;
+    }
+    .ffb:hover {
+    color:white;;
+    text-decoration: underline;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .ffb:active {
+    color:royalblue;
+    text-decoration: underline;
+    font-family: Arial;
+    }
+    .sqg2 {
+      color:yellow;
+      text-decoration: underline;
+      text-decoration-color: yellow;
+      font-family: Arial;
+      font-weight: bolder;
+      margin-right: 30px;
+      }
+      .sqg2:hover {
+      color:red;
+      text-decoration: underline;
+      text-decoration-color: red;
+      font-family: Arial;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .sqg2:active {
+      color:black;
+      text-decoration-color: black;
+      text-decoration: underline;
+      font-family: Arial;
+      }
+    .sqg {
+    color:yellow;
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: bolder;
+    margin-right: 30px;
+    }
+    .sqg:hover {
+    color:red;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .sqg:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .nd1 {
+      color:rgb(0, 255, 42);
+      font-weight: bolder;
+      text-decoration: none;
+      font-family: Arial;
+      text-decoration: none;
+      margin-right: 30px;
+      }
+      .nd1:hover {
+      color:red;
+      text-decoration: none;
+      font-family: Arial;
+      font-weight: bolder;
+      text-decoration: none;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .nd1:active {
+      color:black;
+      text-decoration: none;
+      font-weight: bolder;
+      text-decoration: none;
+      font-family: Arial;
+      }
+    .nd {
+      color:rgb(0, 255, 42);;
+      text-decoration: none;
+      font-family: Arial;
+      font-weight: bolder;
+      margin-right: 30px;
+      }
+      .nd:hover {
+      color:red;
+      text-decoration: none;
+      font-family: Arial;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .nd:active {
+      color:black;
+      text-decoration: none;
+      font-family: Arial;
+      }
+      .update {
+        color:dodgerblue;
+        font-weight: bolder;
+        text-decoration: underline;
+        text-decoration-color: red;
+        font-family: Arial;
+        margin-right: 20px;
+      }
+      .update:hover {
+        color:red;
+        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-color: red;
+        font-family: Arial;
+        transition: 0.19s;
+        transition: 0.23s;
+      }
+      .update:active {
+        color:black;
+        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-color: red;
+        font-family: Arial;
+      }
+      .download {
+        color:#5d00ff; 
+        background-color:orange;
+        border-color:orange; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        height:40px;
+        width:100px;
+      }
+      .download:hover {
+        color:orange; 
+        background-color:#5d00ff;
+        border-color:#5d00ff; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      }
+      .download:active {
+        color:white;; 
+        background-color:black;
+        border-color:black; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      } 
+    .sqg1 {
+      color:salmon;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: Arial;
+      font-weight: bolder;
+      margin-right: 30px;
+      }
+      .sqg1:hover {
+      color:red;
+      text-decoration: none;
+      text-decoration: underline;
+      font-family: Arial;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .sqg1:active {
+      color:black;
+      text-decoration: none;
+      font-family: Arial;
+      text-decoration: underline;
+      }
+    .nocopyright {
+    font-family: Arial;
+    font-size: 15px;
+    color:white;
+    margin-top: 200px;
+    margin-bottom: 20px;
+    }
+    .bible1 {
+    font-family: Arial;
+    color:salmon;
+    text-decoration: none;
+    font-weight: bolder;
+    }
+    .bible {
+    font-family: Arial;
+    margin-left: 150px;
+    color:salmon;
+    margin-right: 20px;
+    font-weight: bolder;
+    text-decoration: none;
+    transition: .3s;
+    
+    }
+    .bible:hover {
+    width:100%;
+    text-decoration: underline;
+    color:red;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    transition: .5s;
+    
+    }
+    .bible:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .we {
+    color:lightblue;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .we:hover {
+    color:red;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .we:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .contact {
+    color:lightblue;
+    text-decoration: none;
+    margin-left: 30px;
+    margin-right: 20px;
+    font-family: Arial;
+      }
+    .contact:hover {
+    color:red;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .contact:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .so {
+    margin-left: 100px;
+    font-family: Arial;
+    }
+    .sq {
+    color:yellow;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Arial;
+    }
+    .copyright {
+    color:white;
+    font-family: Arial;
+    margin-bottom: 20px;
+    font-family:Gabarito;
+    }
+    .copyright2 {
+    color:white;
+    font-family: Arial;
+    }
+    .wel {
+    font-size: 18px;
+    font-family: Arial;
+    }
+    .wel2 {
+    display: inline-block;
+    font-size: 18px;
+    color:black;
+    font-family: Arial;
+    }
+    .bless {
+    margin-bottom: 100px;
+    color:green;
+    font-size: 19px;
+    font-family: Arial;
+    margin-left: 450px;
+    }

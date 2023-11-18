@@ -1,0 +1,391 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: white;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header {
+  padding: 0 20px;
+  background-color: white;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#brand {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+.sm {
+  margin-bottom: 50px;
+  margin-top: 20px;
+  background-color: white;
+    }
+    .sm a{
+      display: inline-flex;
+      text-decoration: none;
+      font-size: 25px;
+      width: 60px;
+      height: 60px;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0 7px;
+    }
+    .sm a::before{
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 25%;
+      z-index: -1;
+      transition: transform .3s ease-in;
+    }
+    .sm a:nth-child(1)::before{
+      background: red;;
+    }
+    .sm a:nth-child(1)::before{
+      background: #5865f2;;
+    }
+    .sm a:nth-child(2)::before{
+      background: #1c96e9;
+    }
+    .sm a:nth-child(4)::before{
+      background: white;
+    }
+    .sm a:nth-child(5)::before{
+      background: #5865f2;
+    }
+    .sm a:hover::before{
+      transform: scale(0);
+    }
+    .sm a i{
+      transition: transform .3s ease-in;
+    }
+    .sm a:nth-child(1):hover i{
+      background: red;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(1):hover i{
+      background: #5865f2;;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(2):hover i{
+      background: #1c96e9;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(4):hover i{
+      background: white;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+    .sm a:nth-child(5):hover i{
+      background: #5865f2;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.5);
+    }
+#brand a {
+  color: #09c372;
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+ul a {
+  color: white;
+}
+
+ul li {
+  padding: 5px;
+  margin-left: 10px;
+}
+
+ul li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+#login,
+#signup {
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+#login {
+  border: 1px solid #498afb;
+}
+
+#signup {
+  border: 1px solid #ff3860;
+}
+
+#signup a {
+  color: #ff3860;
+}
+
+#login a {
+  color: #498afb;
+}
+
+#hamburger-icon {
+  margin: auto 0;
+  display: none;
+  cursor: pointer;
+}
+.nul {
+background-color: #000000;
+height: 200px;
+}
+#hamburger-icon div {
+  width: 35px;
+  height: 3px;
+  background-color: black;
+  appearance: 110%;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-6px, -8px);
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.nul1 {
+background-color:red;
+height:100px;
+}
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+
+.mobile-menu li {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  header nav {
+    display: none;
+  }
+
+  #hamburger-icon {
+    display: block;
+  }
+}
+.ffb {
+    color:darkblue;
+    font-size: 24px;
+    text-decoration: none;
+    margin-left: 30px;
+    font-family: Arial;
+    }
+    .ffb:hover {
+    color:blue;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .nocopyright {
+    font-family: Arial;
+    font-size: 15px;
+    color:white;
+    margin-top: 100px;
+    }
+    .ffb:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .sqg {
+    color:yellow;
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: bolder;
+    margin-right: 30px;
+    }
+    .sq {
+    color:orange;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Arial;
+    }
+    .sqg:hover {
+    color:orange;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .sqg:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .bible {
+    font-family: Arial;
+    margin-left: 150px;
+    color:salmon;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bolder;
+    }
+    .bible1 {
+    font-family: Arial;
+    color:salmon;
+    text-decoration: none;
+    font-weight: bolder;
+    }
+    .bible:hover {
+    color:blue;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .bible:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .we {
+    color:darkblue;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .we:hover {
+    color:blue;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .we:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .contact {
+      color:darkblue;
+      text-decoration: none;
+      margin-left: 30px;
+      margin-right: 20px;
+      font-family: Arial;
+    }
+    .contact:hover {
+    color:blue;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .contact:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+    .wel3 {
+    color:Red;
+    }
+    .wel2 {
+    color:yellow;
+    border-color: blue;
+    font-family: Arial;
+    }
+    .wel {
+    margin-top: 60px;
+    color:Blue;
+    margin-left: 50px;
+    font-family: Arial;
+    }
+    .let {
+    color:blue;
+    margin-top:0;
+    margin-left: 30px;
+    font-family: Arial;
+    }
+    .start {
+    background-color: green;
+    border-color: green;
+    color:white;
+    height:40px;
+    width:60px;
+    border-radius: 100px;
+    margin-left:120px;
+    font-family: Arial;
+    cursor: pointer;
+    display: inline-block;
+    }
+    .start-hover {
+    background-color:Yellow;
+    color:black;
+    }
+    .start-active {
+    background-color: black;
+    color:white;
+    }
+    .bless {
+    color:green;
+    margin-left:20px;
+    font-size:19px;
+    margin-left: 85px;
+    font-family: Arial;
+    }
+    .copyright {
+    color:white;
+    margin-top: 60px;
+    font-family: Gabarito;
+    }
+    .copyright2 {
+    color:white;
+    font-family: Arial;
+    }
+    

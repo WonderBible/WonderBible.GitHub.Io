@@ -1,0 +1,55 @@
+.p {
+font-size: 30px;
+font-family: Arial;
+}
+.choice {
+    background-color:green;
+    color:white;
+    border-color:green;
+    border-style:solid;
+    height:30px;
+    border-radius: 100px;
+    font-family: Arial;
+    font-size:30px;
+    cursor: pointer;
+    height:80px;
+    width:80px;
+    }
+    .lvl {
+    font-family: Arial;
+    margin-left: 150px;
+    }
+    .next {
+    color:black;
+    background-color: yellow;
+    height:30px;
+    border-radius:100px;
+    border-color: yellow;
+    margin-left: 350px;
+    margin-top:10px;
+    font-family: Arial;
+    cursor: pointer;
+    }
+    .quit1 {
+    color:white;
+    background-color: red;
+    height:30px;
+    border-radius:100px;
+    border-color: red;
+    margin-top:10px;
+    font-family: Arial;
+    cursor: pointer;
+    }
+    .quit {
+    color:white;
+    background-color: red;
+    height:60px;
+    width:80px;
+    font-size:30px;
+    border-radius:100px;
+    border-color: red;
+    margin-left: 250px;
+    margin-top:10px;
+    font-family: Arial;
+    cursor: pointer;
+    }
