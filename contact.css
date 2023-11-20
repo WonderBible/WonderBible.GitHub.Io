@@ -13,6 +13,42 @@ font-family: Arial;
 transition: 0.19s;
 transition: 0.23s;
 }
+.download-mobile {
+  color:orange; 
+  background-color:white;
+  border-color:white; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  height:40px;
+  width:100px;
+}
+.download-mobile:hover {
+  color:orange; 
+  background-color:#5d00ff;
+  border-color:#5d00ff; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+}
+.download-mobile:active {
+  color:white;; 
+  background-color:black;
+  border-color:black; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+} 
 .sm {
   margin-bottom: 50px;
   margin-top: 20px;

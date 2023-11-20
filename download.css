@@ -1,7 +1,3 @@
-.wwaans3 {
-color:blue;
-font-family: Arial;
-}
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 * {
@@ -12,13 +8,54 @@ font-family: Arial;
 
 body {
   background-color: white;
-  color: white;
   font-family: "Poppins", sans-serif;
 }
 
 header a {
   text-decoration: none;
 }
+.download-mobile {
+  color:orange; 
+  background-color:white;
+  border-color:white; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  text-decoration: underline;
+  text-decoration-color:red ;
+  margin-left:30px;
+  height:40px;
+  width:100px;
+}
+.download-mobile:hover {
+  color:orange; 
+  background-color:#5d00ff;
+  border-color:#5d00ff; 
+  cursor:pointer ;
+  border-radius:100px;
+  text-decoration: underline;
+  text-decoration-color:red ;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+}
+.download-mobile:active {
+  color:white;; 
+  background-color:black;
+  text-decoration: underline;
+  text-decoration-color:red ;
+  border-color:black; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+} 
 .sm {
   margin-bottom: 50px;
   margin-top: 20px;
@@ -36,9 +73,6 @@ header a {
       position: relative;
       margin: 0 7px;
     }
-.black {
-background-color: #000000;
-}
 .sm a::before{
   content: '';
   position: absolute;
@@ -99,6 +133,8 @@ background-color: #000000;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
+
+
 
 header {
   padding: 0 20px;
@@ -226,11 +262,14 @@ height:100px;
   }
 }
 .ffb {
-    color: white;
-    font-size:24px;
-    text-decoration: none;
+  color: black;   
+    font-weight: bolder;
+    text-decoration: underline;
     margin-left: 10px;
     font-family: arial;
+    }
+    .black {
+    background-color: black;
     }
     .clox {
     display: inline-block;
@@ -266,17 +305,39 @@ height:100px;
     margin-bottom: 0;
     }
     .ffb:hover {
-    color:red;
-    text-decoration: none;
+    color:white;;
+    text-decoration: underline;
     font-family: Arial;
     transition: 0.19s;
     transition: 0.23s;
     }
     .ffb:active {
-    color:black;
-    text-decoration: none;
+    color:royalblue;
+    text-decoration: underline;
     font-family: Arial;
     }
+    .sqg2 {
+      color:yellow;
+      text-decoration: underline;
+      text-decoration-color: yellow;
+      font-family: Arial;
+      font-weight: bolder;
+      margin-right: 30px;
+      }
+      .sqg2:hover {
+      color:red;
+      text-decoration: underline;
+      text-decoration-color: red;
+      font-family: Arial;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .sqg2:active {
+      color:black;
+      text-decoration-color: black;
+      text-decoration: underline;
+      font-family: Arial;
+      }
     .sqg {
     color:yellow;
     text-decoration: none;
@@ -285,7 +346,7 @@ height:100px;
     margin-right: 30px;
     }
     .sqg:hover {
-    color:orange;
+    color:red;
     text-decoration: none;
     font-family: Arial;
     transition: 0.19s;
@@ -296,8 +357,148 @@ height:100px;
     text-decoration: none;
     font-family: Arial;
     }
+    .nd1 {
+      color:rgb(0, 255, 42);
+      font-weight: bolder;
+      text-decoration: none;
+      font-family: Arial;
+      text-decoration: none;
+      margin-right: 30px;
+      }
+      .nd1:hover {
+      color:red;
+      text-decoration: none;
+      font-family: Arial;
+      font-weight: bolder;
+      text-decoration: none;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .nd1:active {
+      color:black;
+      text-decoration: none;
+      font-weight: bolder;
+      text-decoration: none;
+      font-family: Arial;
+      }
+    .nd {
+      color:rgb(0, 255, 42);;
+      text-decoration: none;
+      font-family: Arial;
+      font-weight: bolder;
+      margin-right: 30px;
+      }
+      .nd:hover {
+      color:red;
+      text-decoration: none;
+      font-family: Arial;
+      transition: 0.19s;
+      transition: 0.23s;
+      }
+      .nd:active {
+      color:black;
+      text-decoration: none;
+      font-family: Arial;
+      }
+      .download-app {
+        color:#5d00ff; 
+        background-color:orange;
+        border-color:orange; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        height:40px;
+        width:100px;
+      }
+      .download-app:hover {
+        color:orange; 
+        background-color:#5d00ff;
+        border-color:#5d00ff; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      }
+      .update {
+        color:dodgerblue;
+        font-weight: bolder;
+        text-decoration: none;
+        font-family: Arial;
+        margin-right: 20px;
+      }
+      .update:hover {
+        color:red;
+        text-decoration: none;
+        font-family: Arial;
+        transition: 0.19s;
+        transition: 0.23s;
+      }
+      .update:active {
+        color:black;
+        text-decoration: none;
+        font-family: Arial;
+      }
+      .download-app:active {
+        color:white;; 
+        background-color:black;
+        border-color:black; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      } 
+      .download {
+        color:#5d00ff; 
+        background-color:orange;
+        border-color:orange; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        text-decoration: underline;
+        text-decoration-color: red;
+        margin-left:30px;
+        height:40px;
+        width:100px;
+      }
+      .download:hover {
+        color:orange; 
+        background-color:#5d00ff;
+        border-color:#5d00ff; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+        text-decoration: underline;
+        text-decoration-color: red;
+      }
+      .download:active {
+        color:white;; 
+        background-color:black;
+        border-color:black; 
+        cursor:pointer ;
+        text-decoration: underline;
+        text-decoration-color: red;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      } 
     .sqg1 {
-      color:yellow;
+      color:salmon;
       cursor: pointer;
       text-decoration: underline;
       font-family: Arial;
@@ -305,7 +506,7 @@ height:100px;
       margin-right: 30px;
       }
       .sqg1:hover {
-      color:orange;
+      color:red;
       text-decoration: none;
       text-decoration: underline;
       font-family: Arial;
@@ -393,6 +594,10 @@ height:100px;
     text-decoration: none;
     font-family: Arial;
     }
+    .so {
+    margin-left: 100px;
+    font-family: Arial;
+    }
     .sq {
     color:yellow;
     text-decoration: none;
@@ -403,6 +608,7 @@ height:100px;
     color:white;
     font-family: Arial;
     margin-bottom: 20px;
+    font-family:Gabarito;
     }
     .copyright2 {
     color:white;
@@ -425,350 +631,3 @@ height:100px;
     font-family: Arial;
     margin-left: 450px;
     }
-.wwaans2 {
-color:blue;
-font-family: Arial;
-font-size: 20px;
-}
-.wwaans {
-color:blue;
-display: block;
-font-family: Arial;
-font-size: 20px;
-}
-.wuans {
-color:blue;
-display: block;
-font-family: Arial;
-font-size: 20px;
-}
-.wuans1 {
-color:blue;
-display: block;
-font-family: Arial;
-font-size: 20px;
-}
-.wuans2 {
-color:blue;
-display: inline-block;
-font-family: Arial;
-font-size: 20px;
-}
-.wuquest {
-font-size: 25px;
-font-weight: bolder;
-color:red;
-font-family: Arial;
-margin-top: 50px;
-}
-}
-.sm a:nth-child(1)::before{
-  background: red;;
-}
-.sm a:nth-child(1)::before{
-  background: #5865f2;;
-}
-.sm a:nth-child(2)::before{
-  background: #1c96e9;
-}
-.sm a:nth-child(4)::before{
-  background: white;
-}
-.sm a:nth-child(5)::before{
-  background: #5865f2;
-}
-.sm a:hover::before{
-  transform: scale(0);
-}
-.sm a i{
-  transition: transform .3s ease-in;
-}
-.sm a:nth-child(1):hover i{
-  background: red;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(1):hover i{
-  background: #5865f2;;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(2):hover i{
-  background: #1c96e9;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(4):hover i{
-  background: white;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(5):hover i{
-  background: #5865f2;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.ffb {
-color: white;
-font-size:24px;
-text-decoration: none;
-margin-left: 10px;
-font-family: arial;
-}
-.bible1 {
-font-family: Arial;
-color:salmon;
-text-decoration: none;
-font-weight: bolder;
-}
-.ffb:hover {
-color:red;
-text-decoration: none;
-font-family: Arial;
-transition: 0.19s;
-transition: 0.23s;
-}
-.ffb:active {
-color:black;
-text-decoration: none;
-font-family: Arial;
-}
-.sqg {
-color:yellow;
-text-decoration: none;
-font-family: Arial;
-font-weight: bolder;
-margin-right: 30px;
-}
-.sq {
-color:yellow;
-text-decoration: none;
-font-size: 20px;
-font-family: Arial;
-}
-.sqg:hover {
-color:red;
-text-decoration: none;
-font-family: Arial;
-transition: 0.19s;
-transition: 0.23s;
-}
-.sqg:active {
-color:black;
-text-decoration: none;
-font-family: Arial;
-}
-.bible {
-font-family: Arial;
-margin-left: 150px;
-color:salmon;
-text-decoration: none;
-margin-right: 20px;
-font-weight: bolder;
-}
-.bible:hover {
-color:red;
-text-decoration: none;
-font-family: Arial;
-transition: 0.19s;
-transition: 0.23s;
-}
-.bible:active {
-color:black;
-text-decoration: none;
-font-family: Arial;
-}
-.we {
-color:lightblue;
-text-decoration: underline;
-text-decoration-color: red;
-font-family: Arial;
-}
-.we:hover {
-color:red;
-text-decoration: underline;
-text-decoration-color: red;
-font-family: Arial;
-transition: 0.19s;
-transition: 0.23s;
-}
-.we:active {
-color:black;
-text-decoration: underline;
-text-decoration-color: red;
-font-family: Arial;
-}
-.contact {
-color:lightblue;
-text-decoration: none;
-font-family: Arial;
-}
-.contact:hover {
-color:red;
-text-decoration: none;
-font-family: Arial;
-transition: 0.19s;
-transition: 0.23s;
-}
-.contact:active {
-color:black;
-text-decoration: none;
-font-family: Arial;
-}
-.ffb {
-color:darkblue;
-font-size: 24px;
-text-decoration: none;
-margin-left: 30px;
-font-family: Arial;
-}
-.sq {
-color:yellow;
-text-decoration: none;
-font-family: Arial;
-}
-.wwaquest {
-font-size: 25px;
-font-weight: bolder;
-color:red;
-font-family: Arial;
-}
-.update {
-  color:dodgerblue;
-  font-weight: bolder;
-  text-decoration: none;
-  font-family: Arial;
-  margin-right: 5px;
-}
-.update:hover {
-  color:red;
-  text-decoration: none;
-  font-family: Arial;
-  transition: 0.19s;
-  transition: 0.23s;
-}
-.update:active {
-  color:black;
-  text-decoration: none;
-  font-family: Arial;
-}
-.games {
-  color:lightblue;
-  text-decoration: none;
-  font-family: Arial;
-  margin-right: 5px;
-  cursor: none;
-}
-.download-mobile {
-  color:orange; 
-  background-color:white;
-  border-color:white; 
-  cursor:pointer ;
-  border-radius:100px;
-  border-style:solid; 
-  font-size:20px; 
-  margin-left:30px;
-  height:40px;
-  width:100px;
-}
-.download-mobile:hover {
-  color:orange; 
-  background-color:#5d00ff;
-  border-color:#5d00ff; 
-  cursor:pointer ;
-  border-radius:100px;
-  border-style:solid; 
-  font-size:20px; 
-  margin-left:30px;
-  transition: 0.19s;
-  transition: 0.23s;
-}
-.download-mobile:active {
-  color:white;; 
-  background-color:black;
-  border-color:black; 
-  cursor:pointer ;
-  border-radius:100px;
-  border-style:solid; 
-  font-size:20px; 
-  margin-left:30px;
-  transition: 0.19s;
-  transition: 0.23s;
-} 
-.games:hover {
-  color:red;
-  text-decoration: none;
-  font-family: Arial;
-  transition: 0.19s;
-  transition: 0.23s;
-}
-.games:active {
-  color:black;
-  text-decoration: none;
-  font-family: Arial;
-}
-.nd1 {
-  color:rgb(0, 255, 42);
-  font-weight: bolder;
-  text-decoration: none;
-  font-family: Arial;
-  text-decoration: none;
-  margin-right: 30px;
-  }
-  .nd1:hover {
-  color:red;
-  text-decoration: none;
-  font-family: Arial;
-  font-weight: bolder;
-  text-decoration: none;
-  transition: 0.19s;
-  transition: 0.23s;
-  }
-  .nd1:active {
-  color:black;
-  text-decoration: none;
-  font-weight: bolder;
-  text-decoration: none;
-  font-family: Arial;
-  }
-  .download:hover {
-    color:orange; 
-    background-color:#5d00ff;
-    border-color:#5d00ff; 
-    cursor:pointer ;
-    border-radius:100px;
-    border-style:solid; 
-    font-size:20px; 
-    margin-left:30px;
-    height:40px;
-    width:100px;
-  }
-  .download {
-    color:#5d00ff; 
-    background-color:orange;
-    border-color:orange; 
-    cursor:pointer ;
-    border-radius:100px;
-    border-style:solid; 
-    font-size:20px; 
-    margin-left:30px;
-    transition: 0.19s;
-    transition: 0.23s;
-  }
-  .download:active {
-    color:white;; 
-    background-color:black;
-    border-color:black; 
-    cursor:pointer ;
-    border-radius:100px;
-    border-style:solid; 
-    font-size:20px; 
-    margin-left:30px;
-    transition: 0.19s;
-    transition: 0.23s;
-  } 
