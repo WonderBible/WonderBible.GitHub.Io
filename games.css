@@ -69,19 +69,19 @@ header a {
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
-.sm a:nth-child(1):hover i{
+.sm a:nth-child(3):hover i{
   background: #5865f2;;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
-.sm a:nth-child(2):hover i{
+.sm a:nth-child(4):hover i{
   background: #1c96e9;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
-.sm a:nth-child(4):hover i{
+.sm a:nth-child(2):hover i{
   background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

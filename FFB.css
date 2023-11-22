@@ -10,7 +10,22 @@ body {
   background-color: white;
   font-family: "Poppins", sans-serif;
 }
-
+.container {
+width: 100%;
+height: auto;
+}
+.container img {
+width: 100%;
+opacity: 0.3;
+}
+.WB img {
+width: 20%;;
+}
+.container-text {
+position:absolute;
+color:black;
+top: 20%;
+}
 header a {
   text-decoration: none;
 }
@@ -41,7 +56,7 @@ header a {
   transition: transform .3s ease-in;
 }
 .sm a:nth-child(1)::before{
-  background: red;;
+  background: red;
 }
 .sm a:nth-child(1)::before{
   background: #5865f2;;
@@ -68,19 +83,25 @@ header a {
   transform: scale(1.5);
 }
 .sm a:nth-child(1):hover i{
-  background: #5865f2;;
+  background: red;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
 .sm a:nth-child(2):hover i{
-  background: #1c96e9;
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.5);
+}
+.sm a:nth-child(3):hover i{
+  background:#5865f2; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
 .sm a:nth-child(4):hover i{
-  background: white;
+  background: #1c96e9;;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
@@ -91,11 +112,13 @@ header a {
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
 }
-
 .banner-card {
 max-width: 100%;
 height: auto;
-opacity: 0.4;
+}
+.banner-card img {
+width: 100%;
+opacity: 0.3;
 }
 .banner-text {
 position: absolute;
@@ -180,6 +203,7 @@ height: 200px;
   appearance: 110%;
   margin: 6px 0;
   transition: 0.4s;
+  color:blue
 }
 .open .bar1 {
   -webkit-transform: rotate(-45deg) translate(-6px, 6px);
@@ -200,6 +224,8 @@ height: 200px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  background-color: black;
+  height: 350px;
 }
 .nul1 {
 background-color:red;
@@ -333,6 +359,42 @@ height:100px;
       transition: 0.19s;
       transition: 0.23s;
       }
+      .download-app {
+        color:#5d00ff; 
+        background-color:orange;
+        border-color:orange; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        height:40px;
+        width:100px;
+      }
+      .download-app:hover {
+        color:orange; 
+        background-color:#5d00ff;
+        border-color:#5d00ff; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      }
+      .download-app:active {
+        color:white;; 
+        background-color:black;
+        border-color:black; 
+        cursor:pointer ;
+        border-radius:100px;
+        border-style:solid; 
+        font-size:20px; 
+        margin-left:30px;
+        transition: 0.19s;
+        transition: 0.23s;
+      } 
       .tap {
       opacity: 1;
       }
@@ -411,9 +473,9 @@ height:100px;
         font-family: Arial;
       }
       .download-mobile {
-        color:orange; 
-        background-color:white;
-        border-color:white; 
+        color:#5d00ff; 
+        background-color:black;
+        border-color:black; 
         cursor:pointer ;
         border-radius:100px;
         border-style:solid; 
@@ -435,9 +497,9 @@ height:100px;
         transition: 0.23s;
       }
       .download-mobile:active {
-        color:white;; 
-        background-color:black;
-        border-color:black; 
+        color:black; 
+        background-color:white;
+        border-color:white; 
         cursor:pointer ;
         border-radius:100px;
         border-style:solid; 
@@ -448,8 +510,8 @@ height:100px;
       } 
       .download {
         color:orange; 
-        background-color:#5d00ff;
-        border-color:#5d00ff; 
+        background-color:#ffffff;
+        border-color:#ffffff; 
         cursor:pointer ;
         border-radius:100px;
         border-style:solid; 
