@@ -291,12 +291,12 @@ height:100px;
     font-family: Arial;
     }
     .we {
-    color:darkblue;
+    color:lightblue;
     text-decoration: none;
     font-family: Arial;
     }
     .we:hover {
-    color:blue;
+    color:red;
     text-decoration: none;
     font-family: Arial;
     transition: 0.19s;

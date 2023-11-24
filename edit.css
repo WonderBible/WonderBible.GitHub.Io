@@ -104,7 +104,7 @@ header a {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 0 9px;
+  margin: 0 4px;
 }
 .sm3 a::before{
   content: '';
@@ -176,7 +176,7 @@ header a {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 0 9px;
+  margin: 0 2px;
 }
 .sm2 a::before{
   content: '';
