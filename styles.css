@@ -55,7 +55,8 @@
   .quit {
     color:white;
     background-color: red;
-    height:30px;
+    height:40px;
+    width:50px;
     border-radius:100px;
     border-color: red;
     margin-left: 100px;

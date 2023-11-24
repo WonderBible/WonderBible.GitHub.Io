@@ -774,3 +774,17 @@ font-family: Arial;
     transition: 0.19s;
     transition: 0.23s;
   } 
+  .we1 {
+    color:lightblue;
+    font-family: Arial;
+    }
+    .we1:hover {
+    color:red;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .we1:active {
+    color:black;
+    font-family: Arial;
+    }
