@@ -30,9 +30,9 @@
 
 © Copyright WonderBible. Made By Baruch and Wel. Published By <a href="https://github.com">GitHub</a>
 
-****About****
-
 ![WB Logo](https://wonderbible.world/WB%20Logo.png)
+
+****About****
 
 WonderBIble Is One Of The Most Biblical Web/App That IS Used To Help Peoples Understand The Word Of God (The Bible)
 
