@@ -1,4 +1,4 @@
-****WonderBible Uses****
+****WonderBible Benefits****
 ![DeskMobile](https://github.com/WonderBible/WonderBible.GitHub.Io/assets/151191818/68df1d67-2362-45aa-b962-b2a205524154)
 
 
