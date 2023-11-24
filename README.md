@@ -1,5 +1,6 @@
-****WonderBible Benefits****
 ![DeskMobile](https://github.com/WonderBible/WonderBible.GitHub.Io/assets/151191818/68df1d67-2362-45aa-b962-b2a205524154)
+
+****WonderBible Benefits****
 
 
 * Read The ***Bible***
@@ -11,6 +12,7 @@
 
 
 ![U-S-M](https://github.com/WonderBible/WonderBible.GitHub.Io/assets/151191818/839d564a-5e13-4b7b-8318-0d8c0555c4dd)
+
 ****WonderBIble Social Media****
 
 * <a href="https://youtube.com/@Valt-Wel">***WonderBible Youtube***</a>
@@ -23,9 +25,12 @@
 
 
 ![License](https://github.com/WonderBible/WonderBible.GitHub.Io/assets/151191818/445b72c3-5c43-43d8-a3b5-a8e02e77549f)
+
 ****Copyright****
 
 © Copyright WonderBible. Made By Baruch and Wel. Published By <a href="https://github.com">GitHub</a>
+
+****About****
 
 ![WB Logo](https://wonderbible.world/WB%20Logo.png)
 
