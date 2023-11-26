@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@700&display=swap" rel="stylesheet"><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="FFB.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,40 +25,42 @@
       <div>
         <img src="Update.png"width="300" style="margin-top: 50px;">
         <p style="font-size: 50px; margin-top: 10px; text-decoration: underline;">Update</p>
-        <p style="color:darkred; font-size:40px">1) The <a href="https://wonderbible.world/"><span style="color: black;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</span> HomePage</a> Is Unique By Its Header. (The Only One Without Color Of <span style="color:#5d00ff; font-size: 50px;">#5d00ff</span> or <span style="color:#ffa500; font-size: 50px;">Orange</span>)</p> 
-        <header style="background-color: #ffffff;">
-          <div id="brand">
-            <img title="WonderBible HomePage" style="display: inline-block; border-color: blue; float:left; margin-right: 20px; margin-bottom: 0; margin-left:20px; cursor:pointer;" src="WB Logo.png" onclick="document.location='index.html'" width="60">  
+        <p style="color:darkred; font-size:40px">1) New Languages Are Available! (Only The <a href="https://wonderbible.world/">WonderBible HomePage</a>)</p> 
+        <div class="select-menu">
+          <div class="select">
+            <span>English</span>
+            <i class="fas fa-angle-down"></i>
           </div>
-          <nav>
-            <ul>
-              <li><a src="Bible.png" class="bible" title="WonderBible Bible" href="Bible.html" width="80">Bible</a></li>
-              <li><a class="sqg" title="ScriptureQuest HomePage" href="homesq.html">ScriptureQuest</a></li>
-              <li><a class="nd" title="WB 2nd Site" href="https://wonderbible.world/app">WonderBible's App</a></span></a></li>
-              <img onclick="document.location='edit.html'" title="Devs" style="margin-right: 20px; margin-left: 10px; border-radius: 30px; cursor: pointer;" src="owner.png" width="40">
-              <li> <a class="update" title="Update" href="update.html">Updates</a></li>
-              <li> <a class="we" title="Describe Us" href="we.html">Who We Are</a> </li>
-              <li> <a class="contact" title="Contact" href="contact.html">Contact Us</a></li>
-              <button onclick="document.location='download.html'" class="download">Download</button>
-            </ul>
-          </nav>
-        
-        <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-          <ul class="mobile-menu">
-            <li><a src="Bible.png" class="bible" title="WonderBible Bible" href="Bible.html" width="80">Bible</a></li>
-            <li><a class="sqg" title="ScriptureQuest HomePage" href="homesq.html">ScriptureQuest</a></li>
-            <li><a class="nd" title="WB 2nd Site" href="https://wonderbible.world/app">WonderBible's App</a></span></a></li>
-            <img onclick="document.location='edit.html'" title="Devs" style="margin-right: 20px; margin-left: 10px; border-radius: 30px; cursor: pointer;" src="owner.png" width="40">
-            <li> <a class="update" title="Update" href="update.html">Updates</a></li>
-            <li> <a class="we" title="Describe Us" href="we.html">Who We Are</a> </li>
-            <li> <a class="contact" title="Contact" href="contact.html">Contact Us</a></li>
-            <button onclick="document.location='download.html'" class="download-mobile">Download</button>
-          </ul>
+          <div class="options-list">
+            <div style="color:#5d00ff;" onclick="document.location='https://wonderbible.world/'" class="option">English</div>
+            <div onclick="document.location='https://wonderbible.world/lang-am'" class="option">Amharic</div>
+            <div onclick="document.location='#'" class="option">Hindi</div>
+            <div onclick="document.location='#'" class="option">Hebrew</div>
+            <div onclick="document.location='#'" class="option">Croatian</div>
+          </div>
         </div>
-        </header>
+        <script>
+          const select = document.querySelector(".select");
+          const options_list = document.querySelector(".options-list");
+          const options = document.querySelectorAll(".option");
+      
+          //show & hide options list
+          select.addEventListener("click", () => {
+            options_list.classList.toggle("active");
+            select.querySelector(".fa-angle-down").classList.toggle("fa-angle-up");
+          });
+      
+          //select option
+          options.forEach((option) => {
+            option.addEventListener("click", () => {
+              options.forEach((option) => {option.classList.remove('selected')});
+              select.querySelector("span").innerHTML = option.innerHTML;
+              option.classList.add("selected");
+              options_list.classList.toggle("active");
+              select.querySelector(".fa-angle-down").classList.toggle("fa-angle-up");
+            });
+          });
+        </script>
         <p style="color:darkred; font-size:40px">2) Opening Mobile Menu Is Turned From White To Black</p> 
         <img src="W-B.png">
         <p style="color:darkred; font-size:40px">3) The Social Media In The Copyright Order Is Now Updated.</p>
