@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -20,7 +21,6 @@
       <nav>
     </div>
     </header>
-    <script src="FFB.js"></script>
     </body>
     <div style="margin-left: 50px;">
     </div>      
@@ -54,3 +54,8 @@
     </div>
           </div>
     </html>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      }
+      </script>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@700&display=swap" rel="stylesheet"><meta charset="UTF-8">    
@@ -15,7 +16,6 @@
     <header style="background-color:#5d00ff;">
       <img title="WonderBible HomePage" style="display: inline-block; border-color: blue; float:left; margin-right: 20px; margin-bottom: 0; margin-left:20px; cursor:pointer;" src="WB Logo.png" onclick="document.location='https://wonderbible.world'" width="60">  
     </header>
-    <script src="FFB.js"></script>
     </body>
     <div style="margin-left:20px">
       <p class="wel" style="margin-bottom: 25px;">Welcome To <span class="wel2" style="color:yellow;"><strong>ScriptureQuest</strong></span>!</p>
@@ -41,3 +41,8 @@
     </div>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </html>
+<script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' });
+  }
+  </script>
