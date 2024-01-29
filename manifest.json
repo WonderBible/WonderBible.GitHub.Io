@@ -4,10 +4,14 @@
     "short_name": "WonderBible",
     "description": "WonderBible Is An App Helping Peoples To Know The Word Of God.",
     "start_url": "/",
+    "preferred_width" : 460,
     "background_color": "#FFFFFF",
     "theme_color": "#5d00ff",
     "orientation": "any",
-    "display": "standalone",
+    "display": "browser",
+    "edge-side-panel": {
+        }
+    }
     "icons": [
         {
             "src": "WB Logo.png",
