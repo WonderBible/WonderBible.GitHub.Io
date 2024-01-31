@@ -1,21 +1,21 @@
 {
-"lang": "en-US",
-"name" : "WonderBible",
-"short_name" : "WonderBible",
-"description" : "WonderBible Is An App Helping Peoples To Know The Word Of God!",
-"orientation": "landscape-primary",
-"catagories" : {"education", "biblical", "religious" },
-"icons": {
-        "src" : "/WB Logo.png",
-        "sizes" : "409x409",
-        "type" : "image/png"
-},
-"start_url": "/",
-"theme_color": "#5d00ff",
-"background_color": "#FFFFFF",
-"display": "browser",
-"edge_side_panel": {
-     "preferred_width" : 496
-},
-"status": "ok"
-}
+        "lang": "en-us",
+        "name": "WonderBible",
+        "short_name": "WonderBible",
+        "description": "WonderBible Is An App Helping Peoples To Know The Word Of God.",
+        "start_url": "/",
+        "background_color": "#FFFFFF",
+        "theme_color": "#5d00ff",
+        "orientation": "any",
+        "display": "browser",
+        "edge-side-panel": {
+                "preferred_width" : 496,
+            }
+        }
+        "icons": [
+            {
+                "src": "WB Logo.png",
+                "sizes": "512x512"
+            }
+        ]
+    }
