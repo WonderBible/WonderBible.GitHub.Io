@@ -21,15 +21,6 @@
 * <a href="https://t.me/WonderBible">***WonderBible Telegram***</a>
 * <a href="https://github.com/WonderBible/WonderBible.GitHub.Io/discussions">***GitHub Repository Discussion***<a>
 
-
-
-
-![License](https://github.com/WonderBible/WonderBible.GitHub.Io/assets/151191818/445b72c3-5c43-43d8-a3b5-a8e02e77549f)
-
-****Copyright****
-
-© Copyright WonderBible. Made By Baruch and Wel. Published By <a href="https://github.com">GitHub</a>
-
 ![WB Logo](https://wonderbible.world/WB%20Logo.png)
 
 ****About****
