@@ -463,6 +463,21 @@ color:red;
 font-family: Arial;
 margin-top: 50px;
 }
+.wbff {
+  background-color: white; color:yellow; font-size: 30px; height: 80px; border-color: white; border-style: solid; border-radius: 400px; cursor: pointer; border-radius: 100px;
+}
+.wbff:hover {
+background-color: #5d00ff;
+color:orange;
+border-color: #5d00ff;
+transition: 0.19s;
+transition: 0.23s;
+}
+.wbff:active {
+  background-color: orange;
+  color:#5d00ff;
+  border-color: orange;
+  }
 }
 .sm a:nth-child(1)::before{
   background: red;;

@@ -731,3 +731,50 @@ height:100px;
     .options-list.active{
       height: 180px;
     }
+.banner-card{
+height: auto;
+}
+banner-text{
+position:absolute;
+top:0;
+padding:10px;
+}
+.banner-card{
+position:relative;
+}
+.download-faq {
+  color:#5d00ff; 
+  background-color:orange;
+  border-color:orange; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  height:40px;
+  width:100px;
+}
+.download-faq:hover {
+  color:orange; 
+  background-color:#5d00ff;
+  border-color:#5d00ff; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+}
+.download-faq:active {
+  color:white;; 
+  background-color:black;
+  border-color:black; 
+  cursor:pointer ;
+  border-radius:100px;
+  border-style:solid; 
+  font-size:20px; 
+  margin-left:30px;
+  transition: 0.19s;
+  transition: 0.23s;
+} 
