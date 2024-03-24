@@ -44,7 +44,7 @@ header a {
       justify-content: center;
       align-items: center;
       position: relative;
-      margin: 0 7px;
+      margin: 0 2px;
     }
 .sm a::before{
   content: '';
@@ -58,17 +58,17 @@ header a {
 .sm a:nth-child(1)::before{
   background: red;
 }
-.sm a:nth-child(1)::before{
+.sm a:nth-child(3)::before{
   background: #5865f2;;
 }
-.sm a:nth-child(2)::before{
+.sm a:nth-child(4)::before{
   background: #1c96e9;
 }
-.sm a:nth-child(4)::before{
+.sm a:nth-child(2)::before{
   background: white;
 }
 .sm a:nth-child(5)::before{
-  background: #5865f2;
+  background: #E1306C;
 }
 .sm a:hover::before{
   transform: scale(0);
@@ -107,7 +107,7 @@ header a {
   transform: scale(1.5);
 }
 .sm a:nth-child(5):hover i{
-  background: #5865f2;
+  background: #E1306C;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transform: scale(1.5);
