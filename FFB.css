@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
+
 * {
   padding: 0;
   margin: 0;
@@ -7,24 +8,10 @@
 }
 
 body {
-  background-color: white;
   font-family: "Poppins", sans-serif;
-}
-.container {
-width: 100%;
-height: auto;
-}
-.container img {
-width: 100%;
-opacity: 0.3;
 }
 .WB img {
 width: 20%;;
-}
-.container-text {
-position:absolute;
-color:black;
-top: 20%;
 }
 header a {
   text-decoration: none;
@@ -234,7 +221,7 @@ cursor: pointer;
   align-items: center;
   justify-content: flex-start;
   background-color: black;
-  height: 250px;
+  height: 350px;
 }
 .nul1 {
 background-color:red;
@@ -553,9 +540,133 @@ height:100px;
         transition: 0.19s;
         transition: 0.23s;
       } 
+      .LMAWB {
+        margin-top: 30px;
+         height: 70px;
+          border-radius: 20px;
+           border-color:#000000;
+           background-color: #000000;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ffffff;
+                 width: 300px;
+                 border-style: solid;
+      }
+            .LMAWB:hover {
+        margin-top: 30px;
+         height: 70px;
+          border-radius: 20px;
+           border-color:#5d00ff;
+           background-color: transparent;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #000000;
+                 width: 300px;
+      }
+            .LMAWB:active {
+        margin-top: 30px;
+         height: 70px;
+          border-radius: 20px;
+           border-color:#ffa500;
+           background-color: #0051ff;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ff0000;
+                 width: 300px;
+      }
+            .downloadheader {
+         height: 50px;
+          border-radius: 15px; 
+           border-color:#000000;
+           background-color: #000000;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ffffff;
+                 width: 100px;
+                 border-style: solid;
+      }
+            .downloadheader:hover {
+         height: 70px;
+          border-radius: 20px;
+           border-color:#5d00ff;
+           background-color: transparent;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #000000;
+                 width: 300px;
+      }
+            .downloadheader:active {
+        margin-top: 20px;
+         height: 70px;
+          border-radius: 20px;
+           border-color:#ffa500;
+           background-color: #0051ff;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ff0000;
+                 width: 300px;
+      }
+                  .downloadheader-mobile {
+         height: 50px;
+          border-radius: 15px; 
+           border-color:#000000;
+           background-color: #000000;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ffffff;
+                 width: 100px;
+                 border-style: solid;
+      }
+            .downloadheader-mobile:hover {
+         height: 70px;
+          border-radius: 20px;
+           border-color:#5d00ff;
+           background-color: transparent;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ffffff;
+                 width: 300px;
+      }
+            .downloadheader-mobile:active {
+        margin-top: 20px;
+         height: 70px;
+          border-radius: 20px;
+           border-color:#ffa500;
+           background-color: #0051ff;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ff0000;
+                 width: 300px;
+      }
     .sqg1 {
       color:salmon;
-      cursor: pointer;
       font-family: Arial;
       font-weight: bolder;
       margin-right: 30px;
@@ -643,6 +754,23 @@ height:100px;
     transition: 0.23s;
     }
     .contact:active {
+    color:black;
+    text-decoration: none;
+    font-family: Arial;
+    }
+      .contactdevs {
+    color:lightblue;
+    text-decoration: none;
+    font-family: Arial;
+      }
+    .contactdevs:hover {
+    color:red;
+    text-decoration: none;
+    font-family: Arial;
+    transition: 0.19s;
+    transition: 0.23s;
+    }
+    .contactdevs:active {
     color:black;
     text-decoration: none;
     font-family: Arial;
@@ -788,9 +916,34 @@ position:relative;
   transition: 0.23s;
 } 
 #preloader{
-  background: #ffffff url(https://wonderbible.github.io/Loading.gif) no-repeat center center;
+  background: #ffffff url(https://wonderbible.world/Loading.gif) no-repeat center center;
   height: 100vh;
   width: 100%;
   position: fixed;
   z-index: 100;
+}
+.card-list .card-item {
+  list-style: none;
+}
+.card-list .card-item .card-link {
+  width: 400px;
+  display: block;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+}
+.card-list .card-link .card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card-list .card-link .badge {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 16px 0 18px;
+  width: fit-content;
+  border-radius: 50px;
 }
