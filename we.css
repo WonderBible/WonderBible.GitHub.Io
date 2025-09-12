@@ -912,7 +912,7 @@ font-family: Arial;
         height: 180px;
       }
       #preloader{
-        background: #ffffff url(https://wonderbible.world/Loading.gif) no-repeat center center;
+        background: #ffffff url(https://wonderbible.github.io/Loading.gif) no-repeat center center;
         height: 100vh;
         width: 100%;
         position: fixed;
