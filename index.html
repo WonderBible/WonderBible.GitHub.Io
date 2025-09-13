@@ -21,6 +21,8 @@
   </head>
   <body>
     <div id="preloader"></div>
+    <!-- Add a wrapper to make header position:relative for menu anchoring -->
+    <div style="position:relative;">
     <header style="background-color: #ffffff;">
       <div id="brand">
         <a href="https://wonderbible.github.io/Valt-Wel"><img title="Valt-Wel HomePage" style="display: inline-block; border-color: blue; float: left; margin-right: 20px; margin-bottom: 0; margin-left:20px; cursor:pointer;" src="WB Logo.png" onclick="document.location='https://wonderbible.github.io'" width="60"></a>  
@@ -50,6 +52,7 @@
       </ul>
     </div>
     </header>
+    </div>
     <script src="FFB.js"></script>
     <div class="WonderBible">
   <div class="Slideshow slideshow-bg" id="slideshowMain" style="position: relative; width: 100%; max-width: 100vw; overflow: hidden; margin: auto; background: transparent;">
@@ -214,10 +217,11 @@
     background: transparent;
     transition: background 0.2s;
   }
+  /* Change mobile-menu to absolute and anchor below header */
   .mobile-menu {
-    position: fixed;
+    position: absolute;
     z-index: 10000;
-    top: 80px; /* adjust if your header is taller/shorter */
+    top: 100%; /* directly below header */
     left: 0;
     width: 100vw;
     background: #fff;
