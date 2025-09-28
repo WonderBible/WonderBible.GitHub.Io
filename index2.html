@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="WonderBible/Valt-Wel | Bible & ScriptureQuest For Mobile & Desktop" property="og:title"/>
+    <meta content="WonderBible - The Free Way To Read The Bible & Measure Your Knowledge Of Bible By Playing ScriptureQuest By Valt-Wel/Wel & Barok." property="og:description"/>
+    <meta content="https://wonderbible.world/WB%20Logo.png" property="og:image"/>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@700&display=swap" rel="stylesheet"><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="FFB.css" />
+    <title>WonderBible</title>
+    <link rel="icon" href="WB Logo.png" type="image/x-icon">
+    <style>
+      /* --- Advanced Homepage Styles --- */
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Gabarito', Arial, sans-serif; background: #f7f9fa; margin: 0; transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1); }
+      header {
+        position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        background: rgba(255,255,255,0.95); transition: box-shadow 0.3s;
+        animation: slideDown 0.7s;
+      }
+      @keyframes slideDown {
+        from { transform: translateY(-100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      nav ul { display: flex; gap: 2rem; justify-content: flex-end; align-items: center; }
+      nav ul li a { transition: color 0.2s; font-weight: bold; }
+      nav ul li a:hover { color: #0078ff; }
+      #hamburger-icon { display: none; cursor:pointer; }
+      #hamburger-icon .bar1, #hamburger-icon .bar2, #hamburger-icon .bar3 {
+        width: 35px; height: 5px; background-color: #333; margin: 6px 0; transition: 0.4s;
+      }
+      .mobile-menu { display: none; position: absolute; top: 70px; right: 0; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 0 0 12px 12px; }
+      .mobile-menu li { padding: 16px 24px; border-bottom: 1px solid #eee; }
+      .mobile-menu li:last-child { border-bottom: none; }
+      .show-menu .mobile-menu { display: block; }
+      .hero {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        min-height: 60vh; background: linear-gradient(120deg, #009cff 0%, #5d00ff 100%);
+        color: #fff; text-align: center; padding: 60px 20px 40px 20px;
+        position: relative; overflow: hidden;
+      }
+      .hero-bg-anim {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+        background: radial-gradient(circle at 20% 40%, #ffd580 0%, transparent 60%),
+                    radial-gradient(circle at 80% 60%, #009cff 0%, transparent 60%);
+        animation: heroBgMove 8s infinite alternate;
+      }
+      @keyframes heroBgMove {
+        0% { background-position: 20% 40%, 80% 60%; }
+        100% { background-position: 40% 60%, 60% 80%; }
+      }
+      .hero-logo { width: 180px; margin-bottom: 20px; z-index: 1; }
+      .hero-title { font-size: 3rem; font-weight: bold; letter-spacing: 2px; z-index: 1; }
+      .hero-desc { font-size: 1.5rem; margin: 20px 0 30px 0; z-index: 1; }
+      .cta-btn {
+        background: #ffb84d; color: #2e1a8e; font-size: 1.2rem; font-weight: bold;
+        border: none; border-radius: 8px; padding: 18px 40px; cursor: pointer;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08); transition: background 0.2s;
+        z-index: 1;
+      }
+      .cta-btn:hover { background: #ffd580; }
+      .carousel {
+        width: 100%; max-width: 1200px; margin: 40px auto 0 auto; position: relative;
+        overflow: hidden; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        background: #fff;
+      }
+      .carousel-track {
+        display: flex; transition: transform 0.5s; will-change: transform;
+      }
+      .carousel-slide {
+        min-width: 100%; box-sizing: border-box; padding: 40px 24px; text-align: center;
+      }
+      .carousel-nav {
+        position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between;
+        transform: translateY(-50%);
+      }
+      .carousel-btn {
+        background: #ffb84d; border: none; border-radius: 50%; width: 48px; height: 48px;
+        font-size: 2rem; color: #2e1a8e; cursor: pointer; opacity: 0.8;
+      }
+      .carousel-btn:hover { background: #ffd580; }
+      .features {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+        background: #fff; padding: 60px 10px 40px 10px; margin-top: -40px;
+        opacity: 0; transform: translateY(40px); transition: opacity 0.7s, transform 0.7s;
+      }
+      .features.revealed { opacity: 1; transform: translateY(0); }
+      .feature-card {
+        background: #f0f4ff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        padding: 32px 24px; width: 320px; text-align: center; transition: transform 0.2s;
+      }
+      .feature-card:hover { transform: translateY(-8px) scale(1.03); }
+      .feature-icon { font-size: 2.5rem; color: #009cff; margin-bottom: 18px; }
+      .feature-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+      .feature-desc { font-size: 1rem; color: #333; }
+      .testimonials {
+        background: linear-gradient(90deg, #5d00ff 0%, #009cff 100%);
+        color: #fff; padding: 60px 10px;
+        text-align: center;
+        opacity: 0; transform: translateY(40px); transition: opacity 0.7s, transform 0.7s;
+      }
+      .testimonials.revealed { opacity: 1; transform: translateY(0); }
+      .testimonial-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+      .testimonial {
+        background: rgba(255,255,255,0.08); border-radius: 12px; padding: 28px 20px; max-width: 340px;
+        font-style: italic; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        position: relative;
+      }
+      .testimonial-avatar {
+        width: 48px; height: 48px; border-radius: 50%; object-fit: cover; position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+        border: 2px solid #ffd580;
+      }
+      .testimonial-author { margin-top: 18px; font-weight: bold; color: #ffd580; }
+      .testimonial-stars { color: #ffd580; margin-top: 8px; }
+      .verse-card {
+        background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        padding: 32px 24px; max-width: 400px; margin: 40px auto; text-align: center;
+        position: relative;
+      }
+      .verse-refresh {
+        position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer;
+      }
+      .download-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;
+      }
+      .download-modal-content {
+        background: #fff; border-radius: 16px; padding: 40px 32px; max-width: 400px; text-align: center;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+      }
+      .download-modal-close {
+        position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer;
+      }
+      .sm a { color: #fff; margin: 0 10px; font-size: 2rem; transition: color 0.2s; }
+      .sm a:hover { color: #ffb84d; }
+      footer {
+        background: #2e1a8e; color: #fff; text-align: center; padding: 40px 10px 20px 10px;
+        margin-top: 0;
+      }
+      .footer-links { margin-bottom: 18px; }
+      .footer-links a { color: #ffd580; margin: 0 12px; font-size: 1rem; text-decoration: none; }
+      .footer-links a:hover { text-decoration: underline; }
+      /* Scroll indicator */
+      .scroll-indicator {
+        position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+        z-index: 2; animation: bounce 1.5s infinite;
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(12px); }
+      }
+      /* Search bar */
+      .search-bar {
+        margin: 24px auto 0 auto; max-width: 400px; display: flex; align-items: center; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        padding: 8px 16px;
+      }
+      .search-bar input {
+        border: none; outline: none; font-size: 1.1rem; flex: 1; background: transparent;
+      }
+      .search-bar button {
+        background: #009cff; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-weight: bold;
+      }
+      /* Featured Today */
+      .featured-today {
+        display: flex; gap: 32px; justify-content: center; margin: 48px auto; max-width: 1200px;
+      }
+      .featured-card {
+        background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px 18px; width: 260px; text-align: center; transition: transform 0.2s;
+        cursor: pointer;
+      }
+      .featured-card:hover { transform: scale(1.05); background: #f0f4ff; }
+      .featured-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 8px; }
+      .featured-desc { font-size: 1rem; color: #333; }
+      /* Floating action button */
+      .fab-contact {
+        position: fixed; bottom: 32px; right: 32px; background: #ffb84d; color: #2e1a8e; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.18); cursor: pointer; z-index: 999;
+        transition: background 0.2s;
+      }
+      .fab-contact:hover { background: #ffd580; }
+      /* Dark mode toggle */
+      .dark-toggle {
+        position: fixed; top: 24px; right: 32px; z-index: 999; background: #fff; border-radius: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 8px 16px; display: flex; align-items: center; cursor: pointer;
+        transition: background 0.4s, color 0.4s;
+      }
+      .dark-toggle i { font-size: 1.3rem; margin-right: 8px; }
+      .dark-toggle.active {
+        background: #23272a;
+        color: #ffd580;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        transition: background 0.4s, color 0.4s;
+      }
+      body.dark-mode {
+        background: #181a1b;
+        color: #eee;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode-anim {
+        animation: darkFadeIn 0.7s;
+      }
+      @keyframes darkFadeIn {
+        from { background: #f7f9fa; color: #222; }
+        to { background: #181a1b; color: #eee; }
+      }
+      body.dark-mode .feature-card,
+      body.dark-mode .carousel,
+      body.dark-mode .verse-card,
+      body.dark-mode .download-modal-content,
+      body.dark-mode .featured-card {
+        background: #23272a;
+        color: #eee;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode .footer-links a { color: #ffd580; }
+      /* Progress bar */
+      .progress-container {
+        width: 100%; background: #eee; border-radius: 8px; margin: 32px auto 0 auto; max-width: 400px; height: 18px; overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%; background: linear-gradient(90deg, #009cff 0%, #5d00ff 100%); width: 0%; transition: width 1s;
+      }
+      /* Animated counters */
+      .stats-section {
+        display: flex; gap: 40px; justify-content: center; margin: 48px auto; max-width: 900px;
+      }
+      .stat-card {
+        background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px 18px; width: 180px; text-align: center;
+      }
+      .stat-number {
+        font-size: 2.2rem; font-weight: bold; color: #009cff; margin-bottom: 8px;
+      }
+      .stat-label { font-size: 1rem; color: #333; }
+      /* Section nav */
+      .section-nav {
+        display: flex; gap: 24px; justify-content: center; margin: 32px auto 0 auto;
+      }
+      .section-nav a {
+        color: #009cff; font-weight: bold; text-decoration: none; font-size: 1.1rem; padding: 8px 18px; border-radius: 8px; transition: background 0.2s;
+      }
+      .section-nav a:hover { background: #f0f4ff; }
+      /* Typewriter effect */
+      .typewriter {
+        display: inline-block;
+        border-right: 2px solid #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        font-size: 1.5rem;
+        min-height: 2.2em;
+      }
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: #fff; }
+      }
+      /* Back to top button */
+      #backToTop {
+        display: none; position: fixed; bottom: 100px; right: 32px; z-index: 1000;
+        background: #5d00ff; color: #fff; border-radius: 50%; width: 48px; height: 48px;
+        align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.18); cursor: pointer;
+        transition: background 0.2s, opacity 0.3s;
+        opacity: 0.8;
+      }
+      #backToTop:hover { background: #009cff; }
+      /* Section fade-in */
+      .fade-section { opacity: 0; transform: translateY(40px); transition: opacity 0.8s, transform 0.8s; }
+      .fade-section.visible { opacity: 1; transform: translateY(0); }
+      /* Latest News */
+      .latest-news {
+        display: flex; gap: 32px; justify-content: center; margin: 48px auto; max-width: 1200px; flex-wrap: wrap;
+      }
+      .news-card {
+        background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px 18px; width: 320px; text-align: left; transition: transform 0.2s;
+        cursor: pointer; position: relative;
+      }
+      .news-card:hover { transform: scale(1.04); background: #f0f4ff; }
+      .news-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+      .news-date { font-size: 0.9rem; color: #888; margin-bottom: 8px; }
+      .news-desc { font-size: 1rem; color: #333; }
+      /* Theme dropdown */
+      .theme-dropdown {
+        position: fixed; top: 24px; left: 32px; z-index: 999; background: #fff; border-radius: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 8px 16px; display: flex; align-items: center; cursor: pointer;
+        transition: background 0.4s, color 0.4s;
+      }
+      .theme-dropdown select {
+        border: none; background: transparent; font-size: 1rem; margin-left: 8px; outline: none;
+      }
+      /* Blue theme */
+      body.blue-theme {
+        background: #eaf3ff;
+        color: #1a237e;
+      }
+      body.blue-theme .feature-card,
+      body.blue-theme .carousel,
+      body.blue-theme .verse-card,
+      body.blue-theme .download-modal-content,
+      body.blue-theme .featured-card {
+        background: #e3f2fd;
+        color: #1a237e;
+      }
+      body.blue-theme footer { background: #1976d2; }
+      body.blue-theme .footer-links a { color: #ffd580; }
+      /* Floating chat widget */
+      .chat-widget {
+        position: fixed; bottom: 32px; left: 32px; z-index: 999; background: #fff; border-radius: 16px 16px 0 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); width: 320px; max-width: 90vw; display: none; flex-direction: column;
+      }
+      .chat-header {
+        background: #009cff; color: #fff; padding: 12px 16px; border-radius: 16px 16px 0 0; font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+      }
+      .chat-messages { padding: 16px; height: 120px; overflow-y: auto; font-size: 1rem; }
+      .chat-input-row { display: flex; border-top: 1px solid #eee; }
+      .chat-input-row input { flex: 1; border: none; padding: 10px; font-size: 1rem; outline: none; }
+      .chat-input-row button { background: #009cff; color: #fff; border: none; padding: 0 18px; cursor: pointer; }
+      .chat-toggle-btn {
+        position: fixed; bottom: 32px; left: 32px; z-index: 998; background: #009cff; color: #fff; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.18); cursor: pointer;
+      }
+      .chat-toggle-btn:hover { background: #5d00ff; }
+      /* Accessibility: skip link */
+      .skip-link {
+        position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; z-index: 10000;
+        background: #ffd580; color: #2e1a8e; padding: 8px 16px; border-radius: 8px;
+      }
+      .skip-link:focus { left: 16px; top: 16px; width: auto; height: auto; }
+      /* Suggestions dropdown */
+      .suggestions-list {
+        position: absolute; background: #fff; border: 1px solid #eee; border-radius: 0 0 8px 8px; width: 100%; left: 0; top: 44px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: none;
+      }
+      .suggestion-item {
+        padding: 8px 16px; cursor: pointer; font-size: 1rem;
+      }
+      .suggestion-item:hover { background: #f0f4ff; }
+      /* Sidebar navigation */
+      .sidebar-nav {
+        position: fixed; left: 0; top: 0; height: 100vh; width: 70px; background: #23272a; z-index: 1001; display: flex; flex-direction: column; align-items: center; padding-top: 80px; box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+      }
+      .sidebar-nav a {
+        color: #ffd580; margin: 18px 0; font-size: 1.7rem; text-decoration: none; transition: color 0.2s;
+      }
+      .sidebar-nav a:hover { color: #009cff; }
+      /* Recent Activity sidebar */
+      .recent-activity {
+        position: fixed; right: 0; top: 0; width: 320px; height: 100vh; background: #fff; box-shadow: -2px 0 12px rgba(0,0,0,0.12); z-index: 1002; display: none; flex-direction: column; padding: 32px 18px;
+      }
+      .recent-activity h3 { margin-top: 0; color: #009cff; }
+      .activity-list { margin-top: 18px; font-size: 1rem; }
+      .activity-item { margin-bottom: 12px; }
+      .close-activity { position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer; }
+      /* Feedback modal */
+      .feedback-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;
+      }
+      .feedback-modal-content {
+        background: #fff; border-radius: 16px; padding: 40px 32px; max-width: 400px; text-align: center;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.18); position: relative;
+      }
+      .feedback-modal-close {
+        position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer;
+      }
+      /* Bible Reading Streak widget */
+      .streak-widget {
+        position: fixed; top: 100px; right: 32px; background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); padding: 18px 24px; z-index: 1003; font-size: 1.1rem; display: flex; align-items: center; gap: 12px;
+      }
+      .streak-icon { font-size: 2rem; color: #ffb84d; }
+      /* Announcements widget */
+      .announcements-widget {
+        position: fixed; bottom: 120px; left: 32px; background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.18); padding: 18px 24px; z-index: 1003; font-size: 1rem; min-width: 220px;
+        animation: fadeInAnn 1s;
+      }
+      @keyframes fadeInAnn { from { opacity: 0; transform: translateY(40px);} to { opacity: 1; transform: translateY(0);} }
+      /* Quick Links dropdown */
+      .quick-links-dropdown {
+        position: absolute; right: 120px; top: 18px; z-index: 1002; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 8px 16px; display: none; flex-direction: column;
+      }
+      .quick-links-dropdown a { color: #2e1a8e; margin: 6px 0; text-decoration: none; font-size: 1rem; }
+      .quick-links-btn {
+        position: absolute; right: 120px; top: 18px; background: #ffb84d; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.3rem; color: #2e1a8e; cursor: pointer; z-index: 1002;
+      }
+      /* User Profile modal */
+      .profile-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;
+      }
+      .profile-modal-content {
+        background: #fff; border-radius: 16px; padding: 40px 32px; max-width: 400px; text-align: center;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.18); position: relative;
+      }
+      .profile-modal-close {
+        position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer;
+      }
+      /* --- End Advanced Homepage Styles --- */
+    </style>
+  </head>
+  <body>
+    <!-- Notification Bar -->
+    <div id="notificationBar" style="background:#ffecb3;color:#2e1a8e;text-align:center;padding:10px 0;font-weight:bold;position:sticky;top:0;z-index:2000;">
+      🚀 New: Try the Daily Challenge below! | <span style="cursor:pointer;text-decoration:underline;" onclick="this.parentElement.style.display='none'">Dismiss</span>
+    </div>
+    <!-- Accessibility: skip to content -->
+    <a href="#mainCarousel" class="skip-link" tabindex="1">Skip to main content</a>
+    <!-- Theme dropdown -->
+    <div class="theme-dropdown" aria-label="Theme selector">
+      <span>Theme:</span>
+      <select id="themeSelect" aria-label="Choose theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+        <option value="auto">Auto</option>
+      </select>
+    </div>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar-nav" aria-label="Sidebar navigation">
+      <a href="#mainCarousel" title="Home"><i class="fas fa-home"></i></a>
+      <a href="#featuresSection" title="Features"><i class="fas fa-star"></i></a>
+      <a href="#verseCard" title="Verse"><i class="fas fa-book"></i></a>
+      <a href="#testimonialsSection" title="Testimonials"><i class="fas fa-comment"></i></a>
+      <a href="#downloadModal" title="Download"><i class="fas fa-download"></i></a>
+      <a href="#" id="showActivityBtn" title="Recent Activity"><i class="fas fa-history"></i></a>
+      <a href="#" id="profileBtn" title="Profile"><i class="fas fa-user"></i></a>
+      <a href="#" id="feedbackBtn" title="Feedback"><i class="fas fa-bullhorn"></i></a>
+    </nav>
+    <!-- Recent Activity Sidebar -->
+    <aside class="recent-activity" id="recentActivity" aria-label="Recent Activity">
+      <button class="close-activity" onclick="document.getElementById('recentActivity').style.display='none'">&#10006;</button>
+      <h3>Recent Activity</h3>
+      <div class="activity-list" id="activityList">
+        <div class="activity-item">You played a quiz.</div>
+        <div class="activity-item">You read John 3:16.</div>
+        <div class="activity-item">You switched to dark mode.</div>
+      </div>
+    </aside>
+    <!-- Feedback Modal -->
+    <div class="feedback-modal" id="feedbackModal">
+      <div class="feedback-modal-content">
+        <button class="feedback-modal-close" onclick="closeFeedbackModal()">&#10006;</button>
+        <h2>Send Feedback</h2>
+        <textarea id="feedbackText" rows="4" style="width:90%;border-radius:8px;padding:8px;font-size:1rem;" placeholder="Your feedback..."></textarea>
+        <div style="margin-top:18px;">
+          <button class="cta-btn" onclick="submitFeedback()">Submit</button>
+        </div>
+        <div id="feedbackMsg" style="margin-top:12px;color:#009cff;font-weight:bold;"></div>
+      </div>
+    </div>
+    <!-- Bible Reading Streak Widget -->
+    <div class="streak-widget" id="streakWidget" aria-label="Bible Reading Streak">
+      <span class="streak-icon"><i class="fas fa-fire"></i></span>
+      <span>Streak: <span id="streakDays">0</span> days</span>
+    </div>
+    <!-- Announcements Widget -->
+    <div class="announcements-widget" id="announcementsWidget" aria-label="Latest Announcements">
+      <strong>📢 Latest:</strong> WonderBible v2.0 released! Try Daily Challenge & new quizzes.
+    </div>
+    <!-- Quick Links Dropdown -->
+    <button class="quick-links-btn" id="quickLinksBtn" title="Quick Links"><i class="fas fa-link"></i></button>
+    <div class="quick-links-dropdown" id="quickLinksDropdown">
+      <a href="https://wonderbible.world/bible">Bible</a>
+      <a href="https://wonderbible.world/scripturequest">ScriptureQuest</a>
+      <a href="https://wonderbible.world/devs">Devs</a>
+      <a href="https://wonderbible.world/updates">Updates</a>
+      <a href="https://wonderbible.world/contact.html">Contact</a>
+    </div>
+    <!-- User Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+      <div class="profile-modal-content">
+        <button class="profile-modal-close" onclick="closeProfileModal()">&#10006;</button>
+        <h2>Your Profile</h2>
+        <img src="avatar1.png" width="80" style="border-radius:50%;margin-bottom:12px;">
+        <div style="font-size:1.2rem;font-weight:bold;" id="profileUserName">Demo User</div>
+        <div style="margin-top:8px;">Email: <span id="profileUserEmail"></span></div>
+        <div style="margin-top:8px;">Streak: <span id="streakCount">0</span> days</div>
+        <div style="margin-top:8px;">Quizzes Played: <span id="profileQuizzes">0</span></div>
+        <div style="margin-top:18px;">
+          <button class="cta-btn" onclick="closeProfileModal()">Close</button>
+          <button class="cta-btn" id="logoutBtn" style="background:#d32f2f;color:#fff;margin-left:10px;">Logout</button>
+        </div>
+      </div>
+    </div>
+    <header>
+      <div id="brand">
+        <a href="https://wonderbible.world/Valt-Wel"><img title="Valt-Wel HomePage" style="display: inline-block; border-color: blue; float: left; margin-right: 20px; margin-bottom: 0; margin-left:20px; cursor:pointer;" src="WB Logo.png" onclick="document.location='https://wonderbible.world'" width="60"></a>  
+      </div>
+      <nav>
+        <ul>
+          <li><a src="Bible.png" class="bible" title="WonderBible Bible" href="https://wonderbible.world/bible" width="80">Bible</a></li>
+          <li><a class="sqg" title="ScriptureQuest HomePage" href="https://wonderbible.world/scripturequest">ScriptureQuest</a></li>
+          <li><a class="owners" title="The WonderBible Devs" href="https://wonderbible.world/devs">Devs</a></li>
+          <li> <a class="update" title="Update" href="https://wonderbible.world/updates">Updates</a></li>
+          <li><a class="nd" title="WB 2nd Site" href="https://wonderbible777.wixsite.com/wonderbible-1">WonderBible's WixSite</a></span></a></li>
+        </ul>
+      </nav>
+      <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <ul class="mobile-menu">
+          <li><a src="Bible.png" class="bible" title="WonderBible Bible" href="https://wonderbible.world/bible" width="80">Bible</a></li>
+          <li><a class="sqg" title="ScriptureQuest HomePage" href="https://wonderbible.world/scripturequest">ScriptureQuest</a></li>
+          <li><a class="owners" title="The WonderBible Devs" href="https://wonderbible.world/devs">Devs</a></li>
+          <li> <a class="update" title="Update" href="https://wonderbible.world/updates">Updates</a></li>
+          <li><a class="nd" title="WB 2nd Site" href="https://wonderbible777.wixsite.com/wonderbible-1">WonderBible's WixSite</a></span></a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Dark mode toggle -->
+    <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i> Dark Mode
+    </div>
+    <!-- Back to top button -->
+    <div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+    <!-- Section navigation -->
+    <div class="section-nav">
+      <a href="#mainCarousel">Home</a>
+      <a href="#featuresSection">Features</a>
+      <a href="#verseCard">Verse</a>
+      <a href="#testimonialsSection">Testimonials</a>
+      <a href="#downloadModal">Download</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero fade-section" id="heroSection">
+      <div class="hero-bg-anim"></div>
+      <img src="WonderBible_Logo.png" alt="WonderBible Logo" class="hero-logo" />
+      <div class="hero-title">
+        <span style="color:orange;">W</span>onder<span style="color:#5d00ff">B</span>ible
+      </div>
+      <div class="hero-desc">
+        <span id="typewriter" class="typewriter"></span>
+      </div>
+      <button class="cta-btn" onclick="document.location='https://wonderbible.world/bible'">
+        Start Reading Now
+      </button>
+      <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-bar" style="position:relative;">
+      <input type="text" id="searchInput" placeholder="Search Bible verse..." autocomplete="off" aria-label="Search Bible verse">
+      <button onclick="searchVerse()">Search</button>
+      <div class="suggestions-list" id="suggestionsList"></div>
+    </div>
+
+    <!-- Latest News Section -->
+    <section class="latest-news fade-section" aria-label="Latest News">
+      <div class="news-card" onclick="window.open('https://wonderbible.world/updates')">
+        <div class="news-title">New: WonderBible App v2.0 Released!</div>
+        <div class="news-date">Apr 2025</div>
+        <div class="news-desc">Try our new app version with improved speed, offline reading, and more quizzes.</div>
+      </div>
+      <div class="news-card" onclick="window.open('https://wonderbible.world/scripturequest')">
+        <div class="news-title">ScriptureQuest: New Questions Added</div>
+        <div class="news-date">Mar 2025</div>
+        <div class="news-desc">Challenge yourself with 100+ new Bible quiz questions in ScriptureQuest.</div>
+      </div>
+      <div class="news-card" onclick="window.open('https://wonderbible.world/devs')">
+        <div class="news-title">Meet Our New Dev Team Members</div>
+        <div class="news-date">Feb 2025</div>
+        <div class="news-desc">We welcome new developers to help make WonderBible even better!</div>
+      </div>
+    </section>
+
+    <!-- Carousel Section (replaces marquees/slideshow) -->
+    <div class="carousel fade-section" id="mainCarousel">
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <img src="WonderBible_Logo.png" width="250" alt="WonderBible Logo" />
+          <h2 style="color:orange;">WonderBible</h2>
+          <p>WonderBible Is A Website Helping People To Know The Word Of God.<br>Join Us. And Start The Journey And Relationship With You And God!</p>
+        </div>
+        <div class="carousel-slide">
+          <img src="Bible.png" width="250" alt="Bible" />
+          <h2>Bible</h2>
+          <p>Read The Word Of God Anytime & Anywhere For Free</p>
+        </div>
+        <div class="carousel-slide">
+          <img src="ScriptureQuest Logo.png" width="250" alt="ScriptureQuest" />
+          <h2>ScriptureQuest</h2>
+          <p>Know How Much You Know The Bible</p>
+        </div>
+        <div class="carousel-slide">
+          <img src="owner for homepage.png" width="250" alt="Devs" />
+          <h2>Devs</h2>
+          <p>Check The "Devs"</p>
+        </div>
+        <div class="carousel-slide">
+          <img src="Update.png" width="250" alt="Updates" />
+          <h2>Updates</h2>
+          <p>The Latest Updates Of WonderBible</p>
+        </div>
+        <div class="carousel-slide">
+          <img src="2nd Web.png" width="250" alt="App" />
+          <h2>WonderBible's App</h2>
+          <p>WonderBible's App For Peoples Look At It And Make It Easier</p>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="carouselPrev">&#8592;</button>
+        <button class="carousel-btn" id="carouselNext">&#8594;</button>
+      </div>
+    </div>
+
+    <!-- Featured Today Section -->
+    <div class="featured-today fade-section">
+      <div class="featured-card" onclick="window.location='https://wonderbible.world/bible'">
+        <div class="featured-title">Today's Highlight</div>
+        <div class="featured-desc">Discover a new Bible chapter every day!</div>
+      </div>
+      <div class="featured-card" onclick="window.location='https://wonderbible.world/scripturequest'">
+        <div class="featured-title">Quiz of the Day</div>
+        <div class="featured-desc">Test your Bible knowledge with a daily quiz.</div>
+      </div>
+      <div class="featured-card" onclick="window.location='https://wonderbible.world/devs'">
+        <div class="featured-title">Meet the Devs</div>
+        <div class="featured-desc">Connect with our passionate developer team.</div>
+      </div>
+    </div>
+
+    <!-- Progress Bar Section -->
+    <div class="progress-container fade-section">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div style="text-align:center; margin-top:8px; font-size:1rem;">
+      <span id="progressLabel">Bible Reading Progress: 0%</span>
+    </div>
+
+    <!-- Animated Stats Section -->
+    <div class="stats-section fade-section">
+      <div class="stat-card">
+        <div class="stat-number" id="statUsers">0</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statVerses">0</div>
+        <div class="stat-label">Verses Read</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statQuizzes">0</div>
+        <div class="stat-label">Quizzes Played</div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features fade-section" id="featuresSection">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+        <div class="feature-title">Read the Bible Anywhere</div>
+        <div class="feature-desc">Access the Word of God for free on any device, anytime.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+        <div class="feature-title">ScriptureQuest Game</div>
+        <div class="feature-desc">Test your Bible knowledge and challenge friends with fun quizzes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <div class="feature-title">Community & Devs</div>
+        <div class="feature-desc">Connect with our team and community for support and updates.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-download"></i></div>
+        <div class="feature-title">Mobile & Desktop App</div>
+        <div class="feature-desc">Install WonderBible for a seamless experience on all platforms.</div>
+      </div>
+    </section>
+
+    <!-- Daily Challenge Widget -->
+    <div class="fade-section" style="background:#e3f2fd;margin:32px auto 0 auto;max-width:600px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:24px 18px;text-align:center;">
+      <h2 style="color:#009cff;font-size:1.3rem;margin-bottom:10px;">Daily Challenge</h2>
+      <div id="dailyChallengeQ" style="font-size:1.1rem;margin-bottom:10px;"></div>
+      <input id="dailyChallengeA" type="text" placeholder="Your answer..." style="padding:6px 10px;border-radius:6px;border:1px solid #ccc;font-size:1rem;">
+      <button onclick="checkDailyChallenge()" style="margin-left:8px;background:#ffb84d;color:#2e1a8e;border:none;border-radius:6px;padding:6px 16px;font-weight:bold;cursor:pointer;">Check</button>
+      <div id="dailyChallengeResult" style="margin-top:8px;font-weight:bold;"></div>
+    </div>
+
+    <!-- Verse of the Day Card -->
+    <div class="verse-card fade-section" id="verseCard">
+      <button class="verse-refresh" onclick="refreshVerse()" title="Refresh">&#x21bb;</button>
+      <button id="verseAudioBtn" title="Listen to verse" style="position:absolute;top:16px;left:16px;background:#009cff;color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:1.2rem;cursor:pointer;"><i class="fas fa-volume-up"></i></button>
+      <div id="verseText">
+        <strong>Rom 10:9</strong><br>
+        That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved.
+      </div>
+      <div style="margin-top: 18px;">
+        <iframe width="330" height="185" src="https://www.youtube.com/embed/DUm8PWORq2o?si=0z2KG1hUVfvFy5bB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+      </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials fade-section" id="testimonialsSection">
+      <h2 style="font-size:2rem; margin-bottom: 40px;">What Users Say</h2>
+      <div class="testimonial-list">
+        <div class="testimonial">
+          <img src="avatar1.png" alt="Sarah K." class="testimonial-avatar" />
+          "WonderBible has made reading the Bible so easy and fun. The ScriptureQuest game is amazing!"
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="testimonial-author">- Sarah K.</div>
+        </div>
+        <div class="testimonial">
+          <img src="avatar2.png" alt="Daniel M." class="testimonial-avatar" />
+          "I love the clean design and how I can access everything on my phone or laptop."
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <div class="testimonial-author">- Daniel M.</div>
+        </div>
+        <div class="testimonial">
+          <img src="avatar3.png" alt="Grace T." class="testimonial-avatar" />
+          "The best Bible website I've used. Highly recommended for everyone."
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="testimonial-author">- Grace T.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download App Section -->
+    <div class="fade-section" style="background-color:royalblue; margin-bottom:0; height:400px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <img src="Download.png" width="200">
+      <button id="btnInstall" style="margin-top:30px; color:black; background-color: yellow; height:60px; width:220px" class="download-app">Download The <strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible Mobile & Desktop App!</button>
+      <p style="color:rgb(0, 238, 255); font-size: 22px;">To Know The Accepted Browsers For Both Mobile & Desktop Devices, Tap <a href="download.html">Me</a></p>
+      <p style="color:rgb(0, 238, 255); font-size: 22px;">Thank You For Using <span style="color:black;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</span>. God Bless You!</p>
+    </div>
+    <div class="fade-section" style="background-color:#ffb84d; margin-bottom:0; margin-top:0;">
+      <p style="color:darkblue; margin-bottom: 50px; margin-top: 60px; font-size:30px">That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved.<strong style="margin-left:40px; margin-top:10px">Rom 10:9</strong></p>
+      <p style="color:lightblue; text-align: center; margin-bottom: 50px; text-decoration: underline; font-size:30px">Verse Of The Day</p>
+    </div>
+    <div class="fade-section" style="text-align:center; margin:40px 0;">
+      <img src="qrcode_wonderbible.world (1).png" width="200">
+      <p style="font-size: 18px;">If You're On Desktop And Want To Connect It Faster, Scan The Above QR Code</p>
+    </div>
+
+    <!-- Download Modal -->
+    <div class="download-modal" id="downloadModal">
+      <div class="download-modal-content">
+        <button class="download-modal-close" onclick="closeDownloadModal()">&#10006;</button>
+        <h2>Download WonderBible App</h2>
+        <p>For best experience, install WonderBible on your device.<br>Supported browsers: Chrome, Edge, Safari, Firefox.</p>
+        <img src="WB Logo.png" width="80" style="margin:20px 0;">
+        <button class="cta-btn" onclick="window.open('download.html')">See Instructions</button>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-contact" onclick="window.location='contact.html'" title="Contact Us" aria-label="Contact Us">
+      <i class="fas fa-comment-dots"></i>
+    </div>
+    <!-- Floating Chat Widget -->
+    <div class="chat-widget" id="chatWidget" aria-label="Chat widget">
+      <div class="chat-header">
+        Chat with us
+        <span style="cursor:pointer;" onclick="toggleChatWidget()">&times;</span>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div><strong>Support:</strong> Hi! How can we help you?</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type a message..." aria-label="Type a message">
+        <button onclick="sendChatMessage()">Send</button>
+      </div>
+    </div>
+    <div class="chat-toggle-btn" id="chatToggleBtn" onclick="toggleChatWidget()" aria-label="Open chat">
+      <i class="fas fa-comments"></i>
+    </div>
+    <!-- Social Media & Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://wonderbible.world/bible">Bible</a>|
+        <a href="https://wonderbible.world/scripturequest">ScriptureQuest</a>|
+        <a href="https://wonderbible.world/devs">Devs</a>|
+        <a href="https://wonderbible.world/updates">Updates</a>|
+        <a href="https://wonderbible.world/contact.html">Contact</a>
+      </div>
+      <div class="sm" style="background-color: #2e1a8e;">
+        <a href="https://youtube.com/@Valt-Wel?sub_confirmation=1"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/WonderBible"><i class="fab fa-github"></i></a>
+        <a href="https://discord.gg/mYCCebZV"><i class="fab fa-discord"></i></a>
+        <a href="https://t.me/wonderbible"><i class="fab fa-telegram"></i></a>
+      </div>
+      <p style="margin-top:20px;" class="copyright">&#169; Copyright 2025 <strong style="color:#5d00ff;">V</strong>alt-<strong style="color:orange">W</strong>el. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Hamburger menu toggle
+      function toggleMobileMenu(el) {
+        el.classList.toggle('show-menu');
+      }
+
+      // Carousel functionality
+      const carousel = document.getElementById('mainCarousel');
+      const track = carousel.querySelector('.carousel-track');
+      const slides = Array.from(track.children);
+      let currentSlide = 0;
+      function showSlide(idx) {
+        track.style.transform = `translateX(-${idx * 100}%)`;
+      }
+      document.getElementById('carouselPrev').onclick = function() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+      };
+      document.getElementById('carouselNext').onclick = function() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      };
+      showSlide(currentSlide);
+
+      // Reveal animations on scroll
+      function revealOnScroll() {
+        const features = document.getElementById('featuresSection');
+        const testimonials = document.getElementById('testimonialsSection');
+        if (features && window.scrollY + window.innerHeight > features.offsetTop + 100) {
+          features.classList.add('revealed');
+        }
+        if (testimonials && window.scrollY + window.innerHeight > testimonials.offsetTop + 100) {
+          testimonials.classList.add('revealed');
+        }
+      }
+      window.addEventListener('scroll', revealOnScroll);
+      window.addEventListener('load', revealOnScroll);
+
+      // Verse of the Day refresh
+      function refreshVerse() {
+        // Example: fetch a random verse (replace with real API if available)
+        const verses = [
+          { ref: "Rom 10:9", text: "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved." },
+          { ref: "John 3:16", text: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life." },
+          { ref: "Psalm 23:1", text: "The Lord is my shepherd; I shall not want." }
+        ];
+        const v = verses[Math.floor(Math.random() * verses.length)];
+        document.getElementById('verseText').innerHTML = `<strong>${v.ref}</strong><br>${v.text}`;
+      }
+
+      // Download modal
+      document.getElementById('btnInstall').onclick = function() {
+        document.getElementById('downloadModal').style.display = 'flex';
+      };
+      function closeDownloadModal() {
+        document.getElementById('downloadModal').style.display = 'none';
+      }
+
+      // Dark mode toggle with animation
+      function toggleDarkMode() {
+        const body = document.body;
+        const toggle = document.getElementById('darkToggle');
+        const heroLogo = document.querySelector('.hero-logo');
+        document.body.classList.remove('blue-theme');
+        document.getElementById('themeSelect').value = 'dark';
+        if (!body.classList.contains('dark-mode')) {
+          body.classList.add('dark-mode-anim');
+          setTimeout(() => {
+            body.classList.add('dark-mode');
+            body.classList.remove('dark-mode-anim');
+            if (heroLogo) {
+              heroLogo.src = "WB Logo.png";
+              heroLogo.width = 250;
+            }
+          }, 700);
+          toggle.classList.add('active');
+        } else {
+          body.classList.remove('dark-mode');
+          document.getElementById('themeSelect').value = 'light';
+          toggle.classList.remove('active');
+          if (heroLogo) {
+            heroLogo.src = "WonderBible_Logo.png";
+            heroLogo.width = 450;
+          }
+        }
+      }
+      // On page load, ensure hero logo has correct width and src
+      window.addEventListener('DOMContentLoaded', function() {
+        const heroLogo = document.querySelector('.hero-logo');
+        if (heroLogo) {
+          if (document.body.classList.contains('dark-mode')) {
+            heroLogo.src = "WB Logo.png";
+            heroLogo.width = 250;
+          } else {
+            heroLogo.src = "WonderBible_Logo.png";
+            heroLogo.width = 450;
+          }
+        }
+      });
+
+      // Search bar functionality (demo)
+      function searchVerse() {
+        const input = document.getElementById('searchInput').value.trim();
+        if (!input) return alert('Enter a verse to search.');
+        alert('Searching for: ' + input + '\n(This is a demo. Integrate with a real API for results.)');
+      }
+
+      // Progress bar demo (simulate reading progress)
+      let progress = 0;
+      function updateProgress() {
+        progress = Math.min(progress + Math.floor(Math.random() * 10 + 5), 100);
+        document.getElementById('progressBar').style.width = progress + '%';
+        document.getElementById('progressLabel').textContent = 'Bible Reading Progress: ' + progress + '%';
+        if (progress < 100) setTimeout(updateProgress, 2000);
+      }
+      setTimeout(updateProgress, 1500);
+
+      // Animated counters
+      function animateCounter(id, target) {
+        let count = 0;
+        const step = Math.ceil(target / 50);
+        function inc() {
+          count += step;
+          if (count > target) count = target;
+          document.getElementById(id).textContent = count;
+          if (count < target) setTimeout(inc, 40);
+        }
+        inc();
+      }
+      window.addEventListener('load', function() {
+        animateCounter('statUsers', 1245);
+        animateCounter('statVerses', 58210);
+        animateCounter('statQuizzes', 3204);
+      });
+
+      // Service worker
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      }
+      // Typewriter effect for hero subtitle
+      const typewriterTexts = [
+        "The free, modern way to read the Bible and test your knowledge with ScriptureQuest.",
+        "Join us and start your journey with God!",
+        "Explore, learn, and grow in faith every day."
+      ];
+      let twIdx = 0;
+      function runTypewriter() {
+        const el = document.getElementById('typewriter');
+        if (!el) return;
+        el.textContent = "";
+        let txt = typewriterTexts[twIdx];
+        let i = 0;
+        function type() {
+          if (i <= txt.length) {
+            el.textContent = txt.slice(0, i);
+            i++;
+            setTimeout(type, 30);
+          } else {
+            setTimeout(() => {
+              twIdx = (twIdx + 1) % typewriterTexts.length;
+              runTypewriter();
+            }, 1800);
+          }
+        }
+        type();
+      }
+      window.addEventListener('DOMContentLoaded', runTypewriter);
+      // Back to top button
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          backToTop.style.display = 'flex';
+          setTimeout(()=>backToTop.style.opacity=1,10);
+        } else {
+          backToTop.style.opacity=0;
+          setTimeout(()=>backToTop.style.display='none',300);
+        }
+      });
+      // Section fade-in on scroll
+      function fadeInSections() {
+        document.querySelectorAll('.fade-section').forEach(sec => {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 80) sec.classList.add('visible');
+        });
+      }
+      window.addEventListener('scroll', fadeInSections);
+      window.addEventListener('DOMContentLoaded', fadeInSections);
+      // Animate featured cards and stats on scroll
+      function animateOnScroll() {
+        document.querySelectorAll('.featured-card, .stat-card').forEach(card => {
+          const rect = card.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 60) card.style.transform = 'scale(1.05)';
+          else card.style.transform = '';
+        });
+      }
+      window.addEventListener('scroll', animateOnScroll);
+      // Theme dropdown
+      document.getElementById('themeSelect').onchange = function() {
+        document.body.classList.remove('dark-mode', 'blue-theme');
+        if (this.value === 'dark') {
+          document.body.classList.add('dark-mode');
+          document.getElementById('darkToggle').classList.add('active');
+        } else if (this.value === 'blue') {
+          document.body.classList.add('blue-theme');
+          document.getElementById('darkToggle').classList.remove('active');
+        } else if (this.value === 'auto') {
+          setThemeAuto();
+        } else {
+          document.getElementById('darkToggle').classList.remove('active');
+        }
+      };
+      // Keep theme select in sync with dark mode toggle
+      function toggleDarkMode() {
+        const body = document.body;
+        const toggle = document.getElementById('darkToggle');
+        const heroLogo = document.querySelector('.hero-logo');
+        document.body.classList.remove('blue-theme');
+        document.getElementById('themeSelect').value = 'dark';
+        if (!body.classList.contains('dark-mode')) {
+          body.classList.add('dark-mode-anim');
+          setTimeout(() => {
+            body.classList.add('dark-mode');
+            body.classList.remove('dark-mode-anim');
+            if (heroLogo) {
+              heroLogo.src = "WB Logo.png";
+              heroLogo.width = 250;
+            }
+          }, 700);
+          toggle.classList.add('active');
+        } else {
+          body.classList.remove('dark-mode');
+          document.getElementById('themeSelect').value = 'light';
+          toggle.classList.remove('active');
+          if (heroLogo) {
+            heroLogo.src = "WonderBible_Logo.png";
+            heroLogo.width = 450;
+          }
+        }
+      }
+      // Search bar suggestions (demo)
+      const suggestions = [
+        "John 3:16", "Psalm 23:1", "Genesis 1:1", "Romans 10:9", "Proverbs 3:5", "Matthew 6:33"
+      ];
+      const searchInput = document.getElementById('searchInput');
+      const suggestionsList = document.getElementById('suggestionsList');
+      searchInput.addEventListener('input', function() {
+        const val = this.value.trim().toLowerCase();
+        if (!val) { suggestionsList.style.display = 'none'; return; }
+        const matches = suggestions.filter(s => s.toLowerCase().includes(val));
+        if (matches.length) {
+          suggestionsList.innerHTML = matches.map(s => `<div class="suggestion-item">${s}</div>`).join('');
+          suggestionsList.style.display = 'block';
+        } else {
+          suggestionsList.style.display = 'none';
+        }
+      });
+      suggestionsList.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('suggestion-item')) {
+          searchInput.value = e.target.textContent;
+          suggestionsList.style.display = 'none';
+        }
+      });
+      document.addEventListener('click', function(e) {
+        if (!suggestionsList.contains(e.target) && e.target !== searchInput) {
+          suggestionsList.style.display = 'none';
+        }
+      });
+      // Floating chat widget (demo)
+      function toggleChatWidget() {
+        const widget = document.getElementById('chatWidget');
+        const btn = document.getElementById('chatToggleBtn');
+        if (widget.style.display === 'flex') {
+          widget.style.display = 'none';
+          btn.style.display = 'flex';
+        } else {
+          widget.style.display = 'flex';
+          btn.style.display = 'none';
+        }
+      }
+      function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if (!msg) return;
+        const chat = document.getElementById('chatMessages');
+        chat.innerHTML += `<div><strong>You:</strong> ${msg}</div>`;
+        input.value = '';
+        chat.scrollTop = chat.scrollHeight;
+        setTimeout(() => {
+          chat.innerHTML += `<div><strong>Support:</strong> Thank you for your message! (Demo only)</div>`;
+          chat.scrollTop = chat.scrollHeight;
+        }, 800);
+      }
+      // Accessibility: skip link focus
+      document.querySelector('.skip-link').addEventListener('focus', function() {
+        this.style.left = '16px';
+      });
+      // Demo: increment quizzes played on quiz of the day check
+      function checkDailyChallenge() {
+        const ans = document.getElementById('dailyChallengeA').value.trim().toLowerCase();
+        const correct = todayChallenge.a.toLowerCase();
+        const res = document.getElementById('dailyChallengeResult');
+        if(ans === correct) {
+          res.textContent = "✅ Correct!";
+          res.style.color = "#009cff";
+          updateStreak();
+          let quizzes = Number(localStorage.getItem('wb_quizzes')||'0')+1;
+          localStorage.setItem('wb_quizzes',quizzes);
+          document.getElementById('profileQuizzes').textContent = quizzes;
+        } else {
+          res.textContent = "❌ Try again!";
+          res.style.color = "#d32f2f";
+        }
+      }
+      document.getElementById('profileBtn').onclick = function() {
+        document.getElementById('profileModal').style.display = 'flex';
+        document.getElementById('profileQuizzes').textContent = localStorage.getItem('wb_quizzes')||'0';
+        // Show email if logged in
+        const email = localStorage.getItem('wb_user_email');
+        document.getElementById('profileUserEmail').textContent = email ? email : "Not logged in";
+        document.getElementById('profileUserName').textContent = email ? email.split('@')[0] : "Demo User";
+        document.getElementById('logoutBtn').style.display = localStorage.getItem('wb_logged_in') ? 'inline-block' : 'none';
+      };
+      document.getElementById('logoutBtn').onclick = function() {
+        localStorage.removeItem('wb_logged_in');
+        document.getElementById('profileModal').style.display = 'none';
+        window.location = "login.html";
+      };
+    </script>
+  </body>
+</html>

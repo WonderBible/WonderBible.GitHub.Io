@@ -18,12 +18,320 @@
     <link rel="stylesheet" href="FFB.css" />
     <title>WonderBible</title>
     <link rel="icon" href="WB Logo.png" type="image/x-icon">
+    <style>
+      html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #eaf3ff 0%, #f7f9fa 100%);
+  }
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%);
+    max-height: 200vh;
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s cubic-bezier(.4,0,.2,1), position 0.2s;
+  }
+  .header-stopped {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+  .main-content {
+    padding-top: 70px; /* Adjust this to match your header's real height */
+  }
+  .bg-main {
+    background: url('background.webp') center top / cover no-repeat;
+  }
+  .WonderBible1 {
+    background: url('background.webp') center top / cover no-repeat;
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    padding-bottom: 60px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+      .header-collapsed {
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s cubic-bezier(.4,0,.2,1);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  header {
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s cubic-bezier(.4,0,.2,1), position 0.2s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: linear-gradient(120deg, rgba(255, 165, 0, 0.50) 0%, rgba(93, 0, 255, 0.50) 100%);
+    max-height: 200vh;
+  }
+      /* ...existing code... */
+      body {
+        /* ...existing code... */
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      .dark-toggle {
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        z-index: 999;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.4s, color 0.4s;
+      }
+      .dark-toggle i { font-size: 1.3rem; margin-right: 8px; }
+      .dark-toggle.active {
+        background: #23272a;
+        color: #ffd580;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        transition: background 0.4s, color 0.4s;
+      }
+      body.dark-mode {
+        background: #181a1b !important;
+        color: #eee !important;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode-anim {
+        animation: darkFadeIn 0.7s;
+      }
+      @keyframes darkFadeIn {
+        from { background: #fff; color: #222; }
+        to { background: #181a1b; color: #eee; }
+      }
+      body.dark-mode header,
+      body.dark-mode .feature-card,
+      body.dark-mode .carousel,
+      body.dark-mode .verse-card,
+      body.dark-mode .download-modal-content,
+      body.dark-mode .featured-card,
+      body.dark-mode .WonderBible1,
+      body.dark-mode .quote4anim {
+        background: #23272a !important;
+        color: #eee !important;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode blockquote {
+        background: #23272a !important;
+        color: #eee !important;
+        border-left: 4px solid #ffd580 !important;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1), border-color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode .footer-links a { color: #ffd580 !important; }
+      /* Floating Contact Us button */
+      .fab-contact {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        background: #ffb84d;
+        color: #2e1a8e;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        cursor: pointer;
+        z-index: 999;
+        transition: background 0.2s;
+      }
+      .fab-contact:hover { background: #ffd580; }
+      /* Add fade animation for logo image */
+  .logo-fade {
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .logo-fade-in {
+    opacity: 1;
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+  }
+      .feature-card {
+    /* ...existing code... */
+    transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1), background 0.4s cubic-bezier(.4,0,.2,1), color 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .feature-card:hover {
+    /* ...existing code... */
+    transform: translateY(-8px) scale(1.03);
+    background-color: #222;
+    box-shadow: 0 4px 24px rgba(93,0,255,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    /* ...existing code... */
+    transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1), background 0.4s cubic-bezier(.4,0,.2,1), color 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  header {
+    /* ...existing code... */
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s cubic-bezier(.4,0,.2,1), position 0.2s;
+    /* ...existing code... */
+  }
+  .header-collapsed {
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s cubic-bezier(.4,0,.2,1);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+      /* ...existing code... */
+      /* Keep only one definition for .WonderBible1, .Bible, .ScriptureQuest, .Devs, .Updates backgrounds */
+      .WonderBible1 {
+        background: url('background.webp') center top / cover no-repeat;
+        min-height: 100vh;
+        width: 100vw;
+        position: relative;
+        padding-bottom: 60px;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .Bible, .ScriptureQuest, .Devs, .Updates {
+        background: url('whitebg.webp') center top / cover no-repeat;
+        min-height: 100vh;
+        width: 100vw;
+        position: relative;
+        padding-bottom: 60px;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      /* Only one .mobile-menu, .slide, .slideshow-btn, .dot, .bg-main, .logo-fade, .logo-fade-in, .animate-in, .animate-in.visible, etc. */
+      .mobile-menu {
+        position: absolute;
+        z-index: 10000;
+        top: 100%;
+        left: 0;
+        width: 100vw;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 0;
+      }
+      .slide {
+        min-width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        height: 100%;
+      }
+      .slide > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .slide img, .slide marquee, .slide p, .slide div {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .bg-main {
+        background: url('background.webp') center top / cover no-repeat;
+      }
+      .slideshow-btn {
+        position: absolute;
+        top: 60px;
+        bottom: 0;
+        z-index: 2;
+        font-size: 2em;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        width: 60px;
+        background: transparent;
+        transition: background 0.2s;
+      }
+      #slideLeft { left: 0; right: auto; }
+      #slideRight { right: 0; left: auto; }
+      .dot {
+        height: 14px;
+        width: 14px;
+        margin: 0 6px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        border: 2px solid #888;
+      }
+      .dot.active {
+        background-color: #5d00ff;
+        border-color: #5d00ff;
+      }
+      .logo-fade,
+      .logo-fade-in,
+      body.dark-mode .logo-fade,
+      body.dark-mode .logo-fade-in {
+        transition: opacity 0.5s cubic-bezier(.4,0,.2,1) !important;
+      }
+      .logo-fade {
+        opacity: 0 !important;
+      }
+      .logo-fade-in {
+        opacity: 1 !important;
+      }
+      .animate-in {
+        opacity: 0;
+        transform: scale(0.92);
+        transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+        will-change: opacity, transform;
+      }
+      .animate-in.visible {
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+      }
+      /* ...existing code... */
+      .section-nav {
+        display: flex;
+        justify-content: center;
+        margin: 32px auto 0 auto;
+        margin-bottom: 30px;
+      }
+      .section-nav a {
+        color: #009cff;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+      .section-nav a:hover {
+        background: #f0f4ff;
+      }
+    </style>
   </head>
   <body>
-    <div id="preloader"></div>
-    <!-- Add a wrapper to make header position:relative for menu anchoring -->
-    <div style="position:relative;">
-    <header style="background-color: #ffffff;">
+  <!-- Add animated SVG background shapes from index2.html -->
+  <div class="bg-shapes" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:hidden;">
+    <svg width="320" height="320" style="position:absolute;top:10%;left:5%;"><circle cx="160" cy="160" r="140" fill="#ffd580"/></svg>
+    <svg width="180" height="180" style="position:absolute;top:70%;left:80%;"><circle cx="90" cy="90" r="80" fill="#5d00ff"/></svg>
+    <svg width="120" height="120" style="position:absolute;top:60%;left:20%;"><circle cx="60" cy="60" r="50" fill="#009cff"/></svg>
+  </div>
+  <style>
+    /* Add float animation for shapes */
+    .bg-shapes svg {
+      position: absolute;
+      animation: floatShape 8s infinite alternate;
+      opacity: 0.18;
+    }
+    @keyframes floatShape {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(30px) scale(1.08); }
+    }
+  </style>
+  <div id="preloader"></div>
+  <header>
       <div id="brand">
         <a href="https://wonderbible.github.io/Valt-Wel"><img title="Valt-Wel HomePage" style="display: inline-block; border-color: blue; float: left; margin-right: 20px; margin-bottom: 0; margin-left:20px; cursor:pointer;" src="WB Logo.png" onclick="document.location='https://wonderbible.github.io'" width="60"></a>  
       </div>
@@ -32,12 +340,14 @@
           <li><a src="Bible.png" class="bible" title="WonderBible Bible" href="https://wonderbible.github.io/bible" width="80">Bible</a></li>
           <li><a class="sqg" title="ScriptureQuest HomePage" href="https://wonderbible.github.io/scripturequest">ScriptureQuest</a></li>
           <li><a class="owners" title="The WonderBible Devs" href="https://wonderbible.github.io/devs">Devs</a></li>
-          <li> <a class="update" title="Update" href="https://wonderbible.github.io/updates">Updates</a></li>
+          <li><a class="update" title="Update" href="https://wonderbible.github.io/updates">Updates</a></li>
           <li><a class="nd" title="WB 2nd Site" href="https://wonderbible777.wixsite.com/wonderbible-1">WonderBible's WixSite</a></span></a></li>
-          <a href="#download"><button class="downloadheader">Download</strong></button></a>
+          <a id="darkToggle" onclick="toggleDarkMode()">
+      <button id="darkModeBtn" class="downloadheader"><i class="fas fa-moon"></i> Dark Mode</button>
+    </a>
         </ul>
       </nav>
-    
+      <!-- Dark mode toggle button inside header -->
     <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
       <div class="bar1"></div>
       <div class="bar2"></div>
@@ -48,161 +358,285 @@
         <li><a class="owners" title="The WonderBible Devs" href="https://wonderbible.github.io/devs">Devs</a></li>
         <li> <a class="update" title="Update" href="https://wonderbible.github.io/updates">Updates</a></li>
         <li><a class="nd" title="WB 2nd Site" href="https://wonderbible777.wixsite.com/wonderbible-1">WonderBible's WixSite</a></span></a></li>
-        <a href="#download"><button class="downloadheader-mobile">Download</strong></button></a>
+        <a id="darkToggleMobile" onclick="toggleDarkMode()">
+    <button id="darkModeBtnMobile" class="downloadheader"><i class="fas fa-moon"></i> Dark Mode</button>
+  </a>
       </ul>
     </div>
     </header>
-    </div>
+  <!-- Move section-nav here, below header and above .main-content/.WonderBible -->
+  <div class="main-content">
     <script src="FFB.js"></script>
-    <div class="WonderBible">
-  <div class="Slideshow slideshow-bg" id="slideshowMain" style="position: relative; width: 100%; max-width: 100vw; overflow: hidden; margin: auto; background: transparent;">
-    <button id="slideLeft" class="slideshow-btn">&lt;</button>
-    <div id="slidesContainer" style="display: flex; transition: transform 0.5s ease; width: 100%;">
-      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
-        <div class="WonderBible1">
-          
-          <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="WonderBible_Logo.png" width="250"></p>
-          <p style="text-align: center;"><marquee style="display:block; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" direction="down" class="ffb"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</marquee></p>
-          <div style="font-size: 30px; margin-left:10px;">
-            <p style="color:black; text-align: center;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible Is A Website Helping People To Know The Word Of God.</p>
-            <p style="color: black; text-align: center;">Join Us. And Start The Journey And Relationship With You And God!</p>
-          </div>
-          <a href="https://wonderbible.github.io/we.html"><button class="LMAWB">Learn More About Us</button></a>
-        </div>
-      </div>
-      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
-        <div class="Bible">
-          <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Bible.png" width="250"></p>
-          <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" behavior="alternate" direction="right" class="sqg1">Bible</marquee></p>
-          <div style="font-size: 30px; margin-left:10px;">
-            <p style="color:black; text-align: center;">Read The Word Of God Anytime, Anywhere!</p>
-          </div>
-          <a href="https://wonderbible.github.io/bible"><button class="LMAWB">Read The <strong style="color:salmon;">Bible</strong></button></a>
-        </div>
-      </div>
-      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
-        <div class="ScriptureQuest">
-          <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="ScriptureQuest Logo.png" width="250"></p>
-          <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="up" class="sqg2">ScriptureQuest</marquee></p>
-          <div style="font-size: 30px; margin-left:10px;">
-            <p style="color:black; text-align: center;">Play Biblical Quizzes And Check Yourself By Knowing How Much You Know The Bible.</p>
-          </div>
-          <a href="https://wonderbible.github.io/scripturequest"><button class="LMAWB">Get Started</button></a>
-        </div>
-      </div>
-      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
-        <div class="Devs">
-          <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="owner for homepage.png" width="250"></p>
-          <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="left" class="owners">Devs</marquee></p>
-          <div style="font-size: 30px; margin-left:10px;">
-            <p style="color:black; text-align: center;">Stay In Touch With The Founders.</p>
-                        <p style="color:black; text-align: center;  margin-top: 20px;">We Recommend Using Our <a style="margin-left:0;" class="contactdevs" href="contact.html">Contact Us</a> Page For A Fast And Successful Contact With <strong style="color:#ffa500">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
-          </div>
-          <a href="https://wonderbible.github.io/devs"><button class="LMAWB">Contact The <strong style="color: rgb(0, 238, 255);">Devs</strong></button></a>
-        </div>
-      </div>
-      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
-        <div class="Updates">
-          <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Update.png" width="250"></p>
-          <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:120px;" scrollamount="10" behavior="alternate" direction="down" class="update">Updates</marquee></p>
-          <div style="font-size: 30px; margin-left:10px;">
-            <p style="color:black; text-align: center;">Check The Latest Updates Of <strong style="color: #ffa500;">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
-          </div>
-          <a href="https://wonderbible.github.io/updates"><button class="LMAWB">Check What's New</button></a>
-        </div>
-      </div>
-    </div>
-    <button id="slideRight" class="slideshow-btn">&gt;</button>
-    <div id="slideshowDots" style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">
-      <span style="margin-top: 10px;" class="dot" data-slide="0"></span>
-      <span style="margin-top: 10px;" class="dot" data-slide="1"></span>
-      <span style="margin-top: 10px;" class="dot" data-slide="2"></span>
-      <span style="margin-top: 10px;" class="dot" data-slide="3"></span>
-      <span style="margin-top: 10px;" class="dot" data-slide="4"></span>
-    </div>
+      <div class="section-nav">
+    <a href="#slideshowMain">Home</a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#featuresSection">Features</a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#download">Download</a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#support">Support</a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#dbv">Verses</a>
   </div>
-  <script>
-    const slidesContainer = document.getElementById('slidesContainer');
-    const slides = document.querySelectorAll('.slide');
-    let currentIndex = 0;
-    function updateSlide() {
-      slidesContainer.style.transform = `translateX(-${currentIndex * 100}vw)`;
-      // Only set background color overlay if needed, do not overwrite background image
-      const slideshow = document.getElementById('slideshowMain');
-      slideshow.style.backgroundColor = slides[currentIndex].getAttribute('data-bg') || '#ffffff';
-      // Update dots
-      document.querySelectorAll('.dot').forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === currentIndex);
-      });
-    }
-    document.getElementById('slideLeft').onclick = function() {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      updateSlide();
-    };
-    document.getElementById('slideRight').onclick = function() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateSlide();
-    };
-    // Remove auto-slide interval
-    // let slideInterval = setInterval(() => {
-    //   currentIndex = (currentIndex + 1) % slides.length;
-    //   updateSlide();
-    // }, 5000);
-    // Add dot navigation
-    document.querySelectorAll('.dot').forEach(dot => {
-      dot.onclick = function() {
-        currentIndex = parseInt(dot.getAttribute('data-slide'));
+    <div class="WonderBible">
+      <div class="Slideshow slideshow-bg animate-in" id="slideshowMain" style="position: relative; width: 100%; max-width: 100vw; overflow: hidden; margin: auto; background: transparent;">
+                        <button style="height: 730px;" id="slideLeft" class="slideshow-btn">←</button>
+        <div id="slidesContainer" style="display: flex; transition: transform 0.5s ease; height: 840px; width: 100%;">
+          <div class="slide bg-main" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+            <div class="WonderBible1">
+              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="WonderBible_Logo.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" direction="down" class="ffb"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</marquee></p>
+              <!-- Typewriter effect start -->
+  <div style="text-align:center; margin-top: 30px; font-size:24px; min-height:48px; margin-bottom: 20px;">
+    <span id="typewriter"></span>
+  </div>
+  <!-- Typewriter effect end -->
+              <div style="font-size: 30px; margin-left:10px;">
+                <p style="color: #009cff; text-align: center; margin-top: 50px;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible Is A Website Dedicated To Help You Know The Word Of God.</p>
+              </div>
+              <a href="https://wonderbible.github.io/we.html"><button class="LMAWB">Learn More About Us</button></a>
+            </div>
+          </div>
+          <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+            <div class="Bible">
+              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Bible.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" behavior="alternate" direction="right" class="sqg1">Bible</marquee></p>
+              <div style="font-size: 30px; margin-left:10px;">
+                <p style="color:black; text-align: center;">Read The Word Of God Anytime, Anywhere!</p>
+              </div>
+              <a href="https://wonderbible.github.io/bible"><button class="LMAWB">Read The <strong style="color:salmon;">Bible</strong></button></a>
+            </div>
+          </div>
+          <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+            <div class="ScriptureQuest">
+              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="ScriptureQuest Logo.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="up" class="sqg2">ScriptureQuest</marquee></p>
+              <div style="font-size: 30px, margin-left:10px;">
+                <p style="color:black; text-align: center; font-size: 30px;">Play Biblical Quizzes And Check Yourself By Knowing How Much You Know The Bible.</p>
+              </div>
+              <a href="https://wonderbible.github.io/scripturequest"><button class="LMAWB">Get Started</button></a>
+            </div>
+          </div>
+          <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+            <div class="Devs">
+              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="owner for homepage.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="left" class="owners">Devs</marquee></p>
+              <div style="font-size: 30px; margin-left:10px;">
+                <p style="color:black; text-align: center;">Stay In Touch With The Creators.</p>
+                            <p style="color:black; text-align: center;  margin-top: 20px;">We Recommend Using Our <a style="margin-left:0;" class="contactdevs" href="contact.html">Contact Us</a> Page For A Fast And Successful Contact With <strong style="color:#ffa500">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
+              </div>
+              <a href="https://wonderbible.github.io/devs"><button class="LMAWB">Contact The <strong style="color: rgb(0, 238, 255);">Devs</strong></button></a>
+            </div>
+          </div>
+          <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+            <div class="Updates">
+              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Update.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:120px;" scrollamount="10" behavior="alternate" direction="down" class="update">Updates</marquee></p>
+              <div style="font-size: 30px; margin-left:10px;">
+                <p style="color:black; text-align: center;">Check The Latest Updates Of <strong style="color: #ffa500;">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
+              </div>
+              <a href="https://wonderbible.github.io/updates"><button class="LMAWB">Check What's New</button></a>
+            </div>
+          </div>
+        </div>
+        <button style="height: 730px;" id="slideRight" class="slideshow-btn">→</button>
+        <div id="slideshowDots" style="display: flex; background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%); height: 80px; justify-content: center; align-items: center; margin-bottom: 0px;">
+          <span style="margin-top: 1px;" class="dot" data-slide="0"></span>
+          <span style="margin-top: 1px;" class="dot" data-slide="1"></span>
+          <span style="margin-top: 1px;" class="dot" data-slide="2"></span>
+          <span style="margin-top: 1px;" class="dot" data-slide="3"></span>
+          <span style="margin-top: 1px;" class="dot" data-slide="4"></span>
+        </div>
+                    <section class="features" id="featuresSection">
+      <div class="feature-card" onclick="document.location='https://wonderbible.github.io/bible'">
+        <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+        <div class="feature-title">Read the Bible Anywhere</div>
+        <div class="feature-desc">Access the Word of God for free on any device, anytime.</div>
+      </div>
+      <div class="feature-card" onclick="document.location='https://wonderbible.github.io/scripturequest'">
+        <div class="feature-icon"><i class="fas fa-cross"></i></div>
+        <div class="feature-title">ScriptureQuest Game</div>
+        <div class="feature-desc">Test your Bible knowledge and challenge friends with fun quizzes.</div>
+      </div>
+      <div class="feature-card" onclick="document.location='https://wonderbible.github.io/devs'">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <div class="feature-title">Community & Devs</div>
+        <div class="feature-desc">Connect with our team and community for support and updates.</div>
+      </div>
+      <div class="feature-card" onclick="document.location='#dbv'">
+        <div class="feature-icon"><i class="fas fa-book"></i></div>
+        <div class="feature-title">Daily Bible Verse</div>
+        <div class="feature-desc">Read the Daily Bible Verses easily from KJBO</div>
+      </div>
+    </section>
+      </div>
+      <script>
+        // Only one slideshow script block
+        const slidesContainer = document.getElementById('slidesContainer');
+        const slides = document.querySelectorAll('.slide');
+        let currentIndex = 0;
+        function updateSlide() {
+          slidesContainer.style.transform = `translateX(-${currentIndex * 100}vw)`;
+          const slideshow = document.getElementById('slideshowMain');
+          slideshow.style.backgroundColor = slides[currentIndex].getAttribute('data-bg') || '#ffffff';
+          document.querySelectorAll('.dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
+          });
+        }
+        document.getElementById('slideLeft').onclick = function() {
+          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+          updateSlide();
+        };
+        document.getElementById('slideRight').onclick = function() {
+          currentIndex = (currentIndex + 1) % slides.length;
+          updateSlide();
+        };
+        document.querySelectorAll('.dot').forEach(dot => {
+          dot.onclick = function() {
+            currentIndex = parseInt(dot.getAttribute('data-slide'));
+            updateSlide();
+          };
+        });
         updateSlide();
-      };
-    });
-    // Add click-to-navigate for each dot
-    document.querySelectorAll('.dot')[0].onclick = function() { currentIndex = 0; updateSlide(); };
-    document.querySelectorAll('.dot')[1].onclick = function() { currentIndex = 1; updateSlide(); };
-    document.querySelectorAll('.dot')[2].onclick = function() { currentIndex = 2; updateSlide(); };
-    document.querySelectorAll('.dot')[3].onclick = function() { currentIndex = 3; updateSlide(); };
-    document.querySelectorAll('.dot')[4].onclick = function() { currentIndex = 4; updateSlide(); };
-    // Set initial background
-    updateSlide();
-  </script>
-  <style>
-    .dot {
-      height: 14px;
-      width: 14px;
-      margin: 0 6px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.3s;
-      cursor: pointer;
-      border: 2px solid #888;
-    }
-    .dot.active {
-      background-color: #5d00ff;
-      border-color: #5d00ff;
-    }
-  </style> 
-      <hr>
+      </script>
+      <style>
+        .dot {
+          height: 14px;
+          width: 14px;
+          margin: 0 6px;
+          background-color: #bbb;
+          border-radius: 50%;
+          display: inline-block;
+          transition: background-color 0.3s;
+          cursor: pointer;
+          border: 2px solid #888;
+        }
+        .dot.active {
+          background-color: #5d00ff;
+          border-color: #5d00ff;
+        }
+        .slideshow-btn {
+        position: absolute;
+        top: 60px; /* move buttons even higher */
+        bottom: 0;
+        z-index: 2;
+        font-size: 2em;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        width: 60px;
+        background: transparent;
+        transition: background 0.2s;
+      }
+      /* Change mobile-menu to absolute and anchor below header */
+      .mobile-menu {
+        position: absolute;
+        z-index: 10000;
+        top: 100%; /* directly below header */
+        left: 0;
+        width: 100vw;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 0;
+      }
+      #slideLeft { left: 0; right: auto; }
+      #slideRight { right: 0; left: auto; }
+      .slide {
+        min-width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        height: 100%;
+      }
+      .slide > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .slide img, .slide marquee, .slide p, .slide div {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .bg-main {
+        background: url('background.webp') center top / cover no-repeat;
+      }
+      .WonderBible1 {
+        /* Remove background here */
+        min-height: 100vh;
+        width: 100vw;
+        position: relative;
+        padding-bottom: 60px;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      </style>
               </div>
               <hr id="download">
-            <div style="background-color:royalblue; margin-top: 50px; height:800px">
-        <div><p style="text-align:center;"><img src="Download.png" width="200">
+            <div style="background: linear-gradient(90deg, #009cff 0%, #5d00ff 100%); border-radius: 30px; margin-top: 0px; height:1150px" class="dark-section">
+        <div class="download4anim"><p style="text-align:center;"><img src="Download.png" width="200">
         <button id="btnInstall" style="margin-top:30px; color:black; background-color: yellow; margin-left: 70px; height:100px; width:200px" class="download-app">Download The <strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible Mobile & Desktop App!</button>
         <p style="color:rgb(0, 238, 255); text-align: center; font-size: 30px;">To Know The Accepted Browsers For Both Mobile & Desktop Devices, Tap <a href="download.html">Me</a></p>
         <p style="color:rgb(0, 238, 255); text-align: center; font-size: 30px;">Thank You For Using <span style="color:black;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</span>. God Bless You!</p>
       </p></div>
+      <hr id="support" style="margin-top: 40px;">
+                  <div style="background: radial-gradient(circle at 20% 40%, #ffd580 0%, transparent 60%),
+                    radial-gradient(circle at 80% 60%, #009cff 0%, transparent 60%); border-radius: 30px; margin-top: 50px; height:700px" class="dark-section">
+        <div><div class="WonderBible-1">
+  <div class="Slideshow slideshow-bg" id="slideshowMain" style="position: relative; width: 100%; max-width: 100vw; overflow: hidden; margin: auto; background: transparent;">
+    <button id="slideLeft" class="slideshow-btn" style="display:none;">&lt;</button>
+    <div id="slidesContainer" style="display: flex; transition: transform 0.5s ease; width: 100%;">
+      <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
+        <div class="support4anim">
+ <h1 style="text-align: center; margin-top: 50px;">Support Us Financially!</h1>
+<h3 style="text-align: center; margin-bottom: 30px; margin-top: 50px;">Support WonderBible Financially By Paying From $5 - $100. God Bless You!</h3>
+          <div style="font-weight: bolder; margin-bottom: 60px;">
+          <hr style="margin-bottom: 20px;">
+           <a href="https://payhip.com/b/pz4Tq" target="_blank"><button class="downloadheadersup">$5</strong></button></a>
+           <a href="https://payhip.com/b/jokKl" target="_blank"><button class="downloadheadersup">$10</strong></button></a>
+           <a href="https://payhip.com/b/Oi5u4" target="_blank"><button class="downloadheadersup">$15</strong></button></a>
+           <a href="https://payhip.com/b/R5aBn" target="_blank"><button class="downloadheadersup">$20</strong></button></a>
+           <a href="https://payhip.com/b/0Mory" target="_blank"><button class="downloadheadersup">$25</strong></button></a>
+           <a href="https://payhip.com/b/cdMYx" target="_blank"><button class="downloadheadersup">$30</strong></button></a>
+           <a href="https://payhip.com/b/Xqv8k" target="_blank"><button class="downloadheadersup">$50</strong></button></a>
+           <a href="https://payhip.com/b/hcKTY" target="_blank"><button class="downloadheadersup">$100</strong></button></a>
+        </div>   
+                  <div id="dbv" class="quote4anim" style="background-color:#ffffff; max-width: 800px; margin-top: 30px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom:0; margin-top:0;">
+        <p style="color:lightblue; text-align: center; margin-top: 50px; text-decoration: underline; font-size: 40px;">Verses</p>
+        <div class="verse-card" id="verseCard" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 32px 24px; max-width: 400px; margin: 40px auto; text-align: center; position: relative;">
+          <button class="verse-refresh" onclick="refreshVerse()" title="Refresh" style="position: absolute; top: 16px; right: 16px; background: #ffb84d; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; color: #2e1a8e; cursor: pointer;">&#x21bb;</button>
+          <div id="verseText">
+            <strong>Rom 10:9</strong><br>
+            That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved.
+          </div>
+        </div>
+        <!-- Place this script block right after the verse card above -->
+      <script>
+        function refreshVerse() {
+          const verses = [
+            { ref: "Rom 10:9", text: "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved." },
+            { ref: "Hab 3:18", text: "I will rejoice in the Lord, I will joy in the God of my salvation." },
+            { ref: "Deut 33:26", text: "There is none like unto the God of Jeshurun, who rideth upon the heaven in thy help, and in his excellency on the sky." },
+            { ref: "John 3:16", text: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life." },
+            { ref: "Jer 20:11", text: "But the LORD is with me as a mighty terrible one: therefore my persecutors shall stumble, and they shall not prevail: they shall be greatly ashamed; for they shall not prosper: their everlasting confusion shall never be forgotten." }
+            // Add, remove, or edit verses here!
+          ];
+          const v = verses[Math.floor(Math.random() * verses.length)];
+          document.getElementById('verseText').innerHTML = `<strong>${v.ref}</strong><br>${v.text}`;
+        }
+      </script>
+              <div>
+        <p style="color:lightblue; text-align: center; margin-bottom: 50px; text-decoration: underline; font-size:40px">Verse Of The Day</p>
+        <p style="text-align: center;"><script type="text/javascript">
+          document.write("<iframe src=\"https://www.kingjamesbibleonline.org/inspiring-images-widget.php\" style=\"width: 344px; height: 344px; border: 0px solid #ffffff;\"></iframe>");
+          </script></p>
+      </div>
+      </div>
+      </div>
+    </div>
+    <hr style="margin-top: 30px; font-weight: bolder;">
+    </div>
     <div>
-      <div style="background-color:#ffffff; max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom:0; margin-top:0;">
-        <p style="color:lightblue; text-align: center; margin-top: 50px; text-decoration: underline; font-size: 40px;">Leading Verse</p>
-      <blockquote style="font-style: italic; color: #5a4b2c; border-left: 4px solid #e2c275; margin: 1.5rem auto; padding-left: 1rem; background: #f6ecd9; max-width: 1000px; width: 100%; display: block;">
-        "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved." <br>
-        <small>- Romans 10:9</small>
-      </blockquote>
-      <div>
-      <p style="color:lightblue; text-align: center; margin-bottom: 50px; text-decoration: underline; font-size:40px">Verse Of The Day</p>
-      <p style="text-align: center;"><script type="text/javascript">
-        document.write("<iframe src=\"https://www.kingjamesbibleonline.org/inspiring-images-widget.php\" style=\"width: 344px; height: 344px; border: 0px solid #ffffff;\"></iframe>");
-        </script></p>
-    </div>  </div>
       <style>
   .slideshow-btn {
     position: absolute;
@@ -228,6 +662,21 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     padding: 0;
   }
+  .streak-widget {
+    position: fixed;
+    top: 100px;
+    right: 32px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+    padding: 18px 24px;
+    z-index: 1003;
+    font-size: 1.1rem;
+    display: flex
+;
+    align-items: center;
+    gap: 12px;
+}
   #slideLeft { left: 0; right: auto; }
   #slideRight { right: 0; left: auto; }
   .slide {
@@ -251,10 +700,22 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+  .bg-main {
+    background: url('background.webp') center top / cover no-repeat;
+  }
+  .WonderBible1 {
+    /* Remove background here */
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    padding-bottom: 60px;
+    margin: 0;
+    box-sizing: border-box;
+  }
       </style>
-                      <p style="font-size: 30px; margin-bottom: 30px; color:black; margin-top: 10px; margin-left: 10px; text-align: center;">If You Have Questions Let Us Know. <a style="margin-left:0; text-decoration:underline;" class="contact" href="contact.html">Contact Us!</a></p>
-                <p style="text-align: center;"><iframe width="330" height="185" src="https://www.youtube.com/embed/DUm8PWORq2o?si=0z2KG1hUVfvFy5bB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></p>
-                <footer>
+                      <div class="bottom"><p style="font-size: 30px; margin-bottom: 30px; color:black; margin-top: 10px; margin-left: 10px; text-align: center;">If You Have Questions Let Us Know. <a style="margin-left:0; text-decoration:underline;" class="contact" href="contact.html">Contact Us!</a></p></div>
+    </div>
+    <footer class="footer4anim">
       <div style="margin-top:0; background-color:#2e1a8e; height:810px; color:white;" class="sm">
         <a href="https://youtube.com/@Valt-Wel?sub_confirmation=1"><i class="fab fa-youtube"></i></a>
         <a href="https://github.com/WonderBible"><i class="fab fa-github"></i></a>
@@ -386,4 +847,259 @@
     }
     
   </style>
+  <script>
+let menuPattern = [ 'rtl-menu', 'ltr-menu', 'rtl-menu', 'ltr-menu' ];
+let menuStep = 0;
+
+function toggleMobileMenu(el) {
+  var header = el.closest('header');
+  // Remove both direction classes before toggling
+  header.classList.remove('rtl-menu', 'ltr-menu');
+  // Set the direction for this step
+  let direction = menuPattern[menuStep % menuPattern.length];
+  header.classList.add(direction);
+
+  if (header.classList.contains('open')) {
+    header.classList.remove('open');
+    header.classList.add('closing');
+    setTimeout(function() {
+      header.classList.remove('closing');
+      // Advance to next pattern step after closing
+      menuStep++;
+    }, 3000);
+  } else {
+    header.classList.add('open');
+    header.classList.remove('closing');
+    // Advance to next pattern step after opening
+    menuStep++;
+  }
+}
+</script>
+  <style>
+    .animate-in {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+      will-change: opacity, transform;
+    }
+    .animate-in.visible {
+      opacity: 1;
+      transform: scale(1);
+      /* Ensure transition always runs */
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+  </style>
+  <script>
+  // Animate in on load and when scrolled into view, but only after page load
+  let animationReady = false;
+  function animateInView() {
+    if (!animationReady) return;
+    document.querySelectorAll('.animate-in').forEach(function(el) {
+      const rect = el.getBoundingClientRect();
+      // Always keep .visible if element is in viewport OR near the bottom of the window
+      if (
+        (rect.bottom > 0 && rect.top < window.innerHeight) ||
+        (rect.top < window.innerHeight && window.innerHeight - rect.bottom < 200)
+      ) {
+        if (!el.classList.contains('visible')) {
+          el.classList.remove('visible');
+          void el.offsetWidth;
+          el.classList.add('visible');
+        }
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.animate-in').forEach(function(el) {
+      el.classList.remove('visible');
+    });
+  });
+  window.addEventListener('load', function() {
+    animationReady = true;
+    setTimeout(animateInView, 10);
+  });
+  window.addEventListener('scroll', function() {
+    animateInView();
+  });
+  window.addEventListener('resize', function() {
+    animateInView();
+  });
+</script>
+<script>
+  function updateHeaderPosition() {
+    var header = document.querySelector('header');
+    var stopDiv = document.querySelector('.WonderBible');
+    if (!header || !stopDiv) return;
+    var headerHeight = header.offsetHeight;
+    var scrollY = window.scrollY || window.pageYOffset;
+    var stopBottom = stopDiv.getBoundingClientRect().bottom + scrollY;
+    // Collapse header with animation when its bottom reaches the end of .WonderBible
+    if (scrollY + headerHeight >= stopBottom) {
+      header.classList.add('header-collapsed');
+      header.classList.remove('header-stopped');
+      header.style.position = 'fixed';
+      header.style.top = '0';
+      header.style.left = '0';
+      header.style.width = '100%';
+    } else {
+      header.classList.remove('header-collapsed');
+      header.classList.remove('header-stopped');
+      header.style.position = 'fixed';
+      header.style.top = '0';
+      header.style.left = '0';
+      header.style.width = '100%';
+    }
+  }
+  window.addEventListener('scroll', updateHeaderPosition);
+  window.addEventListener('resize', updateHeaderPosition);
+  window.addEventListener('DOMContentLoaded', updateHeaderPosition);
+  window.addEventListener('load', updateHeaderPosition);
+</script>
+<!-- Dark mode toggle button -->
+    <!-- Floating Contact Us button -->
+    <div class="fab-contact" onclick="window.location='contact.html'" title="Contact Us">
+      <i class="fas fa-comment-dots"></i>
+    </div>
+    <!-- Floating Edit Profile button and Streak counter -->
+    <div id="profileBar" style="position:fixed;bottom:32px;right:32px;z-index:999;display:flex;align-items:center;gap:18px;">
+      <div class="fab-contact" onclick="window.location='register.html'" title="Account">
+        <img src="user.png" alt="Edit Profile" style="width:38px;height:38px;border-radius:50%;object-fit:cover;">
+      </div>
+    </div>
+    <script>
+      // Dark mode toggle with animation and logo swap (only main logo, with fade)
+      function toggleDarkMode() {
+        const body = document.body;
+        const toggle = document.getElementById('darkToggle');
+        const btn = document.getElementById('darkModeBtn');
+        const btnMobile = document.getElementById('darkModeBtnMobile');
+        function swapLogo(dark) {
+          var mainLogo = document.querySelector('.WonderBible1 img[src="WonderBible_Logo.png"], .WonderBible1 img[src="WB Logo.png"]');
+          if (mainLogo) {
+            // Fade out
+            mainLogo.classList.remove('logo-fade-in');
+            mainLogo.classList.add('logo-fade');
+            setTimeout(function() {
+              if (dark) {
+                mainLogo.setAttribute('src', 'WB Logo.png');
+                mainLogo.setAttribute('width', '250');
+              } else {
+                mainLogo.setAttribute('src', 'WonderBible_Logo.png');
+                mainLogo.setAttribute('width', '450');
+              }
+              // Fade in after src/width change
+              setTimeout(function() {
+                mainLogo.classList.remove('logo-fade');
+                mainLogo.classList.add('logo-fade-in');
+              }, 20);
+            }, 500);
+          }
+        }
+        if (!body.classList.contains('dark-mode')) {
+          body.classList.add('dark-mode-anim');
+          setTimeout(() => {
+            body.classList.add('dark-mode');
+            body.classList.remove('dark-mode-anim');
+            swapLogo(true);
+            // Change both buttons to Light Mode
+            if (btn) btn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        if (btnMobile) btnMobile.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+          }, 700);
+          toggle.classList.add('active');
+        } else {
+          body.classList.remove('dark-mode');
+          toggle.classList.remove('active');
+          swapLogo(false);
+          // Change both buttons to Dark Mode
+          if (btn) btn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+          if (btnMobile) btnMobile.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+      }
+      // On page load, ensure logo has fade-in class and correct width
+      window.addEventListener('DOMContentLoaded', function() {
+        var mainLogo = document.querySelector('.WonderBible1 img[src="WonderBible_Logo.png"], .WonderBible1 img[src="WB Logo.png"]');
+        if (mainLogo) {
+          mainLogo.classList.add('logo-fade-in');
+          if (mainLogo.getAttribute('src') === 'WonderBible_Logo.png') {
+            mainLogo.setAttribute('width', '450');
+          } else if (mainLogo.getAttribute('src') === 'WB Logo.png') {
+            mainLogo.setAttribute('width', '250');
+          }
+        }
+        // Set correct button text/icon on load
+        const btn = document.getElementById('darkModeBtn');
+        const btnMobile = document.getElementById('darkModeBtnMobile');
+        if (document.body.classList.contains('dark-mode')) {
+          if (btn) btn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+          if (btnMobile) btnMobile.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+          if (btn) btn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+          if (btnMobile) btnMobile.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+      });
+    </script>
+    <style>
+      body.dark-mode, body.dark-mode html {
+        background: #181a1b !important;
+        color: #eee !important;
+        transition: background 0.7s cubic-bezier(.4,0,.2,1), color 0.7s cubic-bezier(.4,0,.2,1);
+      }
+      body.dark-mode .dark-section {
+        background: #23272a !important;
+        color: #eee !important;
+      }
+    </style>
+    </script>
+<!-- Place this after your header and before main content -->
+<div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="display:none;position:fixed;bottom:100px;right:32px;z-index:1000;background:#5d00ff;color:#fff;border-radius:50%;width:48px;height:48px;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.18);cursor:pointer;transition:background 0.2s,opacity 0.3s;opacity:0.8;">
+  <i class="fas fa-arrow-up"></i>
+</div>
+<script>
+// Back to top button show/hide logic
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 300) {
+    backToTop.style.display = 'flex';
+    setTimeout(()=>backToTop.style.opacity=1,10);
+  } else {
+    backToTop.style.opacity=0;
+    setTimeout(()=>backToTop.style.display='none',300);
+  }
+});
+</script>
+  </body>
 </html>
+<script>
+  // Typewriter effect script
+  (function() {
+  const texts = [
+    "Explore, learn, and grow in faith everyday!",
+    "The free, modern way to read the Bible and test your knowledge with Biblical Quizzes.",
+    "Join us and start Learning more about God with our Community!"
+  ];
+  let i = 0, j = 0, isDeleting = false, current = '', wait = 1200;
+  const el = document.getElementById('typewriter');
+  function type() {
+    const full = texts[i];
+    if (isDeleting) {
+      current = full.substring(0, j--);
+    } else {
+      current = full.substring(0, j++);
+    }
+    el.textContent = current + (isDeleting ? '' : '|');
+    if (!isDeleting && j > full.length) {
+      isDeleting = true;
+      setTimeout(type, wait);
+    } else if (isDeleting && j === 0) {
+      isDeleting = false;
+      i = (i + 1) % texts.length;
+      setTimeout(type, 400);
+    } else {
+      setTimeout(type, isDeleting ? 40 : 80);
+    }
+  }
+  if (el) type();
+})();
+</script>
