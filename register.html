@@ -1,18 +1,271 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Register - WonderBible</title>
-<link rel="stylesheet" type="text/css" href="register.css">
+  <meta charset="UTF-8">
+  <title>Edit/Register - WonderBible</title>
+      <link rel="icon" href="WB Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: 'Gabarito', Arial, sans-serif; background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%); }
+    .register-container {
+      max-width: 400px; margin: 60px auto; background: #fff; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+    }
+    .register-container h2 { margin-bottom: 24px; color: #009cff; }
+    .register-container input {
+      width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;
+    }
+    .register-container button {
+      background: #ffb84d; color: #2e1a8e; font-weight: bold; border: none; border-radius: 8px; padding: 12px 32px; cursor: pointer; margin-top: 18px;
+    }
+    .register-container button:hover { background: #ffd580; }
+    .register-container .msg { margin-top: 16px; font-weight: bold; }
+    .register-container a { color: #009cff; text-decoration: underline; }
+    .profile-edit-container {
+      max-width: 400px; margin: 60px auto; background: #fff; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+    }
+    .profile-edit-container h2 { margin-bottom: 24px; color: #009cff; }
+    .profile-pic-preview {
+      width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 16px;
+    }
+    .profile-edit-container input {
+      width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;
+    }
+    .profile-edit-container button {
+      background: #ffb84d; color: #2e1a8e; font-weight: bold; border: none; border-radius: 8px; padding: 12px 32px; cursor: pointer; margin-top: 18px;
+    }
+    .profile-edit-container button:hover { background: #ffd580; }
+    .profile-edit-container .msg { margin-top: 16px; font-weight: bold; }
+  </style>
 </head>
 <body>
-<form>
-<h1>Register</h1>
-<input type="text" name="" placeholder="Username">
-<input type="email" name="" placeholder="Email">
-<input type="password" name="" placeholder="Create Password"> 
-<input type="password" name="" placeholder="Confirm Password">
-<button class="submit">Register</button>
-</form>
-<a style="margin-top: 30px; font-size: 20px; color:blue; text-decoration: none;" href="login.html">Have An Account?</a>
+  <div class="register-container" id="registerContainer">
+        <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
+    <img src="WonderBible_Logo.png" width="200" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
+    <h1 style="color: #009cff;" id="registerTitle">Register</h1>
+    <div style="margin-bottom: 30px;" class="register-subtitle">Create your <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
+    <input type="text" id="regFirstName" placeholder="First Name" autocomplete="given-name" required>
+    <input type="text" id="regUsername" placeholder="Username" autocomplete="username" required>
+    <input type="email" id="regEmail" placeholder="Email" autocomplete="email" required>
+    <input type="password" id="regPassword" placeholder="Password" autocomplete="new-password" required>
+    <p style="text-align: center;">Profile Picture</p>
+    <input type="file" id="regProfilePic" accept="image/*" style="margin-top:10px;">
+    <button onclick="registerUser()">Register</button>
+    <div class="msg" id="regMsg"></div>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+  <div class="profile-edit-container" id="profileEditContainer" style="display:none;">
+            <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
+    <h2>Edit Profile</h2>
+    <img src="avatar1.png" id="profilePicPreview" class="profile-pic-preview" alt="Profile Picture">
+        <h3 style="margin-bottom:10px;">Change Profile Picture</h3>
+    <input type="file" id="profilePicInput" accept="image/*">
+            <h3 style="margin-bottom:10px;">Change Username</h3>
+    <input type="text" id="editUsername" placeholder="Username">
+    <hr style="margin:18px 0;">
+    <h3 style="margin-bottom:10px;">Change Password</h3>
+    <input type="password" id="oldPassword" placeholder="Current Password" autocomplete="current-password" style="margin-bottom:10px;">
+    <input type="password" id="newPassword" placeholder="New Password" autocomplete="new-password" style="margin-bottom:10px;">
+    <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" autocomplete="new-password" style="margin-bottom:10px;">
+    <button onclick="saveProfileEdit()">Save Changes</button>
+    <button onclick="logoutUser()" style="background:#009cff;color:#fff;margin-top:12px;">Log Out</button>
+    <button onclick="deleteAccount()" style="background:#d32f2f;color:#fff;margin-top:12px;">Delete Account</button>
+    <div class="msg" id="editMsg"></div>
+  </div>
+  <script>
+    // Store multiple accounts in wb_accounts array
+    function getAccounts() {
+      try { return JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { return []; }
+    }
+    function saveAccounts(accounts) {
+      localStorage.setItem('wb_accounts', JSON.stringify(accounts));
+    }
+    function registerUser() {
+      const firstName = document.getElementById('regFirstName').value.trim();
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const picInput = document.getElementById('regProfilePic');
+      const msg = document.getElementById('regMsg');
+      if (!firstName || !username || !email || !password) {
+        msg.textContent = "Please fill all fields.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      // Username validation: only letters, numbers, ., _
+      if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+        msg.textContent = "Username can only contain letters, numbers, full stop (.) and underscore (_).";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      let accounts = getAccounts();
+      // Check for duplicate email/username
+      if (accounts.some(acc => acc.email === email)) {
+        msg.textContent = "Email Registered. please, try to log in";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      if (accounts.some(acc => acc.username === username)) {
+        msg.textContent = "Username already registered, please try other usernames";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      let pic = 'user.png';
+      if (picInput.files && picInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          pic = ev.target.result;
+          saveAccount(firstName, username, email, password, pic, accounts);
+        };
+        reader.readAsDataURL(picInput.files[0]);
+      } else {
+        saveAccount(firstName, username, email, password, pic, accounts);
+      }
+    }
+    function saveAccount(firstName, username, email, password, pic, accounts) {
+      // Save to accounts array
+      accounts.push({ firstName, username, email, password, pic });
+      saveAccounts(accounts);
+      // Set current user session/profile
+      localStorage.setItem('wb_logged_in', '1');
+      localStorage.setItem('wb_user_firstname', firstName);
+      localStorage.setItem('wb_user_username', username);
+      localStorage.setItem('wb_user_email', email);
+      localStorage.setItem('wb_user_password', password);
+      localStorage.setItem('wb_user_pic', pic);
+      document.getElementById('regMsg').textContent = "Account created. Redirecting...";
+      document.getElementById('regMsg').style.color = "#009cff";
+      setTimeout(() => window.location = "index.html", 1200);
+    }
+    // Profile picture change
+    document.getElementById('profilePicInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('profilePicPreview').src = ev.target.result;
+        localStorage.setItem('wb_user_pic', ev.target.result);
+        // Update in accounts array
+        let accounts = getAccounts();
+        const email = localStorage.getItem('wb_user_email');
+        let user = accounts.find(acc => acc.email === email);
+        if (user) {
+          user.pic = ev.target.result;
+          saveAccounts(accounts);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    // Username change
+    function saveProfileEdit() {
+      const newUsername = document.getElementById('editUsername').value.trim();
+      const oldPwd = document.getElementById('oldPassword').value;
+      const newPwd = document.getElementById('newPassword').value;
+      const confirmPwd = document.getElementById('confirmNewPassword').value;
+      const msg = document.getElementById('editMsg');
+      // Username validation: only letters, numbers, ., _
+      if (!newUsername) {
+        msg.textContent = "Username cannot be empty.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      if (!/^[a-zA-Z0-9._]+$/.test(newUsername)) {
+        msg.textContent = "Username can only contain letters, numbers, full stop (.) and underscore (_).";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      // Update username and profile pic in accounts array
+      let accounts = getAccounts();
+      const email = localStorage.getItem('wb_user_email');
+      let user = accounts.find(acc => acc.email === email);
+      // Check for duplicate username (except current user)
+      if (accounts.some(acc => acc.username === newUsername && acc.email !== email)) {
+        msg.textContent = "Username already taken. Please choose another.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      if (user) {
+        user.username = newUsername;
+        user.pic = localStorage.getItem('wb_user_pic') || user.pic;
+        saveAccounts(accounts);
+      }
+      localStorage.setItem('wb_user_username', newUsername);
+      // Password change logic
+      if (oldPwd || newPwd || confirmPwd) {
+        const currentPwd = localStorage.getItem('wb_user_password');
+        if (!oldPwd || !newPwd || !confirmPwd) {
+          msg.textContent = "To change password, fill all password fields.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (oldPwd !== currentPwd) {
+          msg.textContent = "Current password is incorrect.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (newPwd.length < 6) {
+          msg.textContent = "New password must be at least 6 characters.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (newPwd !== confirmPwd) {
+          msg.textContent = "New passwords do not match.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        localStorage.setItem('wb_user_password', newPwd);
+        if (user) {
+          user.password = newPwd;
+          saveAccounts(accounts);
+        }
+      }
+      msg.textContent = "Profile updated! Redirecting...";
+      msg.style.color = "#009cff";
+      setTimeout(() => window.location = "index.html", 1200);
+    }
+    function logoutUser() {
+      localStorage.removeItem('wb_logged_in');
+      localStorage.removeItem('wb_user_firstname');
+      localStorage.removeItem('wb_user_username');
+      localStorage.removeItem('wb_user_email');
+      localStorage.removeItem('wb_user_password');
+      localStorage.removeItem('wb_user_pic');
+      window.location = "login.html";
+    }
+    function deleteAccount() {
+      const email = localStorage.getItem('wb_user_email');
+      let accounts = getAccounts();
+      accounts = accounts.filter(acc => acc.email !== email);
+      saveAccounts(accounts);
+      localStorage.removeItem('wb_user_firstname');
+      localStorage.removeItem('wb_user_username');
+      localStorage.removeItem('wb_user_email');
+      localStorage.removeItem('wb_user_password');
+      localStorage.removeItem('wb_user_pic');
+      localStorage.removeItem('wb_logged_in');
+      document.getElementById('editMsg').textContent = "Account deleted. We're sorry to see you go.";
+      document.getElementById('editMsg').style.color = "#d32f2f";
+      setTimeout(() => window.location = "register.html", 1200);
+    }
+    // If already registered, show profile edit UI
+    window.addEventListener('DOMContentLoaded', function() {
+      // Only show edit UI if logged in
+      if (localStorage.getItem('wb_logged_in') === '1' && localStorage.getItem('wb_user_email')) {
+        document.getElementById('registerContainer').style.display = 'none';
+        document.getElementById('profileEditContainer').style.display = 'block';
+        document.getElementById('editUsername').value = localStorage.getItem('wb_user_username') || '';
+        document.getElementById('oldPassword').value = '';
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmNewPassword').value = '';
+        const pic = localStorage.getItem('wb_user_pic');
+        document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
+      } else {
+        document.getElementById('registerContainer').style.display = 'block';
+        document.getElementById('profileEditContainer').style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

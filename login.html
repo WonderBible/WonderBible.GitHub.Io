@@ -1,49 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - WonderBible</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="login.css" />
-  </head>
-  <body>
-    <div class="login_form_container">
-      <div class="login_form">
-        <h2>Login</h2>
-        <div class="input_group">
-          <i class="fa fa-user"></i>
-          <input
-            type="email"
-            placeholder="Email"
-            class="input_text"
-            autocomplete="off"
-          />
-        </div>
-        <div class="input_group">
-          <i class="fa fa-unlock-alt"></i>
-          <input
-            type="password"
-           type="password" placeholder="Password"
-            class="input_text"
-            autocomplete="off"
-          />
-        </div>
-        <div class="button_group" id="login_button">
-          <a>Submit</a>
-        </div>
-        <div class="fotter">
-          <a class="forgot" href="fp.html">Forgot Password?</a>
-          <a class="register" href="register.html">Register</a>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="login.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Login - WonderBible</title>
+      <link rel="icon" href="WB Logo.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: 'Gabarito', Arial, sans-serif; background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%); }
+    .login-container {
+      max-width: 400px; margin: 60px auto; background: #fff; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
+    }
+    .login-container h2 { margin-bottom: 24px; color: #009cff; }
+    .login-container input {
+      width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;
+    }
+    .login-container button {
+      background: #ffb84d; color: #2e1a8e; font-weight: bold; border: none; border-radius: 8px; padding: 12px 32px; cursor: pointer; margin-top: 18px;
+    }
+    .login-container button:hover { background: #ffd580; }
+    .login-container .msg { margin-top: 16px; font-weight: bold; }
+    .login-container a { color: #009cff; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+            <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
+    <img src="WB Logo.png" width="70" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
+    <h2>Login</h2>
+        <div style="margin-bottom: 30px;" class="register-subtitle">Login to your Existing <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
+    <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" required>
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
+    <button onclick="loginUser()">Login</button>
+    <div class="msg" id="loginMsg"></div>
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+  </div>
+  <script>
+    function loginUser() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const msg = document.getElementById('loginMsg');
+      // Check all accounts in wb_accounts array
+      let accounts = [];
+      try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
+      const user = accounts.find(acc => acc.email === email && acc.password === password);
+      if (!email || !password) {
+        msg.textContent = "Please enter email and password.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      if (user) {
+        msg.textContent = "Login successful! Redirecting...";
+        msg.style.color = "#009cff";
+        localStorage.setItem('wb_logged_in', '1');
+        // Restore user session/profile
+        localStorage.setItem('wb_user_firstname', user.firstName || '');
+        localStorage.setItem('wb_user_username', user.username);
+        localStorage.setItem('wb_user_email', user.email);
+        localStorage.setItem('wb_user_password', user.password);
+        localStorage.setItem('wb_user_pic', user.pic || 'user.png');
+        setTimeout(() => window.location = "index.html", 1200);
+      } else {
+        msg.textContent = "Invalid email or password.";
+        msg.style.color = "#d32f2f";
+      }
+    }
+  </script>
+</body>
 </html>

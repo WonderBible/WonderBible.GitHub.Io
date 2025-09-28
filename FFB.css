@@ -17,7 +17,7 @@ header a {
   text-decoration: none;
 }
 .sm {
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   margin-top: 20px;
   background-color: white;
     }
@@ -186,11 +186,11 @@ height: 200px;
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: black;
+  background-color: #000000; /* changed from black to #000000 */
   appearance: 110%;
   margin: 6px 0;
   transition: 0.4s;
-  color:blue
+  color: blue;
 }
 .open .bar1 {
   -webkit-transform: rotate(-45deg) translate(-6px, 6px);
@@ -221,19 +221,66 @@ cursor: pointer;
   align-items: center;
   justify-content: flex-start;
   background-color: black;
-  height: 350px;
-}
-.nul1 {
-background-color:red;
-height:100px;
-}
-.mobile-menu {
-  display: none;
   position: absolute;
+  z-index: 10000;
   top: 50px;
   left: 0;
-  height: calc(100vh - 50px);
-  width: 100%;
+  width: 100vw;
+  height: 350px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition:
+  transform 3s cubic-bezier(0.4,0,0.2,1),
+  opacity 1.5s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+header.open .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+header.closing .mobile-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: black;
+  position: absolute;
+  z-index: 10000;
+  top: 50px;
+  left: 0;
+  width: 100vw;
+  height: 350px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition:
+  transform 3s cubic-bezier(0.4,0,0.2,1),
+  opacity 1.5s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+header.open .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+header.closing .mobile-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
 }
 
 .mobile-menu li {
@@ -556,7 +603,6 @@ height:100px;
                  border-style: solid;
       }
             .LMAWB:hover {
-        margin-top: 30px;
          height: 70px;
           border-radius: 20px;
            border-color:#5d00ff;
@@ -570,7 +616,7 @@ height:100px;
                  width: 300px;
       }
             .LMAWB:active {
-        margin-top: 30px;
+        margin-top: 50px;
          height: 70px;
           border-radius: 20px;
            border-color:#ffa500;
@@ -586,15 +632,15 @@ height:100px;
             .downloadheader {
          height: 50px;
           border-radius: 15px; 
-           border-color:#000000;
+           border-color:#0059ff;
            background-color: #000000;
            transition: .3s;
-            border-width: 5px;
+            border-width: 1.5px;
              font-size: 15px;
               font-weight: bolder;
                cursor: pointer;
                 color: #ffffff;
-                 width: 100px;
+                 width: 120px;
                  border-style: solid;
       }
             .downloadheader:hover {
@@ -627,10 +673,10 @@ height:100px;
                   .downloadheader-mobile {
          height: 50px;
           border-radius: 15px; 
-           border-color:#000000;
+           border-color:#ffffff;
            background-color: #000000;
            transition: .3s;
-            border-width: 5px;
+            border-width: 1px;
              font-size: 15px;
               font-weight: bolder;
                cursor: pointer;
@@ -665,7 +711,75 @@ height:100px;
                 color: #ff0000;
                  width: 300px;
       }
-    .sqg1 {
+                  .downloadheadersup {
+         height: 50px;
+          border-radius: 15px; 
+           border-color:#000000;
+           background-color: #000000;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ffffff;
+                 width: 150px;;
+                 border-style: solid;
+      }
+            .downloadheadersup:hover {
+         height: 50px;
+          border-radius: 20px;
+           border-color:#5d00ff;
+           background-color: transparent;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #000000;
+                 width: 150px;
+      }
+        .downloadheadersup:active {
+         height: 50px;
+          border-radius: 20px;
+           border-color:#ffa500;
+           background-color: #0051ff;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+               cursor: pointer;
+                color: #ff0000;
+                 width: 150px;
+      }
+                  .transparent {
+         height: 50px;
+          border-radius: 15px; 
+           border-color:transparent;
+           background-color: transparent;
+           transition: .3s;
+            border-width: 5px;
+             font-size: 15px;
+              font-weight: bolder;
+                color: transparent;
+                 width: 150px;;
+                 border-style: solid;
+      }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Gabarito', Arial, sans-serif; background: #f7f9fa; margin: 0; }
+           .features {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+        background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%); padding: 60px 10px 40px 10px; margin-top: -40px;
+      }
+      .feature-card {
+        background: #f0f4ff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        padding: 32px 24px; width: 320px; text-align: center; transition: transform 0.2s;
+        cursor: pointer;
+      }
+      .feature-card:hover { transform: translateY(-8px) scale(1.03); }
+      .feature-icon { font-size: 2.5rem; color: #009cff; margin-bottom: 18px; }
+      .feature-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+      .feature-desc { font-size: 1rem; color: #333; }
+      .sqg1 {
       color:salmon;
       font-family: Arial;
       font-weight: bolder;
@@ -916,7 +1030,7 @@ position:relative;
   transition: 0.23s;
 } 
 #preloader{
-  background: #ffffff url(Loading.gif) no-repeat center center;
+  background: #ffffff url(https://wonderbible.world/Loading.gif) no-repeat center center;
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -946,5 +1060,39 @@ position:relative;
   margin: 16px 0 18px;
   width: fit-content;
   border-radius: 50px;
+}
 
+/* Default: right-to-left */
+.mobile-menu {
+  transform: translateX(100%);
+  transition:
+    transform 3s cubic-bezier(0.4,0,0.2,1),
+    opacity 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Right-to-left pattern */
+header.open.rtl-menu .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+header.closing.rtl-menu .mobile-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+/* Left-to-right pattern */
+header.open.ltr-menu .mobile-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+header.closing.ltr-menu .mobile-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+header.ltr-menu .mobile-menu {
+  transform: translateX(-100%);
 }
