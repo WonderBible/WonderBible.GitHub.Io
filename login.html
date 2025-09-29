@@ -90,37 +90,9 @@
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
 
-      function askUsername() {
-        let username = prompt("Choose a username for your WonderBible account:");
-        if (!username) {
-          document.getElementById('loginMsg').textContent = "Username is required for Google registration.";
-          document.getElementById('loginMsg').style.color = "#d32f2f";
-          return;
-        }
-        username = username.trim();
-        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
-          alert("Username can only contain letters, numbers, full stop (.) and underscore (_).");
-          return askUsername();
-        }
-        if (accounts.some(acc => acc.username === username)) {
-          alert("Username already taken. Please choose another.");
-          return askUsername();
-        }
-        accounts.push({ firstName, username, email, password: '', pic });
-        localStorage.setItem('wb_accounts', JSON.stringify(accounts));
-        localStorage.setItem('wb_logged_in', '1');
-        localStorage.setItem('wb_user_firstname', firstName);
-        localStorage.setItem('wb_user_username', username);
-        localStorage.setItem('wb_user_email', email);
-        localStorage.setItem('wb_user_password', '');
-        localStorage.setItem('wb_user_pic', pic);
-        document.getElementById('loginMsg').textContent = "Signed in with Google! Redirecting...";
-        document.getElementById('loginMsg').style.color = "#009cff";
-        setTimeout(() => window.location = "index.html", 1200);
-      }
-
       let user = accounts.find(acc => acc.email === email);
       if (user) {
+        // Already registered, log in with username and password
         localStorage.setItem('wb_logged_in', '1');
         localStorage.setItem('wb_user_firstname', user.firstName);
         localStorage.setItem('wb_user_username', user.username);
@@ -131,7 +103,38 @@
         document.getElementById('loginMsg').style.color = "#009cff";
         setTimeout(() => window.location = "index.html", 1200);
       } else {
-        askUsername();
+        // New Google user: ask for username and password
+        let username = prompt("Choose a username for your WonderBible account:");
+        if (!username) {
+          document.getElementById('loginMsg').textContent = "Username is required for Google registration.";
+          document.getElementById('loginMsg').style.color = "#d32f2f";
+          return;
+        }
+        username = username.trim();
+        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+          alert("Username can only contain letters, numbers, full stop (.) and underscore (_).");
+          return;
+        }
+        if (accounts.some(acc => acc.username === username)) {
+          alert("Username already taken. Please choose another.");
+          return;
+        }
+        let password = prompt("Choose a password for your WonderBible account (min 6 characters):");
+        if (!password || password.length < 6) {
+          alert("Password must be at least 6 characters.");
+          return;
+        }
+        accounts.push({ firstName, username, email, password, pic });
+        localStorage.setItem('wb_accounts', JSON.stringify(accounts));
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', firstName);
+        localStorage.setItem('wb_user_username', username);
+        localStorage.setItem('wb_user_email', email);
+        localStorage.setItem('wb_user_password', password);
+        localStorage.setItem('wb_user_pic', pic);
+        document.getElementById('loginMsg').textContent = "Google registration complete! Redirecting...";
+        document.getElementById('loginMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
       }
     }
   </script>
