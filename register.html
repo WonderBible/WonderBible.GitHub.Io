@@ -67,6 +67,8 @@
     <input type="file" id="profilePicInput" accept="image/*">
             <h3 style="margin-bottom:10px;">Change Username</h3>
     <input type="text" id="editUsername" placeholder="Username">
+        <h3 style="margin-bottom:10px;">Change Email</h3>
+    <input type="email" id="editEmail" placeholder="Current Email" autocomplete="email" style="margin-bottom:10px;">
     <hr style="margin:18px 0;">
     <h3 style="margin-bottom:10px;">Change Password</h3>
     <input type="password" id="oldPassword" placeholder="Current Password" autocomplete="current-password" style="margin-bottom:10px;">
@@ -168,8 +170,9 @@
       const oldPwd = document.getElementById('oldPassword').value;
       const newPwd = document.getElementById('newPassword').value;
       const confirmPwd = document.getElementById('confirmNewPassword').value;
+      const newEmail = document.getElementById('editEmail') ? document.getElementById('editEmail').value.trim() : '';
       const msg = document.getElementById('editMsg');
-      // Username validation: only letters, numbers, ., _
+      // Username validation
       if (!newUsername) {
         msg.textContent = "Username cannot be empty.";
         msg.style.color = "#d32f2f";
@@ -180,32 +183,62 @@
         msg.style.color = "#d32f2f";
         return;
       }
-      // Update username and profile pic in accounts array
       let accounts = getAccounts();
       const email = localStorage.getItem('wb_user_email');
       let user = accounts.find(acc => acc.email === email);
-      // Check for duplicate username (except current user)
-      if (accounts.some(acc => acc.username === newUsername && acc.email !== email)) {
-        msg.textContent = "Username already taken. Please choose another.";
-        msg.style.color = "#d32f2f";
-        return;
-      }
-      if (user) {
-        user.username = newUsername;
-        user.pic = localStorage.getItem('wb_user_pic') || user.pic;
-        saveAccounts(accounts);
-      }
-      localStorage.setItem('wb_user_username', newUsername);
-      // Password change logic
-      if (oldPwd || newPwd || confirmPwd) {
-        const currentPwd = localStorage.getItem('wb_user_password');
-        if (!oldPwd || !newPwd || !confirmPwd) {
-          msg.textContent = "To change password, fill all password fields.";
+
+      // Google registration completion logic
+      if (localStorage.getItem('wb_google_pending') === '1') {
+        // Only require new password and confirmation, not current password
+        if (!newPwd || !confirmPwd) {
+          msg.textContent = "Password and confirmation are required.";
           msg.style.color = "#d32f2f";
           return;
         }
-        if (oldPwd !== currentPwd) {
-          msg.textContent = "Current password is incorrect.";
+        if (newPwd.length < 6) {
+          msg.textContent = "Password must be at least 6 characters.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (newPwd !== confirmPwd) {
+          msg.textContent = "Passwords do not match.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (accounts.some(acc => acc.username === newUsername)) {
+          msg.textContent = "Username already taken. Please choose another.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        // Complete Google registration
+        const firstName = localStorage.getItem('wb_google_firstname');
+        const pic = localStorage.getItem('wb_google_pic') || 'user.png';
+        const emailGoogle = localStorage.getItem('wb_google_email');
+        accounts.push({ firstName, username: newUsername, email: emailGoogle, password: newPwd, pic });
+        saveAccounts(accounts);
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', firstName);
+        localStorage.setItem('wb_user_username', newUsername);
+        localStorage.setItem('wb_user_email', emailGoogle);
+        localStorage.setItem('wb_user_password', newPwd);
+        localStorage.setItem('wb_user_pic', pic);
+        // Clean up temp Google registration info
+        localStorage.removeItem('wb_google_firstname');
+        localStorage.removeItem('wb_google_email');
+        localStorage.removeItem('wb_google_pic');
+        localStorage.removeItem('wb_google_pending');
+        msg.textContent = "Google registration complete! Redirecting...";
+        msg.style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
+        return;
+      }
+
+      // Normal profile edit logic
+      // Allow first password change after registration without current password
+      let firstEdit = !user || !user.password;
+      if (newPwd || confirmPwd) {
+        if (!newPwd || !confirmPwd) {
+          msg.textContent = "To change password, fill all password fields.";
           msg.style.color = "#d32f2f";
           return;
         }
@@ -219,12 +252,57 @@
           msg.style.color = "#d32f2f";
           return;
         }
+        if (!firstEdit) {
+          const currentPwd = localStorage.getItem('wb_user_password');
+          if (!oldPwd) {
+            msg.textContent = "To change password, fill all password fields.";
+            msg.style.color = "#d32f2f";
+            return;
+          }
+          if (oldPwd !== currentPwd) {
+            msg.textContent = "Current password is incorrect.";
+            msg.style.color = "#d32f2f";
+            return;
+          }
+        }
         localStorage.setItem('wb_user_password', newPwd);
         if (user) {
           user.password = newPwd;
           saveAccounts(accounts);
         }
       }
+      // Username change logic
+      if (accounts.some(acc => acc.username === newUsername && acc.email !== email)) {
+        msg.textContent = "Username already taken. Please choose another.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      if (user) {
+        user.username = newUsername;
+        user.pic = localStorage.getItem('wb_user_pic') || user.pic;
+        saveAccounts(accounts);
+      }
+      localStorage.setItem('wb_user_username', newUsername);
+
+      // Email change logic
+      if (newEmail && newEmail !== email) {
+        if (!/^[^@]+@[^@]+\.[^@]+$/.test(newEmail)) {
+          msg.textContent = "Please enter a valid email address.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (accounts.some(acc => acc.email === newEmail)) {
+          msg.textContent = "Email already registered. Please use another.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (user) {
+          user.email = newEmail;
+          saveAccounts(accounts);
+        }
+        localStorage.setItem('wb_user_email', newEmail);
+      }
+
       msg.textContent = "Profile updated! Redirecting...";
       msg.style.color = "#009cff";
       setTimeout(() => window.location = "index.html", 1200);
@@ -359,10 +437,11 @@
         document.getElementById('newPassword').style.display = '';
         document.getElementById('confirmNewPassword').style.display = '';
         document.getElementById('oldPassword').style.display = 'none';
+        if (document.getElementById('editEmail')) document.getElementById('editEmail').style.display = 'none';
         document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
       } else {
-        // After registration, show current password for profile edits
         document.getElementById('oldPassword').style.display = '';
+        if (document.getElementById('editEmail')) document.getElementById('editEmail').style.display = '';
       }
     });
   </script>
