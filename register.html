@@ -45,14 +45,6 @@
         <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
     <img src="WonderBible_Logo.png" width="200" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
     <h1 style="color: #009cff;" id="registerTitle">Register</h1>
-    <div style="margin-bottom: 30px;" class="register-subtitle">Create your <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
-    <input type="text" id="regFirstName" placeholder="First Name" autocomplete="given-name" required>
-    <input type="text" id="regUsername" placeholder="Username" autocomplete="username" required>
-    <input type="email" id="regEmail" placeholder="Email" autocomplete="email" required>
-    <input type="password" id="regPassword" placeholder="Password" autocomplete="new-password" required>
-    <p style="text-align: center;">Profile Picture</p>
-    <input type="file" id="regProfilePic" accept="image/*" style="margin-top:10px;">
-    <button onclick="registerUser()">Register</button>
     <div class="msg" id="regMsg"></div>
     <div style="margin:18px 0;">
       <div id="gSignInBtn"></div>
@@ -269,25 +261,56 @@
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
       const email = payload.email;
       const firstName = payload.given_name || '';
-      const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = getAccounts();
-      let user = accounts.find(acc => acc.email === email);
-      if (!user) {
+
+      // Prompt for username until a valid and unused one is entered
+      function askUsername() {
+        let username = prompt("Choose a username for your WonderBible account:");
+        if (!username) {
+          document.getElementById('regMsg').textContent = "Username is required for Google registration.";
+          document.getElementById('regMsg').style.color = "#d32f2f";
+          return;
+        }
+        username = username.trim();
+        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+          alert("Username can only contain letters, numbers, full stop (.) and underscore (_).");
+          return askUsername();
+        }
+        if (accounts.some(acc => acc.username === username)) {
+          alert("Username already taken. Please choose another.");
+          return askUsername();
+        }
         // Register new account
         accounts.push({ firstName, username, email, password: '', pic });
         saveAccounts(accounts);
+        // Set session
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', firstName);
+        localStorage.setItem('wb_user_username', username);
+        localStorage.setItem('wb_user_email', email);
+        localStorage.setItem('wb_user_password', '');
+        localStorage.setItem('wb_user_pic', pic);
+        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
+        document.getElementById('regMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
       }
-      // Set session
-      localStorage.setItem('wb_logged_in', '1');
-      localStorage.setItem('wb_user_firstname', firstName);
-      localStorage.setItem('wb_user_username', username);
-      localStorage.setItem('wb_user_email', email);
-      localStorage.setItem('wb_user_password', '');
-      localStorage.setItem('wb_user_pic', pic);
-      document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
-      document.getElementById('regMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
+
+      // If account exists, just log in
+      let user = accounts.find(acc => acc.email === email);
+      if (user) {
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', user.firstName);
+        localStorage.setItem('wb_user_username', user.username);
+        localStorage.setItem('wb_user_email', user.email);
+        localStorage.setItem('wb_user_password', user.password);
+        localStorage.setItem('wb_user_pic', user.pic);
+        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
+        document.getElementById('regMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
+      } else {
+        askUsername();
+      }
     }
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
