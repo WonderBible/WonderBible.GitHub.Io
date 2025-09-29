@@ -323,7 +323,7 @@
         document.getElementById('editUsername').value = '';
         document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
         document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
-        // Show username, password, confirm password, profile pic fields; hide current password
+        // Show username, new password, confirm password, profile pic fields; hide current password
         document.getElementById('editUsername').style.display = '';
         document.getElementById('profilePicInput').style.display = '';
         document.getElementById('newPassword').style.display = '';
@@ -360,6 +360,9 @@
         document.getElementById('confirmNewPassword').style.display = '';
         document.getElementById('oldPassword').style.display = 'none';
         document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
+      } else {
+        // After registration, show current password for profile edits
+        document.getElementById('oldPassword').style.display = '';
       }
     });
   </script>
