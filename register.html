@@ -54,6 +54,9 @@
     <input type="file" id="regProfilePic" accept="image/*" style="margin-top:10px;">
     <button onclick="registerUser()">Register</button>
     <div class="msg" id="regMsg"></div>
+    <div style="margin:18px 0;">
+      <div id="gSignInBtn"></div>
+    </div>
     <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
   <div class="profile-edit-container" id="profileEditContainer" style="display:none;">
@@ -74,6 +77,7 @@
     <button onclick="deleteAccount()" style="background:#d32f2f;color:#fff;margin-top:12px;">Delete Account</button>
     <div class="msg" id="editMsg"></div>
   </div>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     // Store multiple accounts in wb_accounts array
     function getAccounts() {
@@ -248,6 +252,42 @@
       document.getElementById('editMsg').textContent = "Account deleted. We're sorry to see you go.";
       document.getElementById('editMsg').style.color = "#d32f2f";
       setTimeout(() => window.location = "register.html", 1200);
+    }
+    // Google Sign-In logic
+    window.onload = function() {
+      google.accounts.id.initialize({
+        client_id: '874109905589-1306trr1l0np3nijbio3el9mc4fmuppi.apps.googleusercontent.com',
+        callback: handleGoogleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("gSignInBtn"),
+        { theme: "outline", size: "large", text: "continue_with", shape: "pill" }
+      );
+    };
+    function handleGoogleCredentialResponse(response) {
+      // Decode JWT
+      const payload = JSON.parse(atob(response.credential.split('.')[1]));
+      const email = payload.email;
+      const firstName = payload.given_name || '';
+      const username = email.split('@')[0];
+      const pic = payload.picture || 'user.png';
+      let accounts = getAccounts();
+      let user = accounts.find(acc => acc.email === email);
+      if (!user) {
+        // Register new account
+        accounts.push({ firstName, username, email, password: '', pic });
+        saveAccounts(accounts);
+      }
+      // Set session
+      localStorage.setItem('wb_logged_in', '1');
+      localStorage.setItem('wb_user_firstname', firstName);
+      localStorage.setItem('wb_user_username', username);
+      localStorage.setItem('wb_user_email', email);
+      localStorage.setItem('wb_user_password', '');
+      localStorage.setItem('wb_user_pic', pic);
+      document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
+      document.getElementById('regMsg').style.color = "#009cff";
+      setTimeout(() => window.location = "index.html", 1200);
     }
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
