@@ -82,17 +82,18 @@
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
       const email = payload.email;
       const firstName = payload.given_name || '';
+      // Use email prefix as username
       const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
       let user = accounts.find(acc => acc.email === email);
       if (!user) {
-        // Register new account
+        // Register new account with username as email prefix
         accounts.push({ firstName, username, email, password: '', pic });
         localStorage.setItem('wb_accounts', JSON.stringify(accounts));
       }
-      // Set session
+      // Set session, username is always email prefix for Google users
       localStorage.setItem('wb_logged_in', '1');
       localStorage.setItem('wb_user_firstname', firstName);
       localStorage.setItem('wb_user_username', username);
