@@ -34,9 +34,6 @@
     <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
     <button onclick="loginUser()">Login</button>
     <div class="msg" id="loginMsg"></div>
-    <div style="margin:18px 0;">
-      <div id="gSignInBtn"></div>
-    </div>
     <p>Don't have an account? <a href="register.html">Register</a></p>
   </div>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -64,7 +61,7 @@
         localStorage.setItem('wb_user_email', user.email);
         localStorage.setItem('wb_user_password', user.password);
         localStorage.setItem('wb_user_pic', user.pic || 'user.png');
-        setTimeout(() => window.location = "index.html", 1200);
+        setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
       } else {
         msg.textContent = "Invalid email or password.";
         msg.style.color = "#d32f2f";
@@ -105,7 +102,7 @@
       localStorage.setItem('wb_user_pic', pic);
       document.getElementById('loginMsg').textContent = "Signed in with Google! Redirecting...";
       document.getElementById('loginMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
+      setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
     }
   </script>
 </body>

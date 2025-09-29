@@ -138,7 +138,7 @@
       localStorage.setItem('wb_user_pic', pic);
       document.getElementById('regMsg').textContent = "Account created. Redirecting...";
       document.getElementById('regMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
+      setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
     }
     // Profile picture change
     document.getElementById('profilePicInput').addEventListener('change', function(e) {
@@ -224,7 +224,7 @@
       }
       msg.textContent = "Profile updated! Redirecting...";
       msg.style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
+      setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
     }
     function logoutUser() {
       localStorage.removeItem('wb_logged_in');
@@ -284,7 +284,7 @@
       localStorage.setItem('wb_user_pic', pic);
       document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
       document.getElementById('regMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
+      setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
     }
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
