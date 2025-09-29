@@ -165,11 +165,10 @@
     // Username change
     function saveProfileEdit() {
       const newUsername = document.getElementById('editUsername').value.trim();
-      const oldPwd = document.getElementById('oldPassword').value;
       const newPwd = document.getElementById('newPassword').value;
       const confirmPwd = document.getElementById('confirmNewPassword').value;
       const msg = document.getElementById('editMsg');
-      // Username validation: only letters, numbers, ., _
+      // Username validation
       if (!newUsername) {
         msg.textContent = "Username cannot be empty.";
         msg.style.color = "#d32f2f";
@@ -178,6 +177,53 @@
       if (!/^[a-zA-Z0-9._]+$/.test(newUsername)) {
         msg.textContent = "Username can only contain letters, numbers, full stop (.) and underscore (_).";
         msg.style.color = "#d32f2f";
+        return;
+      }
+      let accounts = getAccounts();
+      let user = accounts.find(acc => acc.username === localStorage.getItem('wb_user_username'));
+      if (accounts.some(acc => acc.username === newUsername && acc.username !== localStorage.getItem('wb_user_username'))) {
+        msg.textContent = "Username already taken. Please choose another.";
+        msg.style.color = "#d32f2f";
+        return;
+      }
+      // Google registration completion logic
+      if (localStorage.getItem('wb_google_pending') === '1') {
+        if (!newPwd || !confirmPwd) {
+          msg.textContent = "Password and confirmation are required.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (newPwd.length < 6) {
+          msg.textContent = "Password must be at least 6 characters.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (newPwd !== confirmPwd) {
+          msg.textContent = "Passwords do not match.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (accounts.some(acc => acc.username === newUsername)) {
+          msg.textContent = "Username already taken. Please choose another.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        // Complete Google registration
+        const firstName = localStorage.getItem('wb_google_firstname');
+        const pic = localStorage.getItem('wb_google_pic') || 'user.png';
+        accounts.push({ firstName, username: newUsername, password: newPwd, pic });
+        saveAccounts(accounts);
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', firstName);
+        localStorage.setItem('wb_user_username', newUsername);
+        localStorage.setItem('wb_user_password', newPwd);
+        localStorage.setItem('wb_user_pic', pic);
+        localStorage.removeItem('wb_google_firstname');
+        localStorage.removeItem('wb_google_pic');
+        localStorage.removeItem('wb_google_pending');
+        msg.textContent = "Google registration complete! Redirecting...";
+        msg.style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
         return;
       }
       // Update username and profile pic in accounts array
@@ -267,27 +313,39 @@
     function handleGoogleCredentialResponse(response) {
       // Decode JWT
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
-      const email = payload.email;
       const firstName = payload.given_name || '';
-      const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = getAccounts();
-      let user = accounts.find(acc => acc.email === email);
-      if (!user) {
-        // Register new account
-        accounts.push({ firstName, username, email, password: '', pic });
-        saveAccounts(accounts);
+
+      // Always require username and password for new Google registration
+      let user = accounts.find(acc => acc.pic === pic && acc.firstName === firstName);
+      if (user) {
+        // Already registered, log in
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', user.firstName);
+        localStorage.setItem('wb_user_username', user.username);
+        localStorage.setItem('wb_user_password', user.password);
+        localStorage.setItem('wb_user_pic', user.pic);
+        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
+        document.getElementById('regMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
+      } else {
+        // Show Edit Profile UI for Google registration
+        document.getElementById('registerContainer').style.display = 'none';
+        document.getElementById('profileEditContainer').style.display = 'block';
+        document.getElementById('editUsername').value = '';
+        document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
+        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
+        document.getElementById('editUsername').style.display = '';
+        document.getElementById('profilePicInput').style.display = '';
+        document.getElementById('newPassword').style.display = '';
+        document.getElementById('confirmNewPassword').style.display = '';
+        document.getElementById('oldPassword').style.display = 'none';
+        // Store Google info temporarily in localStorage for registration completion
+        localStorage.setItem('wb_google_firstname', firstName);
+        localStorage.setItem('wb_google_pic', pic);
+        localStorage.setItem('wb_google_pending', '1');
       }
-      // Set session
-      localStorage.setItem('wb_logged_in', '1');
-      localStorage.setItem('wb_user_firstname', firstName);
-      localStorage.setItem('wb_user_username', username);
-      localStorage.setItem('wb_user_email', email);
-      localStorage.setItem('wb_user_password', '');
-      localStorage.setItem('wb_user_pic', pic);
-      document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
-      document.getElementById('regMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
     }
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
@@ -304,6 +362,14 @@
       } else {
         document.getElementById('registerContainer').style.display = 'block';
         document.getElementById('profileEditContainer').style.display = 'none';
+      }
+      if (localStorage.getItem('wb_google_pending') === '1') {
+        document.getElementById('editUsername').style.display = '';
+        document.getElementById('profilePicInput').style.display = '';
+        document.getElementById('newPassword').style.display = '';
+        document.getElementById('confirmNewPassword').style.display = '';
+        document.getElementById('oldPassword').style.display = 'none';
+        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
       }
     });
   </script>

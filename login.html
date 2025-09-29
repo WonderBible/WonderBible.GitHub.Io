@@ -30,7 +30,7 @@
     <img src="WB Logo.png" width="70" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
     <h2>Login</h2>
         <div style="margin-bottom: 30px;" class="register-subtitle">Login to your Existing <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
-    <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" required>
+    <input type="text" id="loginUsername" placeholder="Username" autocomplete="username" required>
     <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
     <button onclick="loginUser()">Login</button>
     <div class="msg" id="loginMsg"></div>
@@ -42,15 +42,14 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     function loginUser() {
-      const email = document.getElementById('loginEmail').value.trim();
+      const username = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
       const msg = document.getElementById('loginMsg');
-      // Check all accounts in wb_accounts array
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
-      const user = accounts.find(acc => acc.email === email && acc.password === password);
-      if (!email || !password) {
-        msg.textContent = "Please enter email and password.";
+      const user = accounts.find(acc => acc.username === username && acc.password === password);
+      if (!username || !password) {
+        msg.textContent = "Please enter username and password.";
         msg.style.color = "#d32f2f";
         return;
       }
@@ -58,15 +57,13 @@
         msg.textContent = "Login successful! Redirecting...";
         msg.style.color = "#009cff";
         localStorage.setItem('wb_logged_in', '1');
-        // Restore user session/profile
         localStorage.setItem('wb_user_firstname', user.firstName || '');
         localStorage.setItem('wb_user_username', user.username);
-        localStorage.setItem('wb_user_email', user.email);
         localStorage.setItem('wb_user_password', user.password);
         localStorage.setItem('wb_user_pic', user.pic || 'user.png');
         setTimeout(() => window.location = "index.html", 1200);
       } else {
-        msg.textContent = "Invalid email or password.";
+        msg.textContent = "Invalid username or password.";
         msg.style.color = "#d32f2f";
       }
     }
@@ -84,28 +81,54 @@
     function handleGoogleCredentialResponse(response) {
       // Decode JWT
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
-      const email = payload.email;
       const firstName = payload.given_name || '';
-      const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
-      let user = accounts.find(acc => acc.email === email);
-      if (!user) {
-        // Register new account
-        accounts.push({ firstName, username, email, password: '', pic });
+      let user = accounts.find(acc => acc.firstName === firstName && acc.pic === pic);
+      if (user) {
+        // Already registered, log in
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', user.firstName);
+        localStorage.setItem('wb_user_username', user.username);
+        localStorage.setItem('wb_user_password', user.password);
+        localStorage.setItem('wb_user_pic', user.pic);
+        document.getElementById('loginMsg').textContent = "Signed in with Google! Redirecting...";
+        document.getElementById('loginMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
+      } else {
+        // New Google user: ask for username and password
+        let username = prompt("Choose a username for your WonderBible account:");
+        if (!username) {
+          document.getElementById('loginMsg').textContent = "Username is required for Google registration.";
+          document.getElementById('loginMsg').style.color = "#d32f2f";
+          return;
+        }
+        username = username.trim();
+        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+          alert("Username can only contain letters, numbers, full stop (.) and underscore (_).");
+          return;
+        }
+        if (accounts.some(acc => acc.username === username)) {
+          alert("Username already taken. Please choose another.");
+          return;
+        }
+        let password = prompt("Choose a password for your WonderBible account (min 6 characters):");
+        if (!password || password.length < 6) {
+          alert("Password must be at least 6 characters.");
+          return;
+        }
+        accounts.push({ firstName, username, password, pic });
         localStorage.setItem('wb_accounts', JSON.stringify(accounts));
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', firstName);
+        localStorage.setItem('wb_user_username', username);
+        localStorage.setItem('wb_user_password', password);
+        localStorage.setItem('wb_user_pic', pic);
+        document.getElementById('loginMsg').textContent = "Google registration complete! Redirecting...";
+        document.getElementById('loginMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
       }
-      // Set session
-      localStorage.setItem('wb_logged_in', '1');
-      localStorage.setItem('wb_user_firstname', firstName);
-      localStorage.setItem('wb_user_username', username);
-      localStorage.setItem('wb_user_email', email);
-      localStorage.setItem('wb_user_password', '');
-      localStorage.setItem('wb_user_pic', pic);
-      document.getElementById('loginMsg').textContent = "Signed in with Google! Redirecting...";
-      document.getElementById('loginMsg').style.color = "#009cff";
-      setTimeout(() => window.location = "index.html", 1200);
     }
   </script>
 </body>
