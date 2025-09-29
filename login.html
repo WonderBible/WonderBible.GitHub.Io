@@ -29,6 +29,10 @@
             <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
     <img src="WB Logo.png" width="70" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
     <h2>Login</h2>
+        <div style="margin-bottom: 30px;" class="register-subtitle">Login to your Existing <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
+    <input type="text" id="loginUsername" placeholder="Username" autocomplete="username" required>
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
+    <button onclick="loginUser()">Login</button>
     <div class="msg" id="loginMsg"></div>
     <div style="margin:18px 0;">
       <div id="gSignInBtn"></div>
@@ -38,15 +42,15 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     function loginUser() {
-      const email = document.getElementById('loginEmail').value.trim();
+      const username = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
       const msg = document.getElementById('loginMsg');
       // Check all accounts in wb_accounts array
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
-      const user = accounts.find(acc => acc.email === email && acc.password === password);
-      if (!email || !password) {
-        msg.textContent = "Please enter email and password.";
+      const user = accounts.find(acc => acc.username === username && acc.password === password);
+      if (!username || !password) {
+        msg.textContent = "Please enter username and password.";
         msg.style.color = "#d32f2f";
         return;
       }
@@ -62,7 +66,7 @@
         localStorage.setItem('wb_user_pic', user.pic || 'user.png');
         setTimeout(() => window.location = "index.html", 1200);
       } else {
-        msg.textContent = "Invalid email or password.";
+        msg.textContent = "Invalid username or password.";
         msg.style.color = "#d32f2f";
       }
     }
