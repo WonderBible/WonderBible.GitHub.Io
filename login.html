@@ -45,7 +45,6 @@
       const username = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
       const msg = document.getElementById('loginMsg');
-      // Check all accounts in wb_accounts array
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
       const user = accounts.find(acc => acc.username === username && acc.password === password);
@@ -58,10 +57,8 @@
         msg.textContent = "Login successful! Redirecting...";
         msg.style.color = "#009cff";
         localStorage.setItem('wb_logged_in', '1');
-        // Restore user session/profile
         localStorage.setItem('wb_user_firstname', user.firstName || '');
         localStorage.setItem('wb_user_username', user.username);
-        localStorage.setItem('wb_user_email', user.email);
         localStorage.setItem('wb_user_password', user.password);
         localStorage.setItem('wb_user_pic', user.pic || 'user.png');
         setTimeout(() => window.location = "index.html", 1200);
@@ -89,14 +86,12 @@
       const pic = payload.picture || 'user.png';
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
-
-      let user = accounts.find(acc => acc.email === email);
+      let user = accounts.find(acc => acc.username === localStorage.getItem('wb_user_username'));
       if (user) {
         // Already registered, log in with username and password
         localStorage.setItem('wb_logged_in', '1');
         localStorage.setItem('wb_user_firstname', user.firstName);
         localStorage.setItem('wb_user_username', user.username);
-        localStorage.setItem('wb_user_email', user.email);
         localStorage.setItem('wb_user_password', user.password);
         localStorage.setItem('wb_user_pic', user.pic);
         document.getElementById('loginMsg').textContent = "Signed in with Google! Redirecting...";
@@ -124,16 +119,21 @@
           alert("Password must be at least 6 characters.");
           return;
         }
-        accounts.push({ firstName, username, email, password, pic });
+        accounts.push({ firstName, username, password, pic });
         localStorage.setItem('wb_accounts', JSON.stringify(accounts));
         localStorage.setItem('wb_logged_in', '1');
         localStorage.setItem('wb_user_firstname', firstName);
         localStorage.setItem('wb_user_username', username);
-        localStorage.setItem('wb_user_email', email);
         localStorage.setItem('wb_user_password', password);
         localStorage.setItem('wb_user_pic', pic);
         document.getElementById('loginMsg').textContent = "Google registration complete! Redirecting...";
         document.getElementById('loginMsg').style.color = "#009cff";
+        setTimeout(() => window.location = "index.html", 1200);
+      }
+    }
+  </script>
+</body>
+</html>
         setTimeout(() => window.location = "index.html", 1200);
       }
     }
