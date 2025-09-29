@@ -48,6 +48,7 @@
     <div style="margin-bottom: 30px;" class="register-subtitle">Create your <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
     <input type="text" id="regFirstName" placeholder="First Name" autocomplete="given-name" required>
     <input type="text" id="regUsername" placeholder="Username" autocomplete="username" required>
+    <input type="email" id="regEmail" placeholder="Email" autocomplete="email" required>
     <input type="password" id="regPassword" placeholder="Password" autocomplete="new-password" required>
     <p style="text-align: center;">Profile Picture</p>
     <input type="file" id="regProfilePic" accept="image/*" style="margin-top:10px;">
@@ -68,6 +69,7 @@
     <input type="text" id="editUsername" placeholder="Username">
     <hr style="margin:18px 0;">
     <h3 style="margin-bottom:10px;">Change Password</h3>
+    <input type="password" id="oldPassword" placeholder="Current Password" autocomplete="current-password" style="margin-bottom:10px;">
     <input type="password" id="newPassword" placeholder="New Password" autocomplete="new-password" style="margin-bottom:10px;">
     <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" autocomplete="new-password" style="margin-bottom:10px;">
     <button onclick="saveProfileEdit()">Save Changes</button>
@@ -87,10 +89,11 @@
     function registerUser() {
       const firstName = document.getElementById('regFirstName').value.trim();
       const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
       const picInput = document.getElementById('regProfilePic');
       const msg = document.getElementById('regMsg');
-      if (!firstName || !username || !password) {
+      if (!firstName || !username || !email || !password) {
         msg.textContent = "Please fill all fields.";
         msg.style.color = "#d32f2f";
         return;
@@ -103,6 +106,11 @@
       }
       let accounts = getAccounts();
       // Check for duplicate email/username
+      if (accounts.some(acc => acc.email === email)) {
+        msg.textContent = "Email Registered. please, try to log in";
+        msg.style.color = "#d32f2f";
+        return;
+      }
       if (accounts.some(acc => acc.username === username)) {
         msg.textContent = "Username already registered, please try other usernames";
         msg.style.color = "#d32f2f";
@@ -113,21 +121,22 @@
         const reader = new FileReader();
         reader.onload = function(ev) {
           pic = ev.target.result;
-          saveAccount(firstName, username, password, pic, accounts);
+          saveAccount(firstName, username, email, password, pic, accounts);
         };
         reader.readAsDataURL(picInput.files[0]);
       } else {
-        saveAccount(firstName, username, password, pic, accounts);
+        saveAccount(firstName, username, email, password, pic, accounts);
       }
     }
-    function saveAccount(firstName, username, password, pic, accounts) {
+    function saveAccount(firstName, username, email, password, pic, accounts) {
       // Save to accounts array
-      accounts.push({ firstName, username, password, pic });
+      accounts.push({ firstName, username, email, password, pic });
       saveAccounts(accounts);
       // Set current user session/profile
       localStorage.setItem('wb_logged_in', '1');
       localStorage.setItem('wb_user_firstname', firstName);
       localStorage.setItem('wb_user_username', username);
+      localStorage.setItem('wb_user_email', email);
       localStorage.setItem('wb_user_password', password);
       localStorage.setItem('wb_user_pic', pic);
       document.getElementById('regMsg').textContent = "Account created. Redirecting...";
@@ -156,10 +165,11 @@
     // Username change
     function saveProfileEdit() {
       const newUsername = document.getElementById('editUsername').value.trim();
+      const oldPwd = document.getElementById('oldPassword').value;
       const newPwd = document.getElementById('newPassword').value;
       const confirmPwd = document.getElementById('confirmNewPassword').value;
       const msg = document.getElementById('editMsg');
-      // Username validation
+      // Username validation: only letters, numbers, ., _
       if (!newUsername) {
         msg.textContent = "Username cannot be empty.";
         msg.style.color = "#d32f2f";
@@ -170,10 +180,12 @@
         msg.style.color = "#d32f2f";
         return;
       }
+      // Update username and profile pic in accounts array
       let accounts = getAccounts();
-      let user = accounts.find(acc => acc.username === localStorage.getItem('wb_user_username'));
-
-      if (accounts.some(acc => acc.username === newUsername && acc.username !== localStorage.getItem('wb_user_username'))) {
+      const email = localStorage.getItem('wb_user_email');
+      let user = accounts.find(acc => acc.email === email);
+      // Check for duplicate username (except current user)
+      if (accounts.some(acc => acc.username === newUsername && acc.email !== email)) {
         msg.textContent = "Username already taken. Please choose another.";
         msg.style.color = "#d32f2f";
         return;
@@ -184,9 +196,16 @@
         saveAccounts(accounts);
       }
       localStorage.setItem('wb_user_username', newUsername);
-      if (newPwd || confirmPwd) {
-        if (!newPwd || !confirmPwd) {
+      // Password change logic
+      if (oldPwd || newPwd || confirmPwd) {
+        const currentPwd = localStorage.getItem('wb_user_password');
+        if (!oldPwd || !newPwd || !confirmPwd) {
           msg.textContent = "To change password, fill all password fields.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
+        if (oldPwd !== currentPwd) {
+          msg.textContent = "Current password is incorrect.";
           msg.style.color = "#d32f2f";
           return;
         }
@@ -250,169 +269,25 @@
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
       const email = payload.email;
       const firstName = payload.given_name || '';
+      const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = getAccounts();
-      let user = accounts.find(acc => acc.username === localStorage.getItem('wb_user_username'));
-      if (user) {
-        localStorage.setItem('wb_logged_in', '1');
-        localStorage.setItem('wb_user_firstname', user.firstName);
-        localStorage.setItem('wb_user_username', user.username);
-        localStorage.setItem('wb_user_email', user.email);
-        localStorage.setItem('wb_user_password', user.password);
-        localStorage.setItem('wb_user_pic', user.pic);
-        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
-        document.getElementById('regMsg').style.color = "#009cff";
-        setTimeout(() => window.location = "index.html", 1200);
-      } else {
-        // New Google user: show Edit Profile UI to set username and password
-        document.getElementById('registerContainer').style.display = 'none';
-        document.getElementById('profileEditContainer').style.display = 'block';
-        document.getElementById('editUsername').value = '';
-        document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
-        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
-        document.getElementById('editUsername').style.display = '';
-        document.getElementById('profilePicInput').style.display = '';
-        document.getElementById('newPassword').style.display = '';
-        document.getElementById('confirmNewPassword').style.display = '';
-      }
-    }
-    // If already registered, show profile edit UI
-    window.addEventListener('DOMContentLoaded', function() {
-      // Only show edit UI if logged in
-      if (localStorage.getItem('wb_logged_in') === '1' && localStorage.getItem('wb_user_email')) {
-        document.getElementById('registerContainer').style.display = 'none';
-        document.getElementById('profileEditContainer').style.display = 'block';
-        document.getElementById('editUsername').value = localStorage.getItem('wb_user_username') || '';
-        document.getElementById('oldPassword').value = '';
-        document.getElementById('newPassword').value = '';
-        document.getElementById('confirmNewPassword').value = '';
-        const pic = localStorage.getItem('wb_user_pic');
-        document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
-      } else {
-        document.getElementById('registerContainer').style.display = 'block';
-        document.getElementById('profileEditContainer').style.display = 'none';
-      }
-      // If Google registration pending, show only username, password, confirm password, profile pic fields
-      if (localStorage.getItem('wb_google_pending') === '1') {
-        document.getElementById('editUsername').style.display = '';
-        document.getElementById('profilePicInput').style.display = '';
-        document.getElementById('newPassword').style.display = '';
-        document.getElementById('confirmNewPassword').style.display = '';
-        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
-      } else {
-        document.getElementById('oldPassword').style.display = '';
-        if (document.getElementById('editEmail')) document.getElementById('editEmail').style.display = '';
-      }
-    });
-  </script>
-</body>
-</html>
-    function logoutUser() {
-      localStorage.removeItem('wb_logged_in');
-      localStorage.removeItem('wb_user_firstname');
-      localStorage.removeItem('wb_user_username');
-      localStorage.removeItem('wb_user_email');
-      localStorage.removeItem('wb_user_password');
-      localStorage.removeItem('wb_user_pic');
-      window.location = "login.html";
-    }
-    function deleteAccount() {
-      const email = localStorage.getItem('wb_user_email');
-      let accounts = getAccounts();
-      accounts = accounts.filter(acc => acc.email !== email);
-      saveAccounts(accounts);
-      localStorage.removeItem('wb_user_firstname');
-      localStorage.removeItem('wb_user_username');
-      localStorage.removeItem('wb_user_email');
-      localStorage.removeItem('wb_user_password');
-      localStorage.removeItem('wb_user_pic');
-      localStorage.removeItem('wb_logged_in');
-      document.getElementById('editMsg').textContent = "Account deleted. We're sorry to see you go.";
-      document.getElementById('editMsg').style.color = "#d32f2f";
-      setTimeout(() => window.location = "register.html", 1200);
-    }
-    // Google Sign-In logic
-    window.onload = function() {
-      google.accounts.id.initialize({
-        client_id: '874109905589-1306trr1l0np3nijbio3el9mc4fmuppi.apps.googleusercontent.com',
-        callback: handleGoogleCredentialResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("gSignInBtn"),
-        { theme: "outline", size: "large", text: "continue_with", shape: "pill" }
-      );
-    };
-    function handleGoogleCredentialResponse(response) {
-      // Decode JWT
-      const payload = JSON.parse(atob(response.credential.split('.')[1]));
-      const email = payload.email;
-      const firstName = payload.given_name || '';
-      const pic = payload.picture || 'user.png';
-      let accounts = getAccounts();
-
-      // Prompt for username until a valid and unused one is entered
-      function askUsername() {
-        let username = prompt("Choose a username for your WonderBible account:");
-        if (!username) {
-          document.getElementById('regMsg').textContent = "Username is required for Google registration.";
-          document.getElementById('regMsg').style.color = "#d32f2f";
-          return;
-        }
-        username = username.trim();
-        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
-          alert("Username can only contain letters, numbers, full stop (.) and underscore (_).");
-          return askUsername();
-        }
-        if (accounts.some(acc => acc.username === username)) {
-          alert("Username already taken. Please choose another.");
-          return askUsername();
-        }
+      let user = accounts.find(acc => acc.email === email);
+      if (!user) {
         // Register new account
         accounts.push({ firstName, username, email, password: '', pic });
         saveAccounts(accounts);
-        // Set session
-        localStorage.setItem('wb_logged_in', '1');
-        localStorage.setItem('wb_user_firstname', firstName);
-        localStorage.setItem('wb_user_username', username);
-        localStorage.setItem('wb_user_email', email);
-        localStorage.setItem('wb_user_password', '');
-        localStorage.setItem('wb_user_pic', pic);
-        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
-        document.getElementById('regMsg').style.color = "#009cff";
-        setTimeout(() => window.location = "index.html", 1200);
       }
-
-      // If account exists, just log in
-      let user = accounts.find(acc => acc.email === email);
-      if (user) {
-        localStorage.setItem('wb_logged_in', '1');
-        localStorage.setItem('wb_user_firstname', user.firstName);
-        localStorage.setItem('wb_user_username', user.username);
-        localStorage.setItem('wb_user_email', user.email);
-        localStorage.setItem('wb_user_password', user.password);
-        localStorage.setItem('wb_user_pic', user.pic);
-        document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
-        document.getElementById('regMsg').style.color = "#009cff";
-        setTimeout(() => window.location = "index.html", 1200);
-      } else {
-        // New Google user: show Edit Profile UI to set username and password
-        document.getElementById('registerContainer').style.display = 'none';
-        document.getElementById('profileEditContainer').style.display = 'block';
-        document.getElementById('editUsername').value = '';
-        document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
-        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
-        // Show username, new password, confirm password, profile pic fields; hide current password
-        document.getElementById('editUsername').style.display = '';
-        document.getElementById('profilePicInput').style.display = '';
-        document.getElementById('newPassword').style.display = '';
-        document.getElementById('confirmNewPassword').style.display = '';
-        document.getElementById('oldPassword').style.display = 'none';
-        // Store Google info temporarily in localStorage for registration completion
-        localStorage.setItem('wb_google_firstname', firstName);
-        localStorage.setItem('wb_google_email', email);
-        localStorage.setItem('wb_google_pic', pic);
-        localStorage.setItem('wb_google_pending', '1');
-      }
+      // Set session
+      localStorage.setItem('wb_logged_in', '1');
+      localStorage.setItem('wb_user_firstname', firstName);
+      localStorage.setItem('wb_user_username', username);
+      localStorage.setItem('wb_user_email', email);
+      localStorage.setItem('wb_user_password', '');
+      localStorage.setItem('wb_user_pic', pic);
+      document.getElementById('regMsg').textContent = "Signed in with Google! Redirecting...";
+      document.getElementById('regMsg').style.color = "#009cff";
+      setTimeout(() => window.location = "index.html", 1200);
     }
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
@@ -429,19 +304,6 @@
       } else {
         document.getElementById('registerContainer').style.display = 'block';
         document.getElementById('profileEditContainer').style.display = 'none';
-      }
-      // If Google registration pending, show only username, password, confirm password, profile pic fields
-      if (localStorage.getItem('wb_google_pending') === '1') {
-        document.getElementById('editUsername').style.display = '';
-        document.getElementById('profilePicInput').style.display = '';
-        document.getElementById('newPassword').style.display = '';
-        document.getElementById('confirmNewPassword').style.display = '';
-        document.getElementById('oldPassword').style.display = 'none';
-        if (document.getElementById('editEmail')) document.getElementById('editEmail').style.display = 'none';
-        document.getElementById('editMsg').textContent = "Please choose a username and password to complete Google registration.";
-      } else {
-        document.getElementById('oldPassword').style.display = '';
-        if (document.getElementById('editEmail')) document.getElementById('editEmail').style.display = '';
       }
     });
   </script>
