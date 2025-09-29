@@ -44,11 +44,20 @@
   <div class="register-container" id="registerContainer">
         <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
     <img src="WonderBible_Logo.png" width="200" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
-    <h1 style="color: #009cff;" id="registerTitle">Sign Up</h1>
+    <h1 style="color: #009cff;" id="registerTitle">Register</h1>
+    <div style="margin-bottom: 30px;" class="register-subtitle">Create your <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
+    <input type="text" id="regFirstName" placeholder="First Name" autocomplete="given-name" required>
+    <input type="text" id="regUsername" placeholder="Username" autocomplete="username" required>
+    <input type="email" id="regEmail" placeholder="Email" autocomplete="email" required>
+    <input type="password" id="regPassword" placeholder="Password" autocomplete="new-password" required>
+    <p style="text-align: center;">Profile Picture</p>
+    <input type="file" id="regProfilePic" accept="image/*" style="margin-top:10px;">
+    <button onclick="registerUser()">Register</button>
     <div class="msg" id="regMsg"></div>
     <div style="margin:18px 0;">
       <div id="gSignInBtn"></div>
     </div>
+    <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
   <div class="profile-edit-container" id="profileEditContainer" style="display:none;">
             <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
@@ -56,6 +65,8 @@
     <img src="avatar1.png" id="profilePicPreview" class="profile-pic-preview" alt="Profile Picture">
         <h3 style="margin-bottom:10px;">Change Profile Picture</h3>
     <input type="file" id="profilePicInput" accept="image/*">
+            <h3 style="margin-bottom:10px;">Change Username</h3>
+    <input type="text" id="editUsername" placeholder="Username">
     <hr style="margin:18px 0;">
     <h3 style="margin-bottom:10px;">Change Password</h3>
     <input type="password" id="oldPassword" placeholder="Current Password" autocomplete="current-password" style="margin-bottom:10px;">
@@ -258,17 +269,16 @@
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
       const email = payload.email;
       const firstName = payload.given_name || '';
-      // Use email prefix as username
       const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = getAccounts();
       let user = accounts.find(acc => acc.email === email);
       if (!user) {
-        // Register new account with username as email prefix
+        // Register new account
         accounts.push({ firstName, username, email, password: '', pic });
         saveAccounts(accounts);
       }
-      // Set session, username is always email prefix for Google users
+      // Set session
       localStorage.setItem('wb_logged_in', '1');
       localStorage.setItem('wb_user_firstname', firstName);
       localStorage.setItem('wb_user_username', username);

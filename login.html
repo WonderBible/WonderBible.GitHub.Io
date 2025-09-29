@@ -29,6 +29,10 @@
             <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
     <img src="WB Logo.png" width="70" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
     <h2>Login</h2>
+        <div style="margin-bottom: 30px;" class="register-subtitle">Login to your Existing <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
+    <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" required>
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
+    <button onclick="loginUser()">Login</button>
     <div class="msg" id="loginMsg"></div>
     <div style="margin:18px 0;">
       <div id="gSignInBtn"></div>
@@ -82,18 +86,17 @@
       const payload = JSON.parse(atob(response.credential.split('.')[1]));
       const email = payload.email;
       const firstName = payload.given_name || '';
-      // Use email prefix as username
       const username = email.split('@')[0];
       const pic = payload.picture || 'user.png';
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
       let user = accounts.find(acc => acc.email === email);
       if (!user) {
-        // Register new account with username as email prefix
+        // Register new account
         accounts.push({ firstName, username, email, password: '', pic });
         localStorage.setItem('wb_accounts', JSON.stringify(accounts));
       }
-      // Set session, username is always email prefix for Google users
+      // Set session
       localStorage.setItem('wb_logged_in', '1');
       localStorage.setItem('wb_user_firstname', firstName);
       localStorage.setItem('wb_user_username', username);
