@@ -169,7 +169,8 @@
     function showProfileEdit(googleFlow) {
       document.getElementById('registerContainer').style.display = 'none';
       document.getElementById('profileEditContainer').style.display = 'block';
-      document.getElementById('editUsername').value = googleFlow && googleTempUser ? googleTempUser.suggestedUsername : (localStorage.getItem('wb_user_username') || '');
+      // Username is blank after Google registration
+      document.getElementById('editUsername').value = googleFlow ? '' : (localStorage.getItem('wb_user_username') || '');
       document.getElementById('oldPassword').value = '';
       document.getElementById('newPassword').value = '';
       document.getElementById('confirmNewPassword').value = '';
@@ -216,7 +217,7 @@
         msg.style.color = "#d32f2f";
         return;
       }
-      // Check for duplicate username (except current user)
+      // Username must be unique across all accounts (including Google/email)
       if (accounts.some(acc => acc.username === newUsername && acc.email !== email)) {
         msg.textContent = "Username already taken. Please choose another.";
         msg.style.color = "#d32f2f";
@@ -356,7 +357,7 @@
           firstName,
           email,
           pic,
-          suggestedUsername: email.split('@')[0]
+          suggestedUsername: '' // Username is blank for Google registration
         };
         // Set temp session for editing
         localStorage.setItem('wb_user_pic', pic);
