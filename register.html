@@ -63,12 +63,12 @@
             <a href="https://wonderbible.github.io" style="color: aqua; text-decoration: none;">Home</a><br><hr>
     <h2>Edit Profile</h2>
     <img src="avatar1.png" id="profilePicPreview" class="profile-pic-preview" alt="Profile Picture">
-        <h3 style="margin-bottom:10px;">Change Profile Picture</h3>
+    <h3 style="margin-bottom:10px;">Change Profile Picture</h3>
     <input type="file" id="profilePicInput" accept="image/*">
-            <h3 style="margin-bottom:10px;">Change Username</h3>
+    <h3 style="margin-bottom:10px;" id="editUsernameLabel">Change Username</h3>
     <input type="text" id="editUsername" placeholder="Username">
-    <hr style="margin:18px 0;">
-    <h3 style="margin-bottom:10px;">Change Password</h3>
+    <hr style="margin:18px 0;" id="editProfileDivider">
+    <h3 style="margin-bottom:10px;" id="editPasswordLabel">Change Password</h3>
     <input type="password" id="oldPassword" placeholder="Current Password" autocomplete="current-password" style="margin-bottom:10px;">
     <input type="password" id="newPassword" placeholder="New Password" autocomplete="new-password" style="margin-bottom:10px;">
     <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" autocomplete="new-password" style="margin-bottom:10px;">
@@ -79,8 +79,9 @@
   </div>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    // Google registration state
+    // Google registration state and temp user info
     let googleRegistration = false;
+    let googleTempUser = null;
 
     function getAccounts() {
       try { return JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { return []; }
@@ -168,12 +169,17 @@
     function showProfileEdit(googleFlow) {
       document.getElementById('registerContainer').style.display = 'none';
       document.getElementById('profileEditContainer').style.display = 'block';
-      document.getElementById('editUsername').value = localStorage.getItem('wb_user_username') || '';
+      document.getElementById('editUsername').value = googleFlow && googleTempUser ? googleTempUser.suggestedUsername : (localStorage.getItem('wb_user_username') || '');
       document.getElementById('oldPassword').value = '';
       document.getElementById('newPassword').value = '';
       document.getElementById('confirmNewPassword').value = '';
-      const pic = localStorage.getItem('wb_user_pic');
+      const pic = googleFlow && googleTempUser ? googleTempUser.pic : (localStorage.getItem('wb_user_pic') || 'user.png');
       document.getElementById('profilePicPreview').src = pic ? pic : 'user.png';
+      // Hide "Current Password" if Google registration
+      document.getElementById('oldPassword').style.display = googleFlow ? 'none' : '';
+      document.getElementById('editPasswordLabel').textContent = googleFlow ? "Set Password" : "Change Password";
+      document.getElementById('editUsernameLabel').textContent = googleFlow ? "Choose Username" : "Change Username";
+      document.getElementById('editProfileDivider').style.display = '';
       if (googleFlow) {
         document.getElementById('editMsg').textContent = "Please choose a username and set your password.";
         document.getElementById('editMsg').style.color = "#009cff";
@@ -189,8 +195,15 @@
       const confirmPwd = document.getElementById('confirmNewPassword').value;
       const msg = document.getElementById('editMsg');
       let accounts = getAccounts();
-      const email = localStorage.getItem('wb_user_email');
-      let user = accounts.find(acc => acc.email === email);
+      let email, user;
+
+      if (googleRegistration && googleTempUser) {
+        email = googleTempUser.email;
+        user = null;
+      } else {
+        email = localStorage.getItem('wb_user_email');
+        user = accounts.find(acc => acc.email === email);
+      }
 
       // Username validation: only letters, numbers, ., _
       if (!newUsername) {
@@ -209,14 +222,14 @@
         msg.style.color = "#d32f2f";
         return;
       }
-      // If Google registration and username/password not set, require password
-      if ((googleRegistration || (user && !user.password)) && (!newPwd || !confirmPwd)) {
-        msg.textContent = "Please set a new password and confirm it.";
-        msg.style.color = "#d32f2f";
-        return;
-      }
-      // If Google registration, skip old password check
-      if (googleRegistration || (user && !user.password)) {
+
+      // Google registration: require new password and confirmation, do not check old password
+      if (googleRegistration && googleTempUser) {
+        if (!newPwd || !confirmPwd) {
+          msg.textContent = "Please set a new password and confirm it.";
+          msg.style.color = "#d32f2f";
+          return;
+        }
         if (newPwd.length < 6) {
           msg.textContent = "New password must be at least 6 characters.";
           msg.style.color = "#d32f2f";
@@ -227,19 +240,27 @@
           msg.style.color = "#d32f2f";
           return;
         }
-        // Set username and password
-        if (user) {
-          user.username = newUsername;
-          user.password = newPwd;
-          user.pic = localStorage.getItem('wb_user_pic') || user.pic;
-          saveAccounts(accounts);
-        }
+        // Save account only now
+        accounts.push({
+          firstName: googleTempUser.firstName,
+          username: newUsername,
+          email: googleTempUser.email,
+          password: newPwd,
+          pic: localStorage.getItem('wb_user_pic') || googleTempUser.pic || 'user.png'
+        });
+        saveAccounts(accounts);
+        // Set session
+        localStorage.setItem('wb_logged_in', '1');
+        localStorage.setItem('wb_user_firstname', googleTempUser.firstName);
         localStorage.setItem('wb_user_username', newUsername);
+        localStorage.setItem('wb_user_email', googleTempUser.email);
         localStorage.setItem('wb_user_password', newPwd);
-        msg.textContent = "Profile updated! Redirecting...";
+        // keep pic as is
+        msg.textContent = "Profile created! Redirecting...";
         msg.style.color = "#009cff";
-        setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
         googleRegistration = false;
+        googleTempUser = null;
+        setTimeout(() => window.location = "https://wonderbible.github.io", 1200);
         return;
       }
 
@@ -329,18 +350,16 @@
       let accounts = getAccounts();
       let user = accounts.find(acc => acc.email === email);
       if (!user) {
-        // Register new account with empty username/password
-        accounts.push({ firstName, username: '', email, password: '', pic });
-        saveAccounts(accounts);
-        // Set session with empty username
-        localStorage.setItem('wb_logged_in', '1');
-        localStorage.setItem('wb_user_firstname', firstName);
-        localStorage.setItem('wb_user_username', '');
-        localStorage.setItem('wb_user_email', email);
-        localStorage.setItem('wb_user_password', '');
-        localStorage.setItem('wb_user_pic', pic);
+        // Do NOT save account yet, just store temp info
         googleRegistration = true;
-        // Redirect to profile edit to set username/password
+        googleTempUser = {
+          firstName,
+          email,
+          pic,
+          suggestedUsername: email.split('@')[0]
+        };
+        // Set temp session for editing
+        localStorage.setItem('wb_user_pic', pic);
         showProfileEdit(true);
       } else {
         // Existing user: set session and go home
@@ -358,11 +377,22 @@
 
     // If already registered, show profile edit UI
     window.addEventListener('DOMContentLoaded', function() {
-      if (localStorage.getItem('wb_logged_in') === '1' && localStorage.getItem('wb_user_email')) {
+      if (googleRegistration && googleTempUser) {
+        showProfileEdit(true);
+      } else if (localStorage.getItem('wb_logged_in') === '1' && localStorage.getItem('wb_user_email')) {
         showProfileEdit(false);
       } else {
         document.getElementById('registerContainer').style.display = 'block';
         document.getElementById('profileEditContainer').style.display = 'none';
+      }
+    });
+
+    // If user leaves page during Google registration, clear temp info
+    window.addEventListener('beforeunload', function() {
+      if (googleRegistration) {
+        googleRegistration = false;
+        googleTempUser = null;
+        localStorage.removeItem('wb_user_pic');
       }
     });
   </script>
