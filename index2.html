@@ -218,11 +218,48 @@
       body.dark-mode .footer-links a { color: #ffd580; }
       /* Progress bar */
       .progress-container {
-        width: 100%; background: #eee; border-radius: 8px; margin: 32px auto 0 auto; max-width: 400px; height: 18px; overflow: hidden;
+        width: 100%;
+        max-width: 420px;
+        height: 24px;
+        margin: 40px auto 0 auto;
+        background: rgba(255,255,255,0.18);
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(93,0,255,0.10), 0 2px 8px rgba(0,0,0,0.08);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(93,0,255,0.10);
+        overflow: hidden;
+        position: relative;
       }
       .progress-bar {
-        height: 100%; background: linear-gradient(90deg, #009cff 0%, #5d00ff 100%); width: 0%; transition: width 1s;
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(270deg, #009cff, #5d00ff, #ffd580, #009cff);
+        background-size: 600% 600%;
+        animation: progressGradientMove 3s ease infinite;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(93,0,255,0.10);
+        transition: width 1.2s cubic-bezier(.4,0,.2,1);
       }
+      @keyframes progressGradientMove {
+        0% {background-position:0% 50%;}
+        50% {background-position:100% 50%;}
+        100% {background-position:0% 50%;}
+      }
+      #progressLabel {
+        display: block;
+        text-align: center;
+        margin-top: 12px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #5d00ff;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px rgba(93,0,255,0.08);
+        background: linear-gradient(90deg, #009cff 0%, #ffd580 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      /* --- existing code --- */
       /* Animated counters */
       .stats-section {
         display: flex; gap: 40px; justify-content: center; margin: 48px auto; max-width: 900px;

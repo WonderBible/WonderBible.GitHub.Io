@@ -363,6 +363,23 @@
   </a>
       </ul>
     </div>
+    <!-- Streak widget: only visible if logged in -->
+  <div id="streakWidget" class="streak-widget" style="display:none;margin-top:30px;position:absolute;top:16px;right:80px;z-index:101;background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.18);padding:10px 18px;font-size:1.1rem;align-items:center;gap:10px;">
+    <span style="color:#ffa500;"><i class="fas fa-fire"></i></span>
+    <span>Streak:</span>
+    <span id="streakCount" style="font-weight:bold;color:#5d00ff;font-size:1.3em;">0</span>
+    <!-- Music player button -->
+    <button id="musicPlayerBtn" title="Play Music" style="margin-left:12px;background:#ffd580;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <i class="fas fa-music"></i>
+    </button>
+    <!-- Hidden audio player: moved here, anchored to bottom of widget -->
+    <div id="musicPlayerContainer" style="display:none;position:absolute;left:43%;top:50px;transform:translateX(-50%);z-index:102;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:10px;">
+      <audio id="musicPlayer" controls style="width:320px;">
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
     </header>
   <!-- Move section-nav here, below header and above .main-content/.WonderBible -->
   <div class="main-content">
@@ -465,6 +482,70 @@
         <div class="feature-desc">Read the Daily Bible Verses easily from KJBO</div>
       </div>
     </section>
+    <!-- Progress Bar Section (inserted at line 485) -->
+     <div style="background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%);">
+      <p style="text-align: center; font-size: 20px">It's all just a Progress!</p>
+    <div class="progress-container animate-in" style="margin-top: 20px;" id="progressSection">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div style="text-align:center; margin-top:20px; font-size:1.1rem;">
+      <span id="progressLabel">Progress: 0%</span>
+    </div></div>
+    <style>
+      .progress-container {
+        width: 100%;
+        max-width: 420px;
+        height: 24px;
+        margin: 40px auto 0 auto;
+        background: rgba(255,255,255,0.18);
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(93,0,255,0.10), 0 2px 8px rgba(0,0,0,0.08);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(93,0,255,0.10);
+        overflow: hidden;
+        position: relative;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(270deg, #009cff, #5d00ff, #ffd580, #009cff);
+        background-size: 600% 600%;
+        animation: progressGradientMove 3s ease infinite;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(93,0,255,0.10);
+        transition: width 1.2s cubic-bezier(.4,0,.2,1);
+      }
+      @keyframes progressGradientMove {
+        0% {background-position:0% 50%;}
+        50% {background-position:100% 50%;}
+        100% {background-position:0% 50%;}
+      }
+      #progressLabel {
+        display: block;
+        text-align: center;
+        margin-top: 12px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #5d00ff;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px rgba(93,0,255,0.08);
+        background: linear-gradient(90deg, #009cff 0%, #ffd580 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
+    <script>
+      // Progress bar demo (simulate reading progress)
+      let progress = 0;
+      function updateProgress() {
+        progress = Math.min(progress + Math.floor(Math.random() * 10 + 5), 100);
+        document.getElementById('progressBar').style.width = progress + '%';
+        document.getElementById('progressLabel').textContent = 'Progress: ' + progress + '%';
+        if (progress < 100) setTimeout(updateProgress, 2000);
+      }
+      setTimeout(updateProgress, 1500);
+    </script>
       </div>
       <script>
         // Only one slideshow script block
@@ -672,8 +753,7 @@
     padding: 18px 24px;
     z-index: 1003;
     font-size: 1.1rem;
-    display: flex
-;
+    display: flex;
     align-items: center;
     gap: 12px;
 }
@@ -1048,8 +1128,23 @@ function toggleMobileMenu(el) {
       }
       body.dark-mode .dark-section {
         background: #23272a !important;
-        color: #eee !important;
+        color: #eee          !important;
       }
+      body.dark-mode .streak-widget {
+    background: #23272a !important;
+    color: #ffd580 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.28) !important;
+  }
+  body.dark-mode #musicPlayerContainer {
+    background: #23272a !important;
+    color: #ffd580 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.28) !important;
+  }
+  body.dark-mode #musicPlayer {
+    background: #23272a !important;
+    color: #ffd580 !important;
+    border-radius: 8px;
+  }
     </style>
     </script>
 <!-- Place this after your header and before main content -->
@@ -1102,4 +1197,119 @@ window.addEventListener('scroll', function() {
   }
   if (el) type();
 })();
+</script>
+<script>
+  // Streak widget logic: first day is 1, second consecutive day is 2, etc.
+  function updateStreakWidget() {
+    const streakDiv = document.getElementById('streakWidget');
+    // Ensure widget is always visible for debugging
+    if (!streakDiv) return;
+    // Get current username/profile id from localStorage
+    const username = localStorage.getItem('wb_username') || 'default';
+    // Use per-user streak keys
+    const streakKey = `wb_streak_${username}`;
+    const lastKey = `wb_streak_last_${username}`;
+    // Fix: force display to flex if logged in, else hide
+    if (localStorage.getItem('wb_logged_in') === '1') {
+      streakDiv.style.display = 'flex';
+      const today = new Date();
+      const todayStr = today.toISOString().slice(0,10); // YYYY-MM-DD
+      let streak = parseInt(localStorage.getItem(streakKey) || '0');
+      let lastDate = localStorage.getItem(lastKey) || '';
+      if (!lastDate) {
+        streak = 1;
+      } else if (lastDate === todayStr) {
+        // Already counted today, keep streak
+      } else {
+        const last = new Date(lastDate);
+        const diff = Math.floor((today - last) / (1000*60*60*24));
+        if (diff === 1) {
+          streak++;
+        } else {
+          streak = 1;
+        }
+      }
+      localStorage.setItem(streakKey, streak);
+      localStorage.setItem(lastKey, todayStr);
+      document.getElementById('streakCount').textContent = streak;
+    } else {
+      streakDiv.style.display = 'none';
+    }
+  }
+  // Ensure widget updates after login/logout and on every page load
+  window.addEventListener('DOMContentLoaded', updateStreakWidget);
+  window.addEventListener('load', updateStreakWidget);
+  window.addEventListener('storage', updateStreakWidget); // update if login status changes in another tab
+</script>
+<script>
+  // Music player toggle logic
+  (function() {
+    const btn = document.getElementById('musicPlayerBtn');
+    const container = document.getElementById('musicPlayerContainer');
+    const audio = document.getElementById('musicPlayer');
+    let isPlaying = false;
+    let firstOpen = true; // Track if this is the first open after load
+
+    // Helper to update button icon based on controller visibility
+    function updateBtnIcon() {
+      if (container.style.display === 'block') {
+        btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        btn.innerHTML = '<i class="fas fa-music"></i>';
+      }
+    }
+
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      if (container.style.display !== 'block') {
+        container.style.display = 'block';
+        updateBtnIcon();
+        // Play music on first open after load
+        if (firstOpen) {
+          audio.muted = false;
+          audio.play();
+          isPlaying = true;
+          firstOpen = false;
+        }
+        // Do not pause or mute audio, just show controller
+      } else {
+        // If controller is visible, toggle mute
+        if (!audio.muted) {
+          audio.muted = true;
+        } else {
+          audio.muted = false;
+        }
+        // Keep controller visible, update icon if needed
+        updateBtnIcon();
+      }
+    };
+
+    // If user pauses audio manually, reset button/icon
+    audio.addEventListener('pause', function() {
+      // Only reset icon if controller is hidden
+      if (container.style.display !== 'block') {
+        btn.innerHTML = '<i class="fas fa-music"></i>';
+      }
+      isPlaying = false;
+    });
+
+    // Hide player when clicking outside, reset button/icon but do NOT pause or mute audio
+    document.addEventListener('click', function(e) {
+      if (!container.contains(e.target) && e.target !== btn) {
+        container.style.display = 'none';
+        btn.innerHTML = '<i class="fas fa-music"></i>';
+      }
+    });
+
+    // When audio starts playing, set isPlaying
+    audio.addEventListener('play', function() {
+      isPlaying = true;
+    });
+
+    // On page load, set correct icon
+    window.addEventListener('DOMContentLoaded', function() {
+      updateBtnIcon();
+      firstOpen = true;
+    });
+  })();
 </script>
