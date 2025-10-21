@@ -30,7 +30,7 @@
     <img src="WB Logo.png" width="70" style="margin-top: 20px;" alt="WonderBible Logo" class="register-logo">
     <h2>Login</h2>
         <div style="margin-bottom: 30px;" class="register-subtitle">Login to your Existing <strong style="color: #ffa500;">W</strong>onder<strong style="color: #5d00ff;">B</strong>ible account</div>
-    <input type="text" id="loginUsername" placeholder="Username" autocomplete="username" required>
+    <input type="text" id="loginUsername" placeholder="Username or Email" autocomplete="username" required>
     <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
     <button onclick="loginUser()">Login</button>
     <div class="msg" id="loginMsg"></div>
@@ -42,17 +42,24 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     function loginUser() {
-      const username = document.getElementById('loginUsername').value.trim();
+      const userOrEmail = document.getElementById('loginUsername').value.trim();
       const password = document.getElementById('loginPassword').value;
       const msg = document.getElementById('loginMsg');
       let accounts = [];
       try { accounts = JSON.parse(localStorage.getItem('wb_accounts') || '[]'); } catch { accounts = []; }
-      const user = accounts.find(acc => acc.username === username && acc.password === password);
-      if (!username || !password) {
-        msg.textContent = "Please enter username and password.";
+
+      if (!userOrEmail || !password) {
+        msg.textContent = "Please enter username/email and password.";
         msg.style.color = "#d32f2f";
         return;
       }
+
+      // accept either username OR email
+      const user = accounts.find(acc =>
+        (acc.username && acc.username === userOrEmail || acc.email && acc.email === userOrEmail)
+        && acc.password === password
+      );
+
       if (user) {
         msg.textContent = "Login successful! Redirecting...";
         msg.style.color = "#009cff";
