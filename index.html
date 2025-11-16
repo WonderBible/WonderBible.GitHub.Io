@@ -71,7 +71,7 @@
     width: 100%;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    background: linear-gradient(120deg, rgba(255, 165, 0, 0.50) 0%, rgba(93, 0, 255, 0.50) 100%);
+    background: linear-gradient(120deg, rgba(0, 132, 255, 0.5) 0%, rgba(255, 0, 0, 0.5) 100%);
     max-height: 200vh;
   }
       /* ...existing code... */
@@ -385,20 +385,20 @@
   <div class="main-content">
     <script src="FFB.js"></script>
       <div class="section-nav">
-    <a href="#slideshowMain">Home</a><hr style="margin-left: 10px; margin-right: 10px;">
-    <a href="#featuresSection">Features</a><hr style="margin-left: 10px; margin-right: 10px;">
-    <a href="#download">Download</a><hr style="margin-left: 10px; margin-right: 10px;">
-    <a href="#support">Support</a><hr style="margin-left: 10px; margin-right: 10px;">
-    <a href="#dbv">Verses</a>
+    <a href="#slideshowMain"><p style="text-align: center;"><i style="font-size: 20px;" class="fas fa-home"></i></p><br><p>Home</p></a><hr style="margin-left: 10px; margin-right: 10px;"></i>
+    <a href="#featuresSection"><p style="text-align: center;"><i style="font-size: 20px;" class="fas fa-bookmark"></i></p><br><p>Features</p></a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#download"><p style="text-align: center;"><i style="font-size: 20px;" class="fas fa-download"></i></p><br><p>Download</p></a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#support"><p style="text-align: center;"><i style="font-size: 20px;" class="fas fa-donate"></i></p><br><p>Support</p></a><hr style="margin-left: 10px; margin-right: 10px;">
+    <a href="#dbv"><p style="text-align: center;"><i style="font-size: 20px;" class="fas fa-book"></i></p><br><p>Verses</p></a>
   </div>
     <div class="WonderBible">
       <div class="Slideshow slideshow-bg animate-in" id="slideshowMain" style="position: relative; width: 100%; max-width: 100vw; overflow: hidden; margin: auto; background: transparent;">
-                        <button style="height: 730px;" id="slideLeft" class="slideshow-btn">←</button>
+                        <button style="height: 730px; font-weight: bolder;" id="slideLeft" class="slideshow-btn">←</button>
         <div id="slidesContainer" style="display: flex; transition: transform 0.5s ease; height: 840px; width: 100%;">
           <div class="slide bg-main" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
             <div class="WonderBible1">
-              <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="WonderBible_Logo.png" width="250"></p>
-              <p style="text-align: center;"><marquee style="display:block; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" direction="down" class="ffb"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</marquee></p>
+              <p style="text-align: center;"><img style="margin-top: 60px; margin-left: 0;" src="WonderBible_Logo.png" width="250"></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-left:auto; margin-right:auto; height:100px; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" direction="down" class="ffb"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible</marquee></p>
               <!-- Typewriter effect start -->
   <div style="text-align:center; margin-top: 30px; font-size:24px; min-height:48px; margin-bottom: 20px;">
     <span id="typewriter"></span>
@@ -406,53 +406,54 @@
   <!-- Typewriter effect end -->
               <div style="font-size: 30px; margin-left:10px;">
                 <p style="color: #009cff; text-align: center; margin-top: 50px;"><strong style="color:orange;">W</strong>onder<strong style="color:#5d00ff">B</strong>ible Is A Website Dedicated To Help You Know The Word Of God.</p>
+                              <p style="color: #009cff; font-size:20px; text-align: center; margin-top: 20px;"><strong>Celebrating 2nd Year Anniversary on Nov 18 With The Help Of The Lord! We've Officially Released <strong style="color:#ffa500;">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible v2.0 Publicly🎉✝️🎆📖✨</strong></p>
               </div>
-              <a href="https://wonderbible.github.io/we.html"><button class="LMAWB">Learn More About Us</button></a>
+              <a href="https://wonderbible.github.io/we.html"><button class="LMAWB" style="font-family: Brush Script MT; font-size: 30px;">Learn More About Us</button></a>
             </div>
           </div>
           <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
             <div class="Bible">
               <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Bible.png" width="250"></p>
-              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" behavior="alternate" direction="right" class="sqg1">Bible</marquee></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; margin-bottom: 20px; font-size:30px; width:200px;" scrollamount="10" behavior="alternate" direction="right" class="sqg1">Bible</marquee></p>
               <div style="font-size: 30px; margin-left:10px;">
                 <p style="color:black; text-align: center;">Read The Word Of God Anytime, Anywhere!</p>
               </div>
-              <a href="https://wonderbible.github.io/bible"><button class="LMAWB">Read The <strong style="color:salmon;">Bible</strong></button></a>
+              <a href="https://wonderbible.github.io/bible"><button class="LMAWB" style="font-family: Brush Script MT; font-size: 30px;">Read The <strong style="color:salmon;">Bible</strong></button></a>
             </div>
           </div>
           <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
             <div class="ScriptureQuest">
               <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="ScriptureQuest Logo.png" width="250"></p>
-              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="up" class="sqg2">ScriptureQuest</marquee></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="up" class="sqg2">ScriptureQuest</marquee></p>
               <div style="font-size: 30px, margin-left:10px;">
                 <p style="color:black; text-align: center; font-size: 30px;">Play Biblical Quizzes And Check Yourself By Knowing How Much You Know The Bible.</p>
               </div>
-              <a href="https://wonderbible.github.io/scripturequest"><button class="LMAWB">Get Started</button></a>
+              <a href="https://wonderbible.github.io/scripturequest"><button class="LMAWB" style="font-family: Brush Script MT; font-size: 30px;">Get Started</button></a>
             </div>
           </div>
           <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
             <div class="Devs">
               <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="owner for homepage.png" width="250"></p>
-              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="left" class="owners">Devs</marquee></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; margin-bottom: 20px; font-size:30px; width:220px;" scrollamount="10" behavior="alternate" direction="left" class="owners">Devs</marquee></p>
               <div style="font-size: 30px; margin-left:10px;">
                 <p style="color:black; text-align: center;">Stay In Touch With The Creators.</p>
                             <p style="color:black; text-align: center;  margin-top: 20px;">We Recommend Using Our <a style="margin-left:0;" class="contactdevs" href="contact.html">Contact Us</a> Page For A Fast And Successful Contact With <strong style="color:#ffa500">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
               </div>
-              <a href="https://wonderbible.github.io/devs"><button class="LMAWB">Contact The <strong style="color: rgb(0, 238, 255);">Devs</strong></button></a>
+              <a href="https://wonderbible.github.io/devs"><button class="LMAWB" style="font-family: Brush Script MT; font-size: 30px;">Contact The <strong style="color: rgb(0, 238, 255);">Devs</strong></button></a>
             </div>
           </div>
           <div class="slide" data-bg="#ffffff" style="min-width: 100vw; box-sizing: border-box;">
             <div class="Updates">
               <p style="text-align: center;"><img style="margin-top: 40px; margin-left: 0;" src="Update.png" width="250"></p>
-              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; font-family: Arial; margin-bottom: 20px; font-size:30px; width:120px;" scrollamount="10" behavior="alternate" direction="down" class="update">Updates</marquee></p>
+              <p style="text-align: center;"><marquee style="display:block; margin-top: 40px; margin-left:auto; margin-right:auto; height:100px; margin-bottom: 20px; font-size:30px; width:120px;" scrollamount="10" behavior="alternate" direction="down" class="update">Updates</marquee></p>
               <div style="font-size: 30px; margin-left:10px;">
                 <p style="color:black; text-align: center;">Check The Latest Updates Of <strong style="color: #ffa500;">W</strong>onder<strong style="color:#5d00ff;">B</strong>ible</p>
               </div>
-              <a href="https://wonderbible.github.io/updates"><button class="LMAWB">Check What's New</button></a>
+              <a href="https://wonderbible.github.io/updates"><button class="LMAWB" style="font-family: Brush Script MT; font-size: 30px;">Check What's New</button></a>
             </div>
           </div>
         </div>
-        <button style="height: 730px;" id="slideRight" class="slideshow-btn">→</button>
+        <button style="height: 730px; font-weight: bolder;" id="slideRight" class="slideshow-btn">→</button>
         <div id="slideshowDots" style="display: flex; background: linear-gradient(120deg, #ffa500 0%, #5d00ff 100%); height: 80px; justify-content: center; align-items: center; margin-bottom: 0px;">
           <span style="margin-top: 1px;" class="dot" data-slide="0"></span>
           <span style="margin-top: 1px;" class="dot" data-slide="1"></span>
@@ -896,7 +897,7 @@
       box-sizing: border-box;
     }
     .WonderBible1 {
-      background: url('background.webp') center top / cover no-repeat;
+      background: url('fireworks.gif') center top / cover no-repeat;
       min-height: 100vh;
       width: 100vw;
       position: relative;
@@ -1313,3 +1314,4 @@ window.addEventListener('scroll', function() {
     });
   })();
 </script>
+<!-- make WonderBible1's div be like this. make the Image at the Right and the texts and the button at the left. and make the picture a little bit higher. let the mobile's version be like the one right now -->
