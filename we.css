@@ -476,7 +476,7 @@ font-family: Arial;
 margin-top: 50px;
 }
 .wbff {
-  background-color: white; color:yellow; font-size: 30px; height: 80px; border-color: white; border-style: solid; border-radius: 400px; cursor: pointer; border-radius: 100px;
+  background-color: white; color:yellow; font-size: 30px; height: 80px; border-color: white; border-style: solid; border-radius: 400px; cursor: pointer; border-radius: 20px;
 }
 .wbff:hover {
 background-color: #5d00ff;
